@@ -1,5 +1,5 @@
 <%@include file="head.jsp"%>
-<%@ include file="navBar.jsp" %>
+<%@ include file="navbar.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
     <head>

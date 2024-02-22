@@ -1,0 +1,18 @@
+As a Fan (MVP):
+As a fan, I want to browse and search for hero profiles, view essential 
+information about each hero (such as code name, abilities, and bio), and stay 
+updated on the latest hero activities. I also want to connect with other fans 
+through basic community features, allowing me to share insights and engage in 
+discussions.
+
+As a Writer (MVP):
+As a writer, I need access to detailed hero profiles, including code name, 
+abilities, and background information, to gather inspiration for crafting hero 
+stories. I should be able to contribute my own hero stories to the platform and 
+engage in basic collaborative features with other writers.
+
+As an Artist (MVP):
+As an artist, I want access to hero descriptions and references to inspire my 
+artwork. The MVP should include the ability to showcase my hero-themed art on 
+the platform and view artworks contributed by other artists. Basic community 
+features should allow for appreciation and feedback on artwork.
