@@ -4,6 +4,9 @@ import entity.Hero;
 import entity.Powers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,31 +21,15 @@ import java.util.List;
 public class HeroDAO {
 
     private static final Logger logger = LogManager.getLogger(HeroDAO.class);
+    SessionFactory sessionFactory = SessionFactoryProvider.getSessionFactory();
 
     public List<Hero> getAllHeroes() {
-        List<Hero> heroes = new ArrayList<>();
-        Database database = Database.getInstance();
-        Connection connection = null;
-        String sql = "SELECT * FROM Hero";
-
-        try {
-            database.connect();
-            connection = database.getConnection();
-            PreparedStatement selectStatement = connection.prepareStatement(sql);
-            ResultSet results = selectStatement.executeQuery();
-            while (results.next()) {
-                Hero hero = createHeroFromResults(results);
-                heroes.add(hero);
-            }
-        } catch (SQLException e) {
-            logger.error("Error retrieving all heroes from the database", e);
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("FROM Hero", Hero.class).list();
         } catch (Exception e) {
-            logger.error("Unexpected exception in getAllHeroes", e);
-            throw new RuntimeException(e);
-        } finally {
-            database.disconnect();
+            logger.error("Error retrieving all books", e);
+            throw e;
         }
-        return heroes;
     }
 
     public List<Hero> searchHeroes(String searchCriteria, String searchTerm) {
@@ -94,7 +81,7 @@ public class HeroDAO {
         Connection connection = null;
 
         // Build the SQL query to fetch Powers for a specific hero
-        String sql = "SELECT * FROM powers WHERE powerId = ?";
+        String sql = "SELECT * FROM Powers WHERE powerId = ?";
         logger.debug("Fetch Powers SQL: {}", sql);
 
         try {

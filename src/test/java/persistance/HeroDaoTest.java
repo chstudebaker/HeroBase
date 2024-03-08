@@ -3,22 +3,25 @@
 package persistance;
 
 import entity.Hero;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class HeroDAOTest {
+class HeroDaoTest {
 
     private final HeroDAO heroDAO = new HeroDAO();
+    private static final Logger logger = LogManager.getLogger(HeroDaoTest.class);
+
 
     @Test
-    void testGetAllHeroes() {
+    void getAllHeroes() {
+        // You can add data setup logic here if needed
         List<Hero> heroes = heroDAO.getAllHeroes();
-        assertNotNull(heroes);
-        assertFalse(heroes.isEmpty());
-        // Add more assertions based on your specific data
+        assertEquals(9, heroes.size());
     }
 
     @Test
