@@ -1,7 +1,7 @@
 package controller;
 
 import entity.Hero;
-import persistance.HeroData;
+import persistance.HeroDAO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @WebServlet("/searchHero")
 public class SearchHero extends HttpServlet {
-    private HeroData heroData = new HeroData();
+    private HeroDAO heroDao = new HeroDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,13 +35,13 @@ public class SearchHero extends HttpServlet {
         List<Hero> searchResults;
         if (searchCriteria != null && !searchCriteria.isEmpty() && searchTerm != null && !searchTerm.isEmpty()) {
             // Search based on the provided criteria
-            searchResults = heroData.searchHeroes(searchCriteria, searchTerm);
+            searchResults = heroDao.searchHeroes(searchCriteria, searchTerm);
             System.out.println("Number of Search Results: " + searchResults.size());
             System.out.println("Search Results: " + searchResults);
             // Add this line for logging
         } else {
             // Retrieve all heroes if no search criteria provided
-            searchResults = heroData.getAllHeroes();
+            searchResults = heroDao.getAllHeroes();
 
         }
 

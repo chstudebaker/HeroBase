@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Access heroes in the hero table.
  */
-public class HeroData {
+public class HeroDAO {
 
     public List<Hero> getAllHeroes() {
         List<Hero> heroes = new ArrayList<>();
@@ -30,7 +30,7 @@ public class HeroData {
                 heroes.add(hero);
             }
         } catch (SQLException e) {
-            System.out.println("HeroData.getAllHeroes()...SQL Exception: " + e);
+            System.out.println("HeroDAO.getAllHeroes()...SQL Exception: " + e);
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
@@ -60,7 +60,7 @@ public class HeroData {
                 System.out.println(results);
             }
         } catch (Exception e) {
-            System.out.println("HeroData.searchHeroes()...SQL Exception: " + e);
+            System.out.println("HeroDAO.searchHeroes()...SQL Exception: " + e);
         } finally {
             database.disconnect();
         }
@@ -78,4 +78,3 @@ public class HeroData {
         return hero;
     }
 }
-
