@@ -1,52 +1,52 @@
 package entity;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "hero")
+@Table(name = "Hero")
 public class Hero {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "heroId")
+    private int heroId;
 
-    @Column(name = "codeName")
+    @Column(name = "codeName", nullable = false)
     private String codeName;
 
-    @Column(name = "powers")
-    private String powers;
-
-    @Column(name = "bio")
-    private String bio;
-
-    @Column(name = "alignment")
-    private String alignment;
-
-    @Column(name = "realName")
+    @Column(name = "realName", nullable = false)
     private String realName;
 
-    // Constructors
+    @Column(name = "Bio")
+    private String bio;
+
+    @Column(name = "Alignment")
+    private String alignment;
+
+    @OneToMany(mappedBy = "hero", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Powers> powersList;
+
+    // Constructors, getters, and setters
+
     public Hero() {
-        // Default constructor
     }
 
-    public Hero(String codeName, String powers, String bio, String alignment, String realName) {
+    public Hero(String codeName, String realName, String bio, String alignment, List<Powers> powersList) {
         this.codeName = codeName;
-        this.powers = powers;
+        this.realName = realName;
         this.bio = bio;
         this.alignment = alignment;
-        this.realName = realName;
+        this.powersList = powersList;
     }
 
-    // Getters and Setters
-
-    public int getId() {
-        return id;
+    public int getHeroId() {
+        return heroId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setHeroId(int heroId) {
+        this.heroId = heroId;
     }
 
     public String getCodeName() {
@@ -57,12 +57,12 @@ public class Hero {
         this.codeName = codeName;
     }
 
-    public String getPowers() {
-        return powers;
+    public String getRealName() {
+        return realName;
     }
 
-    public void setPowers(String powers) {
-        this.powers = powers;
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
     public String getBio() {
@@ -81,24 +81,32 @@ public class Hero {
         this.alignment = alignment;
     }
 
-    public String getRealName() {
-        return realName;
+    public List<Powers> getPowersList() {
+        return powersList;
     }
 
-    public void setRealName(String realName) {
-        this.realName = realName;
+    public void setPowersList(List<Powers> powersList) {
+        this.powersList = powersList;
+    }
+    public String getPowersAsString() {
+        if (powersList != null && !powersList.isEmpty()) {
+            return powersList.stream()
+                    .map(Powers::getDescription)
+                    .collect(Collectors.joining(", "));
+        }
+        return "";
     }
 
-    // toString method
     @Override
     public String toString() {
         return "Hero{" +
-                "id=" + id +
+                "heroId=" + heroId +
                 ", codeName='" + codeName + '\'' +
-                ", powers='" + powers + '\'' +
+                ", realName='" + realName + '\'' +
                 ", bio='" + bio + '\'' +
                 ", alignment='" + alignment + '\'' +
-                ", realName='" + realName + '\'' +
+                ", powersList=" + powersList +
+                ", powersAsString='" + getPowersAsString() + '\'' +
                 '}';
     }
 }

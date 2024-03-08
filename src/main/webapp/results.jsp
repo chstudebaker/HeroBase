@@ -40,7 +40,7 @@
             <c:out value="${empty heroes ? 'No heroes found' : 'Heroes found'}" />
             <tr>
                 <td>${hero.codeName}</td>
-                <td>${hero.powers}</td>
+                <td>${hero.getPowersAsString()}</td>
                 <td>${hero.alignment}</td>
                 <td>${hero.realName}</td>
                 <td>${hero.bio}</td>

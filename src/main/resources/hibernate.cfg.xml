@@ -18,6 +18,7 @@
 
         <!-- Add the mapping class element -->
         <mapping class="entity.Hero"/>
+        <mapping class="entity.Powers"/>
 
     </session-factory>
 </hibernate-configuration>
