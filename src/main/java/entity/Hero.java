@@ -2,6 +2,7 @@ package entity;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "Hero")
@@ -86,8 +87,28 @@ public class Hero {
 
     public void setHeroPowers(List<HeroPower> heroPowers) {
         this.heroPowers = heroPowers;
-    }
 
+        // Set the Hero reference in each HeroPower
+        if (heroPowers != null) {
+            for (HeroPower heroPower : heroPowers) {
+                heroPower.setHero(this);
+            }
+        }
+
+    }
+    public void setPowersList(List<Powers> powersList) {
+        // Assuming you have a method to convert Powers to HeroPower
+        List<HeroPower> heroPowers = powersList.stream()
+                .map(power -> new HeroPower(this, power))
+                .collect(Collectors.toList());
+
+        this.heroPowers = heroPowers;
+
+        // Set the Hero reference in each HeroPower
+        for (HeroPower heroPower : heroPowers) {
+            heroPower.setHero(this);
+        }
+    }
     public String getPowersAsString() {
         StringBuilder powersAsString = new StringBuilder();
 
