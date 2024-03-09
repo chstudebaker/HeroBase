@@ -30,5 +30,30 @@ C:/Users/cstudebaker/IdeaProjects/untitled/src/main/resources/hibernate.cfg.xml<
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="herobase-2" uuid="82c8e1e7-befa-4f9d-afea-b102ac63a7c4">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://awseb-e-3us5h4wcwp-stack-awsebrdsdatabase-qtpwtoujjmzc.cjqk8umwej9o.us-east-1.rds.amazonaws.com:3306:3306/3306</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="com.intellij.clouds.kubernetes.db.host.port" />
+        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
+        <property name="com.intellij.clouds.kubernetes.db.resource.type" value="Deployment" />
+        <property name="com.intellij.clouds.kubernetes.db.container.port" />
+      </jdbc-additional-properties>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="AWS driver for Aurora MySQL" uuid="d79a977c-3a36-4736-8098-1ff3cd2a9f7c">
+      <driver-ref>mysql_aurora_aws</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>software.aws.rds.jdbc.mysql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql:aws://awseb-e-3us5h4wcwp-stack-awsebrdsdatabase-qtpwtoujjmzc.cjqk8umwej9o.us-east-1.rds.amazonaws.com:3306:3306</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="com.intellij.clouds.kubernetes.db.host.port" />
+        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
+        <property name="com.intellij.clouds.kubernetes.db.container.port" />
+      </jdbc-additional-properties>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

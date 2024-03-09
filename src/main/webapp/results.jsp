@@ -37,7 +37,6 @@
         </thead>
         <tbody>
         <c:forEach var="hero" items="${heroes}">
-            <c:out value="${empty heroes ? 'No heroes found' : 'Heroes found'}" />
             <tr>
                 <td>${hero.codeName}</td>
                 <td>${hero.getPowersAsString()}</td>
