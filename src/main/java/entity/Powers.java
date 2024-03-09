@@ -1,6 +1,7 @@
 package entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Powers")
@@ -14,18 +15,16 @@ public class Powers {
     @Column(name = "Description", nullable = false)
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "powerId")
-    private Hero hero;
+    @OneToMany(mappedBy = "power", fetch = FetchType.EAGER)
+    private List<HeroPower> heroPowers;
 
     // Constructors, getters, and setters
 
     public Powers() {
     }
 
-    public Powers(String description, Hero hero) {
+    public Powers(String description) {
         this.description = description;
-        this.hero = hero;
     }
 
     public int getPowerID() {
@@ -44,12 +43,12 @@ public class Powers {
         this.description = description;
     }
 
-    public Hero getHero() {
-        return hero;
+    public List<HeroPower> getHeroPowers() {
+        return heroPowers;
     }
 
-    public void setHero(Hero hero) {
-        this.hero = hero;
+    public void setHeroPowers(List<HeroPower> heroPowers) {
+        this.heroPowers = heroPowers;
     }
 
     @Override
@@ -57,7 +56,6 @@ public class Powers {
         return "Powers{" +
                 "powerID=" + powerID +
                 ", description='" + description + '\'' +
-                ", hero=" + hero +
                 '}';
     }
 }

@@ -2,7 +2,6 @@ package entity;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "Hero")
@@ -25,20 +24,20 @@ public class Hero {
     @Column(name = "Alignment")
     private String alignment;
 
-    @OneToMany(mappedBy = "hero", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Powers> powersList;
+    @OneToMany(mappedBy = "hero", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private List<HeroPower> heroPowers;
 
     // Constructors, getters, and setters
 
     public Hero() {
     }
 
-    public Hero(String codeName, String realName, String bio, String alignment, List<Powers> powersList) {
+    public Hero(String codeName, String realName, String bio, String alignment, List<HeroPower> heroPowers) {
         this.codeName = codeName;
         this.realName = realName;
         this.bio = bio;
         this.alignment = alignment;
-        this.powersList = powersList;
+        this.heroPowers = heroPowers;
     }
 
     public int getHeroId() {
@@ -81,32 +80,57 @@ public class Hero {
         this.alignment = alignment;
     }
 
-    public List<Powers> getPowersList() {
-        return powersList;
+    public List<HeroPower> getHeroPowers() {
+        return heroPowers;
     }
 
-    public void setPowersList(List<Powers> powersList) {
-        this.powersList = powersList;
+    public void setHeroPowers(List<HeroPower> heroPowers) {
+        this.heroPowers = heroPowers;
     }
+
     public String getPowersAsString() {
-        if (powersList != null && !powersList.isEmpty()) {
-            return powersList.stream()
-                    .map(Powers::getDescription)
-                    .collect(Collectors.joining(", "));
+        StringBuilder powersAsString = new StringBuilder();
+
+        if (heroPowers != null && !heroPowers.isEmpty()) {
+            powersAsString.append("Powers: [");
+
+            for (HeroPower heroPower : heroPowers) {
+                powersAsString.append(heroPower.getPower().getDescription()).append(", ");
+            }
+
+            // Remove the trailing comma and space
+            powersAsString.setLength(powersAsString.length() - 2);
+
+            powersAsString.append("]");
+        } else {
+            powersAsString.append("No powers available.");
         }
-        return "";
+
+        return powersAsString.toString();
     }
 
     @Override
     public String toString() {
-        return "Hero{" +
-                "heroId=" + heroId +
-                ", codeName='" + codeName + '\'' +
-                ", realName='" + realName + '\'' +
-                ", bio='" + bio + '\'' +
-                ", alignment='" + alignment + '\'' +
-                ", powersList=" + powersList +
-                ", powersAsString='" + getPowersAsString() + '\'' +
-                '}';
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Hero{")
+                .append("heroId=").append(heroId)
+                .append(", codeName='").append(codeName).append('\'')
+                .append(", realName='").append(realName).append('\'')
+                .append(", bio='").append(bio).append('\'')
+                .append(", alignment='").append(alignment).append('\'')
+                .append(", heroPowers=[");
+
+        if (heroPowers != null) {
+            for (HeroPower heroPower : heroPowers) {
+                stringBuilder.append(heroPower).append(", ");
+            }
+            // Remove the trailing comma and space if the list is not empty
+            if (!heroPowers.isEmpty()) {
+                stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
+            }
+        }
+
+        stringBuilder.append("]}");
+        return stringBuilder.toString();
     }
 }
