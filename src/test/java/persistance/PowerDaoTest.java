@@ -79,7 +79,23 @@ class PowerDaoTest {
         assertEquals(heroCodeName, PowersAfterUpdate.getHero().getCodeName());
         assertEquals(heroRealName, PowersAfterUpdate.getHero().getRealName());
     }
-    
+
+    /**
+     * Verify successful delete of power
+     */
+    @Test
+    void deleteSuccess() {
+        dao.delete(dao.getById(12));
+        assertNull(dao.getById(12));
+    }
+    /**
+     * Verify successful retrieval of all Books
+     */
+    @Test
+    void getAllSuccess() {
+        List<Powers> powers = dao.getAllPowers();
+        assertEquals(11, powers.size());
+    }
     
 
 }
