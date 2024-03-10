@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
@@ -67,6 +68,24 @@ public class PowersDao {
         session.delete(power);
         transaction.commit();
         session.close();
+    }
+    /**
+     * Retrieve a power by its description.
+     *
+     * @param description The description of the power.
+     * @return The Powers object if found, or null if not found.
+     */
+    public Powers getByDescription(String description) {
+        try (Session session = SessionFactoryProvider.getSessionFactory().openSession()) {
+            String hql = "FROM Powers WHERE description = :description";
+            Query<Powers> query = session.createQuery(hql, Powers.class);
+            query.setParameter("description", description);
+            return query.uniqueResult();
+        } catch (Exception e) {
+            // Handle exceptions appropriately (e.g., log or rethrow)
+            e.printStackTrace();
+            return null;
+        }
     }
 
 

@@ -58,7 +58,7 @@ class HeroDaoTest {
         // Set Powers to Hero
         hero.setPowers(Collections.singletonList(power));
 
-    // Insert the hero along with associated powers
+        // Insert the hero along with associated powers
         int insertedHeroId = heroDao.insert(hero);
         logger.debug("Inserted Hero ID: {}", insertedHeroId);
 
@@ -83,17 +83,17 @@ class HeroDaoTest {
      */
     @Test
     void updateSuccess() {
-        String realName = "Phil Lineman";
-        Hero heroToUpdate = heroDao.getById(10);
+        String realName = "Exa Hershel";
+        Hero heroToUpdate = heroDao.getById(8);
         heroToUpdate.setRealName(realName);
         heroDao.update(heroToUpdate);
-        Hero heroAfterUpdate = heroDao.getById(10);
+        Hero heroAfterUpdate = heroDao.getById(8);
         assertEquals(realName, heroAfterUpdate.getRealName());
     }
     @Test
     void deleteSuccess() {
-        heroDao.delete(heroDao.getById(10));
-        assertNull(heroDao.getById(10));
+        heroDao.delete(heroDao.getById(22));
+        assertNull(heroDao.getById(22));
     }
 
 

@@ -6,7 +6,7 @@
     <title>Hero Search Results</title>
 </head>
 <body>
-
+<jsp:include page="nav.jsp"/>
 <div class="container">
     <h2>Hero Search Results</h2>
 

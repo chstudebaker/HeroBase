@@ -116,7 +116,15 @@ public class Hero {
     public void setAlignment(String alignment) {
         this.alignment = alignment;
     }
-
+    public String getPowersAsString() {
+        if (powers != null && !powers.isEmpty()) {
+            return powers.stream()
+                    .map(Powers::getDescription)
+                    .collect(Collectors.joining(", "));
+        } else {
+            return "No powers available.";
+        }
+    }
 
 
     @Override
