@@ -4,7 +4,6 @@
 <html>
 <head>
     <title>Hero Search Results</title>
-    <!-- Add your CSS styles or include Bootstrap here if needed -->
 </head>
 <body>
 
@@ -18,7 +17,6 @@
 
         <!-- Radio buttons for selecting search criteria -->
         <label><input type="radio" name="searchCriteria" value="codeName" checked> Code Name</label>
-        <label><input type="radio" name="searchCriteria" value="powers"> Powers</label>
         <label><input type="radio" name="searchCriteria" value="alignment"> Alignment</label>
         <label><input type="radio" name="searchCriteria" value="realName"> Real Name</label>
 

@@ -1,6 +1,7 @@
 package entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,21 +26,56 @@ public class Hero {
     @Column(name = "Alignment")
     private String alignment;
 
-    @OneToMany(mappedBy = "hero", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private List<HeroPower> heroPowers;
+    @OneToMany(mappedBy = "hero", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Powers> powers;
+
+
+    public void addPower(Powers power) {
+        powers.add(power);
+        power.setHero(this);
+    }
+
+    /**
+     * Remove power.
+     *
+     * @param power the power
+     */
+    public void removePower(Powers power) {
+        powers.remove(power);
+        power.setHero(null);
+    }
+
+    /**
+     * Gets powers.
+     *
+     * @return the powers
+     */
+    public List<Powers> getPowers() {
+        return powers;
+    }
+
+    /**
+     * Sets powers.
+     *
+     * @param powers the powers
+     */
+    public void setPowers(List<Powers> powers) {
+        this.powers = powers;
+    }
+
 
     // Constructors, getters, and setters
 
     public Hero() {
     }
 
-    public Hero(String codeName, String realName, String bio, String alignment, List<HeroPower> heroPowers) {
+    public Hero(String codeName, String realName, String bio, String alignment) {
         this.codeName = codeName;
         this.realName = realName;
         this.bio = bio;
         this.alignment = alignment;
-        this.heroPowers = heroPowers;
     }
+
 
     public int getHeroId() {
         return heroId;
@@ -81,77 +117,17 @@ public class Hero {
         this.alignment = alignment;
     }
 
-    public List<HeroPower> getHeroPowers() {
-        return heroPowers;
-    }
 
-    public void setHeroPowers(List<HeroPower> heroPowers) {
-        this.heroPowers = heroPowers;
-
-        // Set the Hero reference in each HeroPower
-        if (heroPowers != null) {
-            for (HeroPower heroPower : heroPowers) {
-                heroPower.setHero(this);
-            }
-        }
-
-    }
-    public void setPowersList(List<Powers> powersList) {
-        // Assuming you have a method to convert Powers to HeroPower
-        List<HeroPower> heroPowers = powersList.stream()
-                .map(power -> new HeroPower(this, power))
-                .collect(Collectors.toList());
-
-        this.heroPowers = heroPowers;
-
-        // Set the Hero reference in each HeroPower
-        for (HeroPower heroPower : heroPowers) {
-            heroPower.setHero(this);
-        }
-    }
-    public String getPowersAsString() {
-        StringBuilder powersAsString = new StringBuilder();
-
-        if (heroPowers != null && !heroPowers.isEmpty()) {
-            powersAsString.append("Powers: [");
-
-            for (HeroPower heroPower : heroPowers) {
-                powersAsString.append(heroPower.getPower().getDescription()).append(", ");
-            }
-
-            // Remove the trailing comma and space
-            powersAsString.setLength(powersAsString.length() - 2);
-
-            powersAsString.append("]");
-        } else {
-            powersAsString.append("No powers available.");
-        }
-
-        return powersAsString.toString();
-    }
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Hero{")
-                .append("heroId=").append(heroId)
-                .append(", codeName='").append(codeName).append('\'')
-                .append(", realName='").append(realName).append('\'')
-                .append(", bio='").append(bio).append('\'')
-                .append(", alignment='").append(alignment).append('\'')
-                .append(", heroPowers=[");
-
-        if (heroPowers != null) {
-            for (HeroPower heroPower : heroPowers) {
-                stringBuilder.append(heroPower).append(", ");
-            }
-            // Remove the trailing comma and space if the list is not empty
-            if (!heroPowers.isEmpty()) {
-                stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
-            }
-        }
-
-        stringBuilder.append("]}");
-        return stringBuilder.toString();
+        return "Hero{" +
+                "id=" + heroId +
+                ", codeName='" + codeName + '\'' +
+                ", realName='" + realName + '\'' +
+                ", bio='" + bio + '\'' +
+                ", alignment='" + alignment + '\'' +
+                '}';
     }
+
 }

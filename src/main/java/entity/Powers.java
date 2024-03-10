@@ -15,16 +15,18 @@ public class Powers {
     @Column(name = "Description", nullable = false)
     private String description;
 
-    @OneToMany(mappedBy = "power", fetch = FetchType.EAGER)
-    private List<HeroPower> heroPowers;
+    @ManyToOne
+    @JoinColumn(name = "HeroID")
+    private Hero hero;
 
     // Constructors, getters, and setters
 
     public Powers() {
     }
 
-    public Powers(String description) {
+    public Powers(String description, Hero hero) {
         this.description = description;
+        this.hero = hero;
     }
 
     public int getPowerID() {
@@ -43,12 +45,12 @@ public class Powers {
         this.description = description;
     }
 
-    public List<HeroPower> getHeroPowers() {
-        return heroPowers;
+    public Hero getHero() {
+        return hero;
     }
 
-    public void setHeroPowers(List<HeroPower> heroPowers) {
-        this.heroPowers = heroPowers;
+    public void setHero(Hero hero) {
+        this.hero = hero;
     }
 
     @Override

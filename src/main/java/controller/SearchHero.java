@@ -1,7 +1,7 @@
 package controller;
 
 import entity.Hero;
-import persistance.HeroDAO;
+import persistance.HeroDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @WebServlet("/searchHero")
 public class SearchHero extends HttpServlet {
-    private HeroDAO heroDao = new HeroDAO();
+    private HeroDao heroDao = new HeroDao();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
