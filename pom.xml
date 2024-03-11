@@ -21,6 +21,9 @@
     <junit-vintage-version>4.12.0</junit-vintage-version>
     <jupiter-version>5.0.0</jupiter-version>
     <log4j.version>2.14.1</log4j.version>
+    <hibernate.version>6.4.3.Final</hibernate.version>
+    <auth.version>3.4.1</auth.version>
+    <commons.version>2.11.0</commons.version>
   </properties>
 
   <dependencies>
@@ -33,7 +36,7 @@
     <dependency>
       <groupId>com.auth0</groupId>
       <artifactId>java-jwt</artifactId>
-      <version>3.4.1</version>
+      <version>${auth.version}</version>
     </dependency>
     <dependency>
       <groupId>org.json</groupId>
@@ -44,7 +47,7 @@
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
-      <version>2.11.0</version>
+      <version>${commons.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
@@ -96,21 +99,21 @@
     <dependency>
     <groupId>org.hibernate</groupId>
     <artifactId>hibernate-core</artifactId>
-    <version>5.5.6.Final</version>
+      <version>${hibernate.version}</version>
   </dependency>
 
     <!-- Hibernate Entity Manager -->
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-entitymanager</artifactId>
-      <version>5.5.6.Final</version>
+      <version>5.5.6.final</version>
     </dependency>
 
     <!-- Hibernate C3P0 Connection Pool -->
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-c3p0</artifactId>
-      <version>5.5.6.Final</version>
+      <version>${hibernate.version}</version>
     </dependency>
 
     <dependency>

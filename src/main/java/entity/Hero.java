@@ -1,6 +1,6 @@
 package entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -67,6 +67,7 @@ public class Hero {
     // Constructors, getters, and setters
 
     public Hero() {
+        this.powers = new ArrayList<>();
     }
 
     public Hero(String codeName, String realName, String bio, String alignment) {

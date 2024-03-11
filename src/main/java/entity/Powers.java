@@ -1,7 +1,6 @@
 package entity;
 
-import javax.persistence.*;
-import java.util.List;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Powers")

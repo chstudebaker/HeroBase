@@ -4,17 +4,15 @@ import entity.Hero;
 import entity.Powers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
+import jakarta.persistence.TypedQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.query.criteria.HibernateCriteriaBuilder;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
@@ -47,8 +45,6 @@ public class HeroDao {
         }
     }
 
-
-
     public List<Hero> searchHeroes(String searchCriteria, String searchTerm) {
         try (Session session = sessionFactory.openSession()) {
             CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -78,43 +74,37 @@ public class HeroDao {
         }
     }
 
-    /**
-     * Update hero
-     * @param hero Author to be updated
-     */
     public void update(Hero hero) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        session.merge(hero);
-        transaction.commit();
-        session.close();
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.merge(hero);
+            transaction.commit();
+        } catch (Exception e) {
+            logger.error("Error updating hero", e);
+            throw e;
+        }
     }
 
-    /**
-     * Insert a new hero
-     * @param hero Author to be inserted
-     * @return The ID of the newly inserted hero
-     */
     public int insert(Hero hero) {
         int id = 0;
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
 
-        // Ensure associated powers are set on the hero before persisting
-        for (Powers power : hero.getPowers()) {
-            session.persist(power);  // Explicitly persist each power
+            // Ensure associated powers are set on the hero before persisting
+            for (Powers power : hero.getPowers()) {
+                session.persist(power);  // Explicitly persist each power
+            }
+
+            session.persist(hero);
+            transaction.commit();
+            id = hero.getHeroId();
+        } catch (Exception e) {
+            logger.error("Error inserting hero", e);
+            throw e;
         }
-
-        session.persist(hero);
-        transaction.commit();
-        id = hero.getHeroId();
-        session.close();
         return id;
     }
-    /**
-     * Delete an hero
-     * @param hero Hero to be deleted
-     */
+
     public void delete(Hero hero) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -131,7 +121,4 @@ public class HeroDao {
             throw e;
         }
     }
-
-
-
 }
