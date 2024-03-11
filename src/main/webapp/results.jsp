@@ -1,12 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@include file="header.jsp"%>
-
 <html>
 <head>
     <title>Hero Search Results</title>
+    <link rel="stylesheet" href="css/heroBase.css">
 </head>
 <body>
-<jsp:include page="nav.jsp"/>
+<c:import url="header.jsp" />
+<c:import url="nav.jsp" />
 <div class="container">
     <h2>Hero Search Results</h2>
 

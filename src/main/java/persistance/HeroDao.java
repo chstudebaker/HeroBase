@@ -7,8 +7,14 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.criteria.HibernateCriteriaBuilder;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
@@ -21,7 +27,11 @@ public class HeroDao {
 
     public List<Hero> getAllHeroes() {
         try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("FROM Hero", Hero.class).list();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Hero> criteriaQuery = builder.createQuery(Hero.class);
+            criteriaQuery.from(Hero.class);
+            TypedQuery<Hero> query = session.createQuery(criteriaQuery);
+            return query.getResultList();
         } catch (Exception e) {
             logger.error("Error retrieving all heroes", e);
             throw e;
@@ -37,12 +47,16 @@ public class HeroDao {
         }
     }
 
+
+
     public List<Hero> searchHeroes(String searchCriteria, String searchTerm) {
         try (Session session = sessionFactory.openSession()) {
-            String hql = "FROM Hero WHERE " + searchCriteria + " LIKE :searchTerm";
-            TypedQuery<Hero> query = session.createQuery(hql, Hero.class);
-            query.setParameter("searchTerm", "%" + searchTerm + "%");
-
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Hero> criteriaQuery = builder.createQuery(Hero.class);
+            Root<Hero> root = criteriaQuery.from(Hero.class);
+            Predicate predicate = builder.like(root.get(searchCriteria), "%" + searchTerm + "%");
+            criteriaQuery.where(predicate);
+            TypedQuery<Hero> query = session.createQuery(criteriaQuery);
             return query.getResultList();
         } catch (Exception e) {
             logger.error("Error searching heroes in the database", e);
@@ -52,10 +66,11 @@ public class HeroDao {
 
     public List<Powers> getPowersForHero(int heroId) {
         try (Session session = sessionFactory.openSession()) {
-            String hql = "SELECT hp.powerID FROM Hero hero JOIN hero.powers hp WHERE hero.heroId = :heroId";
-            TypedQuery<Powers> query = session.createQuery(hql, Powers.class);
-            query.setParameter("heroId", heroId);
-
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Powers> criteriaQuery = builder.createQuery(Powers.class);
+            Root<Hero> heroRoot = criteriaQuery.from(Hero.class);
+            criteriaQuery.select(heroRoot.join("powers").get("powerID")).where(builder.equal(heroRoot.get("heroId"), heroId));
+            TypedQuery<Powers> query = session.createQuery(criteriaQuery);
             return query.getResultList();
         } catch (Exception e) {
             logger.error("Error retrieving powers for hero with ID: " + heroId, e);
@@ -116,4 +131,7 @@ public class HeroDao {
             throw e;
         }
     }
+
+
+
 }

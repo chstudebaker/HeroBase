@@ -3,9 +3,11 @@
 <html>
 <head>
     <title>Add Hero</title>
+    <link rel="stylesheet" href="css/heroBase.css">
 </head>
 <body>
-<jsp:include page="nav.jsp"/>
+<c:import url="header.jsp" />
+<c:import url="nav.jsp" />
 <h2>Add New Hero</h2>
 
 <form action="AddHeroServlet" method="post">

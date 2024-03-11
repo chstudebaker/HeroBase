@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/AddHero")
 public class AddHero extends HttpServlet {
@@ -23,13 +24,16 @@ public class AddHero extends HttpServlet {
         String[] powers = request.getParameterValues("powers");
         //String addPowerRedirect = request.getParameter("addPowerRedirect");
 
-        // Perform necessary actions to add the hero to the database
-        // ...
 
         // Assuming you have a HeroDao for database operations
         HeroDao heroDao = new HeroDao();
         // Assuming you have a PowersDao for powers-related operations
         PowersDao powersDao = new PowersDao();
+
+        List<Powers> powersList = powersDao.getAll();
+
+        request.setAttribute("powersList", powersList);
+
 
         // Create a Hero object
         Hero hero = new Hero(heroName, realName, bio, alignment);

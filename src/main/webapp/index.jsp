@@ -1,12 +1,15 @@
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Hero Website</title>
+    <link rel="stylesheet" href="css/heroBase.css">
 </head>
 <body>
-<jsp:include page="nav.jsp"/>
+<c:import url="header.jsp" />
+<c:import url="nav.jsp" />
+
 <h1>Welcome to the Hero Website!</h1>
 <c:choose>
     <c:when test="${empty userName}">

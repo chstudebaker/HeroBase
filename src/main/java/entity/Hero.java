@@ -74,6 +74,7 @@ public class Hero {
         this.realName = realName;
         this.bio = bio;
         this.alignment = alignment;
+        this.powers = new ArrayList<>();
     }
 
 

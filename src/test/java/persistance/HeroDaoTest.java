@@ -34,6 +34,7 @@ class HeroDaoTest {
     @BeforeEach
     void setUp() {
         Database database = Database.getInstance();
+        database.runSQL("cleandb.sql");
 
         heroDao = new HeroDao();
         powerDao = new PowersDao();
@@ -44,10 +45,10 @@ class HeroDaoTest {
      */
     @Test
     void getByIdSuccess() {
-        Hero retrievedHero = heroDao.getById(1);
+        Hero retrievedHero = heroDao.getById(2);
         assertNotNull(retrievedHero);
-        assertEquals("Windchild", retrievedHero.getCodeName());
-        assertEquals("Lance Talon", retrievedHero.getRealName());
+        assertEquals("Falinex", retrievedHero.getCodeName());
+        assertEquals("Paul Wyvernel", retrievedHero.getRealName());
     }
     @Test
     void insertSuccess() {
@@ -92,8 +93,8 @@ class HeroDaoTest {
     }
     @Test
     void deleteSuccess() {
-        heroDao.delete(heroDao.getById(22));
-        assertNull(heroDao.getById(22));
+        heroDao.delete(heroDao.getById(3));
+        assertNull(heroDao.getById(3));
     }
 
 

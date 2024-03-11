@@ -17,94 +17,110 @@ class PowerDaoTest {
     @BeforeEach
     void setUp() {
         Database database = Database.getInstance();
-        dao = new PowersDao();
+        database.runSQL("cleandb.sql");
+
         heroDao = new HeroDao();
+        dao = new PowersDao();
     }
 
     @Test
     void getByIdSuccess() {
-        // Assuming there's a specific Hero and Powers with ID 1 for testing
-        Hero hero = new Hero("Windchild", "Lance Talon", "", "");
-        Powers powers = new Powers("Windchild", hero);
+        System.out.println("Starting getByIdSuccess test...");
+
+        Hero hero = new Hero("Windchild", "Lance Talon", "bio", "Good");
         heroDao.insert(hero);
+
+        Powers powers = new Powers("Windchild", hero);
         dao.insert(powers);
 
-        Powers retrievedPowers = dao.getById(1);
+        // Check if heroDao and dao are not null
+        assertNotNull(heroDao);
+        assertNotNull(dao);
 
+        // Retrieve powers by ID
+        Powers retrievedPowers = dao.getById(powers.getPowerID());
+
+        // Check if retrievedPowers is not null
+        assertNotNull(retrievedPowers);
+
+        // Perform assertions
         assertEquals("Windchild", retrievedPowers.getDescription());
         assertEquals("Windchild", retrievedPowers.getHero().getCodeName());
         assertEquals("Lance Talon", retrievedPowers.getHero().getRealName());
-    }
 
-    @Test
-    void insertSuccess() {
-        Hero hero = new Hero("Crushstone", "Brock Pebble", "", "");
-        heroDao.insert(hero);
+        System.out.println("Assertions passed!");
 
-        Powers power = new Powers("super strength", hero);
-
-        int insertedPowerId = dao.insert(power);
-
-        Powers retrievedPower = dao.getById(insertedPowerId);
-
-        assertNotNull(retrievedPower);
-        assertEquals("super strength", retrievedPower.getDescription());
-        assertEquals("Crushstone", retrievedPower.getHero().getCodeName());
-        assertEquals("Brock Pebble", retrievedPower.getHero().getRealName());
+        System.out.println("Ending getByIdSuccess test...");
     }
 
     @Test
     void updateSuccess() {
-        // Assuming there's a specific Powers with ID 2 associated with a Hero for testing
-        Hero hero = new Hero("Falinex", "Paul Wyvernel", "", "");
-        heroDao.insert(hero);
+        String heroCodeName = "John";
+        String heroRealName = "Smith";
+        String powerDescription = "Super Strength";
 
-        Powers powersToUpdate = new Powers("description", hero);
-        dao.insert(powersToUpdate);
+        // Create a new Hero
+        Hero newHero = new Hero(heroCodeName, heroRealName, "bio", "Good");
+        heroDao.insert(newHero);
 
-        String heroCodeName = "UpdatedFalinex";
-        String heroRealName = "UpdatedPaulWyvernel";
+        // Create a new Powers entity associated with the new Hero
+        Powers newPower = new Powers(powerDescription, newHero);
+        dao.insert(newPower);
 
-        powersToUpdate.getHero().setCodeName(heroCodeName);
-        powersToUpdate.getHero().setRealName(heroRealName);
+        // Retrieve an existing Powers entity to update its associated Hero
+        Powers powerToUpdate = dao.getById(1);
 
-        dao.update(powersToUpdate);
+        // Associate the new Hero with the existing Powers entity
+        powerToUpdate.setHero(newHero);
 
-        Powers powersAfterUpdate = dao.getById(2);
+        // Update the associated Hero within the existing Powers entity
+        dao.update(powerToUpdate);
 
-        assertEquals(heroCodeName, powersAfterUpdate.getHero().getCodeName());
-        assertEquals(heroRealName, powersAfterUpdate.getHero().getRealName());
+        // Retrieve the updated Powers entity
+        Powers powerAfterUpdate = dao.getById(1);
+
+        // Perform assertions
+        assertEquals(heroCodeName, powerAfterUpdate.getHero().getCodeName());
+        assertEquals(heroRealName, powerAfterUpdate.getHero().getRealName());
+        assertEquals(powerDescription, powerAfterUpdate.getDescription());
     }
+
 
     @Test
     void deleteSuccess() {
-        // Assuming there's a specific Powers with ID 12 for testing
-        Hero hero = new Hero("TestHero", "TestRealName", "", "");
+        System.out.println("Starting deleteSuccess test...");
+
+        Hero hero = new Hero("TestHero", "TestRealName", "testBio", "testAlignment");
         heroDao.insert(hero);
 
         Powers powersToDelete = new Powers("TestDescription", hero);
         dao.insert(powersToDelete);
 
         dao.delete(powersToDelete);
-        assertNull(dao.getById(12));
+        assertNull(dao.getById(powersToDelete.getPowerID()));
+
+        System.out.println("Ending deleteSuccess test...");
     }
 
     @Test
     void getAllSuccess() {
-        // Assuming there are specific Powers entries for testing
-        Hero hero1 = new Hero("Hero1", "RealName1", "", "");
-        Hero hero2 = new Hero("Hero2", "RealName2", "", "");
+        System.out.println("Starting getAllSuccess test...");
 
+        Hero hero1 = new Hero("Hero1", "RealName1", "Bio1", "Alignment1");
         heroDao.insert(hero1);
-        heroDao.insert(hero2);
 
         Powers powers1 = new Powers("Description1", hero1);
-        Powers powers2 = new Powers("Description2", hero2);
-
         dao.insert(powers1);
+
+        Hero hero2 = new Hero("Hero2", "RealName2", "Bio2", "Alignment2");
+        heroDao.insert(hero2);
+
+        Powers powers2 = new Powers("Description2", hero2);
         dao.insert(powers2);
 
         List<Powers> powers = dao.getAllPowers();
-        assertEquals(13, powers.size()); // Assuming there are 11 existing entries plus 2 new entries
+        assertEquals(2, powers.size()); // Check for the inserted entries only
+
+        System.out.println("Ending getAllSuccess test...");
     }
 }
