@@ -1,0 +1,46 @@
+3-7
+Got basic website framework up and running. Created entities, Search User servlet 
+and Index, Header, and results jsp pages.
+
+Website doesnt work yet, but the code just needs a little fixing.
+
+3-8
+Had to rework my entire database, again. Added a HeroPowers entity to manage 
+relationships.
+
+Added a HeroDao, PowersDao, and HeroPowersDao. Created unit tests for each.
+They can run individually just fine, but dont run as a unit yet.
+
+Created log4j functionality and created a hibernate config file.
+
+Got cognito up and running. I can now sign in, create users, and authenticate 
+them
+
+3-9
+Went to the museaum, so did not get much work done. 
+
+However, reworked my database yet again. Figured out that if I put heroId as a
+foreign key in Powers, I can reduce my number of tables to two. Genius! Makes
+things easier.
+
+Got all my unit tests running individually for both Hero and Powers. Next step is
+to get them running at the same time, every time
+
+3-10
+Another museaum. Seriously, how many of these things are there? (sorry, I just 
+to say it)
+
+Created some neat CSS to use with my project. its starting to look like a real
+website now!
+
+Started on Add hero feature. Having some trouble creating a dynamic list of 
+powers, but Im making it a goal!
+
+Also hoping to allow a user to search on a hero, then use the name as a link to 
+a seperate page with a huge dump of information. Like a fandom. Shouldnt be too
+hard with EL to work with.
+
+3-11 
+Today, I am planning to make corrections to my project based on the teachers 
+feedback. Came back from vaca early, so I am now able to get some serious work 
+done. Hoping to have everything fixed by the end of the day.
