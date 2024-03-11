@@ -56,7 +56,7 @@ public class Auth extends HttpServlet implements PropertiesLoader {
     Keys jwks;
 
     private final Logger logger = LogManager.getLogger(this.getClass());
-
+    private static final String ERROR_PAGE = "/error.jsp";
     @Override
     public void init() throws ServletException {
         super.init();
@@ -71,7 +71,7 @@ public class Auth extends HttpServlet implements PropertiesLoader {
 
         if (authCode == null) {
             // TODO forward to an error page or back to the login
-            req.getRequestDispatcher("/error.jsp").forward(req, resp);
+            req.getRequestDispatcher(ERROR_PAGE).forward(req, resp);
         } else {
             HttpRequest authRequest = buildAuthRequest(authCode);
             try {
@@ -80,10 +80,10 @@ public class Auth extends HttpServlet implements PropertiesLoader {
                 req.setAttribute("userName", userName);
             } catch (IOException e) {
                 logger.error("Error getting or validating the token: " + e.getMessage(), e);
-                req.getRequestDispatcher("/error.jsp").forward(req, resp);
+                req.getRequestDispatcher(ERROR_PAGE).forward(req, resp);
             } catch (InterruptedException e) {
                 logger.error("Error getting token from Cognito oauth url " + e.getMessage(), e);
-                req.getRequestDispatcher("/error.jsp").forward(req, resp);
+                req.getRequestDispatcher(ERROR_PAGE).forward(req, resp);
             }
         }
         RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
