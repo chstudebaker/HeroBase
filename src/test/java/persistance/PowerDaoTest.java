@@ -123,4 +123,52 @@ class PowerDaoTest {
 
         System.out.println("Ending getAllSuccess test...");
     }
+    @Test
+    void deleteHeroWithPowersSuccess() {
+        // Create a test Hero
+        Hero testHero = new Hero("TestHero", "TestRealName", "testBio", "testAlignment");
+        heroDao.insert(testHero);
+
+        // Create a test Power associated with the test Hero
+        Powers testPower = new Powers("TestDescription", testHero);
+        dao.insert(testPower);
+
+        // Retrieve the associated Powers before deletion
+        List<Powers> powersBeforeDeletion = testHero.getPowers();
+
+        // Delete the Hero with associated Powers
+        heroDao.delete(testHero);
+
+        // Verify that the Hero is deleted
+        assertNull(heroDao.getById(testHero.getHeroId()));
+
+        // Verify that the associated Powers are also deleted
+        for (Powers power : powersBeforeDeletion) {
+            assertNull(dao.getById(power.getPowerID()));
+        }
+    }
+
+    @Test
+    void deletePowersWithHeroSuccess() {
+        // Create a test Hero
+        Hero testHero = new Hero("TestHero", "TestRealName", "testBio", "testAlignment");
+        heroDao.insert(testHero);
+
+        // Create a test Power associated with the test Hero
+        Powers testPower = new Powers("TestDescription", testHero);
+        dao.insert(testPower);
+
+        // Retrieve the associated Hero before deletion
+        Hero heroBeforeDeletion = testPower.getHero();
+
+        // Delete the Powers with associated Hero
+        dao.delete(testPower);
+
+        // Verify that the Powers are deleted
+        assertNull(dao.getById(testPower.getPowerID()));
+
+        // Verify that the associated Hero is not deleted
+        assertNotNull(heroDao.getById(heroBeforeDeletion.getHeroId()));
+    }
+
 }
