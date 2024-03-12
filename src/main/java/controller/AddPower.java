@@ -2,7 +2,6 @@ package controller;
 
 import entity.Powers;
 import persistance.PowersDao;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,11 +32,6 @@ public class AddPower extends HttpServlet {
         String selectedPower = request.getParameter("selectedPower"); // Retrieve selected power from the form
         String customPower = request.getParameter("customPower"); // Retrieve custom power from the form
 
-        // Debugging: Print the retrieved values
-        System.out.println("Hero ID: " + heroID);
-        System.out.println("Selected Power: " + selectedPower);
-        System.out.println("Custom Power: " + customPower);
-
         // Create a new instance of Powers entity
         Powers power = new Powers();
         power.setDescription(selectedPower != null && !selectedPower.isEmpty() ? selectedPower : customPower);
@@ -53,9 +47,6 @@ public class AddPower extends HttpServlet {
         // Save the Powers entity
         Integer insertedPowerId = powersDao.insert(power);
         boolean success = insertedPowerId != null && insertedPowerId > 0;
-
-        System.out.println(success);
-
 
         if (success) {
             // Redirect to a success page or display a success message

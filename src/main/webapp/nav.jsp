@@ -37,7 +37,6 @@
     <a href="${pageContext.request.contextPath}/">Home</a>
     <a href="${pageContext.request.contextPath}/results.jsp">Search</a>
     <a href="${pageContext.request.contextPath}/AddHero">Add Hero</a>
-    <!-- Add the Log In link below -->
     <a href="${pageContext.request.contextPath}/logIn">Log In</a>
 </nav>
 

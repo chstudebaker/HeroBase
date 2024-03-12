@@ -10,7 +10,7 @@ public class HeroBaseApp extends Application {
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> classes = new HashSet<>();
-        classes.add(HeroResource.class); // Add your resource classes here
+        classes.add(HeroResource.class);
         return classes;
     }
 }

@@ -28,17 +28,13 @@ public class SearchHero extends HttpServlet {
         System.out.println("Servlet doPost method is being executed.");  // Add this line for logging
         String searchCriteria = request.getParameter("searchCriteria");
         String searchTerm = request.getParameter("searchTerm");
-        System.out.println("Search Criteria: " + searchCriteria);  // Add this line for logging
-        System.out.println("Search Term: " + searchTerm);  // Add this line for logging
+
 
         // Perform the hero search based on the selected criteria
         List<Hero> searchResults;
         if (searchCriteria != null && !searchCriteria.isEmpty() && searchTerm != null && !searchTerm.isEmpty()) {
             // Search based on the provided criteria
             searchResults = heroDao.searchHeroes(searchCriteria, searchTerm);
-            System.out.println("Number of Search Results: " + searchResults.size());
-            System.out.println("Search Results: " + searchResults);
-            // Add this line for logging
         } else {
             // Retrieve all heroes if no search criteria provided
             searchResults = heroDao.getAllHeroes();
@@ -51,8 +47,6 @@ public class SearchHero extends HttpServlet {
 
         // Forward to the results page
         RequestDispatcher dispatcher = request.getRequestDispatcher("results.jsp");
-        System.out.println("forwarding to: " + dispatcher);
         dispatcher.forward(request, response);
-        System.out.println("responce from: " + response);
     }
 }

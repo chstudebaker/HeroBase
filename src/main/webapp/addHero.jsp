@@ -41,7 +41,7 @@
         </c:forEach>
     </div>
     <!-- Submit Button -->
-    <input type="submit" value="Add Hero"> <!-- Updated the value to reflect the action -->
+    <input type="submit" value="Add Hero">
 
 </form>
 </body>

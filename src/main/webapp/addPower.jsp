@@ -18,7 +18,6 @@
 
     <!-- Powers (Radio Buttons) -->
     <label>Powers:</label><br>
-    <!-- Add your powers dynamically based on the existing powers in the database -->
     <c:forEach var="power" items="${powerDescriptions}">
     <input type="radio" name="selectedPower" value="${power}">${power}<br>
     </c:forEach><br>

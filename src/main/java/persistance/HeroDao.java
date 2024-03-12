@@ -2,7 +2,6 @@ package persistance;
 
 import entity.Hero;
 import entity.Powers;
-import jakarta.persistence.NoResultException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -13,8 +12,6 @@ import jakarta.persistence.TypedQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
-
 import java.util.List;
 
 /**

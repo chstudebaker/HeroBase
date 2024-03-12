@@ -2,7 +2,6 @@ package controller;
 
 import entity.Hero;
 import persistance.HeroDao;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +18,6 @@ public class HeroList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve all heroes
-        // Example logging in servlet
         List<Hero> allHeroes = heroDao.getAllHeroes();
 
         // Set the heroList as an attribute in the request

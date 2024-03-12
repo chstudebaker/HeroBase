@@ -55,7 +55,6 @@ public class Hero {
         this.powers = powers;
     }
 
-    // Constructors, getters, and setters...
     public Hero() {
         this.powers = new ArrayList<>();
     }

@@ -11,7 +11,7 @@
 <c:import url="header.jsp" />
 <c:import url="nav.jsp" />
 
-<h1>Welcome to the Hero Website!</h1>
+<h1>Welcome to HeroBase</h1>
 <c:choose>
     <c:when test="${empty userName}">
         <p>Just want to browse? Feel free to use this site. However, members enjoy additional perks! Feel free to create an account using the log in link above!</p>
@@ -24,7 +24,6 @@
 <div class="container">
     <h2>List of Heroes</h2>
 
-    <!-- Display Hero List -->
     <table class="table table-striped">
         <thead>
         <tr>
@@ -36,7 +35,7 @@
         <tbody>
         <c:forEach var="hero" items="${heroList}">
             <tr>
-                <td><a href="wiki/${hero.codeName}.jsp">${hero.codeName}</a></td>
+                <td><a href="wiki?heroId=${hero.heroId}">${hero.codeName}</a></td>
                 <td>${hero.alignment}</td>
                 <td>${hero.realName}</td>
             </tr>

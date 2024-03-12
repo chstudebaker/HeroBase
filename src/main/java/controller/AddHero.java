@@ -2,20 +2,17 @@ package controller;
 
 import entity.Hero;
 import persistance.HeroDao;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("/AddHero")
 public class AddHero extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Handle GET request to display form for adding a hero
-        // You can forward the request to your addHero.jsp or any other appropriate JSP page
         request.getRequestDispatcher("addHero.jsp").forward(request, response);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -24,12 +21,6 @@ public class AddHero extends HttpServlet {
         String realName = request.getParameter("realName");
         String bio = request.getParameter("bio");
         String alignment = request.getParameter("alignment");
-        System.out.println("heroName: " + heroName);
-        System.out.println("realName: " + realName);
-        System.out.println("bio: " + bio);
-        System.out.println("alignment: " + alignment);
-
-
 
         // Assuming you have a HeroDao for database operations
         HeroDao heroDao = new HeroDao();
