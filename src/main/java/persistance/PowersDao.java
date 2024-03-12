@@ -12,7 +12,6 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 
-import java.util.Collections;
 import java.util.List;
 
 public class PowersDao {
@@ -78,29 +77,7 @@ public class PowersDao {
             throw e;
         }
     }
-    /**
-     * Retrieve a power by its description.
-     *
-     * @param description The description of the power.
-     * @return The Powers object if found, or null if not found.
-     */
-    public Powers getByDescription(String description) {
-        try (Session session = sessionFactory.openSession()) {
-            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-            CriteriaQuery<Powers> criteriaQuery = criteriaBuilder.createQuery(Powers.class);
-            Root<Powers> root = criteriaQuery.from(Powers.class);
 
-            // Use criteria to find powers with the given description
-            criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("description"), description));
-            Powers power = session.createQuery(criteriaQuery).uniqueResult();
-
-            return power;
-        } catch (Exception e) {
-            // Handle exceptions (log or throw as needed)
-            e.printStackTrace();
-            return null;
-        }
-    }
     /**
      * Retrieve all power descriptions from the database.
      *
@@ -124,19 +101,6 @@ public class PowersDao {
     }
 
 
-    public List<Powers> getAll() {
-        try (Session session = sessionFactory.openSession()) {
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Powers> query = builder.createQuery(Powers.class);
-            Root<Powers> root = query.from(Powers.class);
-            query.select(root); // Add this line to select all columns
-            Query<Powers> criteriaQuery = session.createQuery(query);
-            return criteriaQuery.getResultList();
-        } catch (Exception e) {
-            logger.error("Error retrieving all powers", e);
-            throw e;
-        }
-    }
 
 
 

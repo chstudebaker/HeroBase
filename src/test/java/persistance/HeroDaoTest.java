@@ -8,7 +8,6 @@ import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,14 +19,10 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class HeroDaoTest {
 
-    HeroDao heroDao;
-    PowersDao powerDao;
+    private HeroDao heroDao;
+    private PowersDao powersDao;
 
     private final Logger logger = LogManager.getLogger(this.getClass());
-    SessionFactory sessionFactory = SessionFactoryProvider.getSessionFactory();
-
-
-
 
     /**
      * Run set up tasks before each test:
@@ -40,11 +35,11 @@ class HeroDaoTest {
         database.runSQL("cleandb.sql");
 
         heroDao = new HeroDao();
-        powerDao = new PowersDao();
+        powersDao = new PowersDao();
     }
 
     /**
-     * Verify successful retrieval of an Hero
+     * Verify successful retrieval of a Hero by ID
      */
     @Test
     void getByIdSuccess() {
@@ -53,6 +48,10 @@ class HeroDaoTest {
         assertEquals("Falinex", retrievedHero.getCodeName());
         assertEquals("Paul Wyvernel", retrievedHero.getRealName());
     }
+
+    /**
+     * Verify successful insertion of a Hero
+     */
     @Test
     void insertSuccess() {
         // Create an Hero with a Power
@@ -66,7 +65,7 @@ class HeroDaoTest {
         int insertedHeroId = heroDao.insert(hero);
         logger.debug("Inserted Hero ID: {}", insertedHeroId);
 
-        // Retrieve the author
+        // Retrieve the hero
         Hero retrievedHero = heroDao.getById(insertedHeroId);
 
         // Verify
@@ -81,9 +80,8 @@ class HeroDaoTest {
         logger.debug("Retrieved Powers: {}", retrievedHero.getPowers().stream().map(Powers::getDescription).collect(Collectors.toList()));
     }
 
-
     /**
-     * Verify successful update of an Hero
+     * Verify successful update of a Hero
      */
     @Test
     void updateSuccess() {
@@ -94,11 +92,35 @@ class HeroDaoTest {
         Hero heroAfterUpdate = heroDao.getById(8);
         assertEquals(realName, heroAfterUpdate.getRealName());
     }
+
+    /**
+     * Verify successful deletion of a Hero
+     */
     @Test
     void deleteSuccess() {
         heroDao.delete(heroDao.getById(3));
         assertNull(heroDao.getById(3));
     }
+    /**
+     * Verify successful retrieval of all heroes
+     */
+    @Test
+    void getAllHeroesSuccess() {
+        List<Hero> heroes = heroDao.getAllHeroes();
+        assertNotNull(heroes);
+        assertFalse(heroes.isEmpty());
+        assertEquals(20, heroes.size()); // Assuming there are 20 heroes in the test data
+    }
 
-
+    /**
+     * Verify successful search for heroes by code name
+     */
+    @Test
+    void searchHeroesByCodeNameSuccess() {
+        List<Hero> heroes = heroDao.searchHeroes("codeName", "Falinex");
+        assertNotNull(heroes);
+        assertFalse(heroes.isEmpty());
+        assertEquals(1, heroes.size());
+        assertEquals("Falinex", heroes.get(0).getCodeName());
+    }
 }

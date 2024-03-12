@@ -62,20 +62,6 @@ public class HeroDao {
         }
     }
 
-    public List<Powers> getPowersForHero(int heroId) {
-        try (Session session = sessionFactory.openSession()) {
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Powers> criteriaQuery = builder.createQuery(Powers.class);
-            Root<Hero> heroRoot = criteriaQuery.from(Hero.class);
-            criteriaQuery.select(heroRoot.join("powers").get("powerID")).where(builder.equal(heroRoot.get("heroId"), heroId));
-            TypedQuery<Powers> query = session.createQuery(criteriaQuery);
-            return query.getResultList();
-        } catch (Exception e) {
-            logger.error("Error retrieving powers for hero with ID: " + heroId, e);
-            throw e;
-        }
-    }
-
     public void update(Hero hero) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -123,32 +109,7 @@ public class HeroDao {
             throw e;
         }
     }
-    public int getHeroIdByCodeName(String codeName) {
-        try (Session session = SessionFactoryProvider.getSessionFactory().openSession()) {
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Integer> criteriaQuery = builder.createQuery(Integer.class);
-            Root<Hero> root = criteriaQuery.from(Hero.class);
-            criteriaQuery.select(root.get("id")).where(builder.equal(root.get("heroCodeName"), codeName));
-            Query<Integer> query = session.createQuery(criteriaQuery);
-            Integer heroId = query.uniqueResult();
-            return heroId != null ? heroId : -1;
-        } catch (NoResultException e) {
-            return -1; // Return -1 if hero with given code name is not found
-        }
-    }
-    public boolean insertHeroWithPower(Hero hero, Powers power) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            session.save(hero);
-            power.setHero(hero); // Set the hero for the power
-            session.save(power);
-            transaction.commit();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+
 
 
 }
