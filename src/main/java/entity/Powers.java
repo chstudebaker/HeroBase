@@ -52,6 +52,18 @@ public class Powers {
         this.hero = hero;
     }
 
+    // Getter and setter for HeroID
+    public int getHeroID() {
+        return hero != null ? hero.getHeroId() : 0;
+    }
+
+    public void setHeroID(int heroID) {
+        if (hero == null) {
+            hero = new Hero();
+        }
+        hero.setHeroId(heroID);
+    }
+
     @Override
     public String toString() {
         return "Powers{" +

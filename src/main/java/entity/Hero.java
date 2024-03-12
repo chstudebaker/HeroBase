@@ -29,56 +29,44 @@ public class Hero {
     @OneToMany(mappedBy = "hero", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Powers> powers;
 
-
     public void addPower(Powers power) {
+        if (powers == null) {
+            powers = new ArrayList<>();
+        } else {
+            // Remove existing powers before adding the new one
+            powers.clear();
+        }
         powers.add(power);
         power.setHero(this);
     }
 
-    /**
-     * Remove power.
-     *
-     * @param power the power
-     */
     public void removePower(Powers power) {
-        powers.remove(power);
-        power.setHero(null);
+        if (powers != null) {
+            powers.remove(power);
+            power.setHero(null);
+        }
     }
 
-    /**
-     * Gets powers.
-     *
-     * @return the powers
-     */
     public List<Powers> getPowers() {
         return powers;
     }
 
-    /**
-     * Sets powers.
-     *
-     * @param powers the powers
-     */
     public void setPowers(List<Powers> powers) {
         this.powers = powers;
     }
 
-
-    // Constructors, getters, and setters
-
+    // Constructors, getters, and setters...
     public Hero() {
         this.powers = new ArrayList<>();
     }
 
     public Hero(String codeName, String realName, String bio, String alignment) {
         this.codeName = codeName;
-        this.realName = realName;
+        this.realName = realName != null ? realName : ""; // Set a default value if realName is null
         this.bio = bio;
         this.alignment = alignment;
         this.powers = new ArrayList<>();
     }
-
-
     public int getHeroId() {
         return heroId;
     }
@@ -118,17 +106,6 @@ public class Hero {
     public void setAlignment(String alignment) {
         this.alignment = alignment;
     }
-    public String getPowersAsString() {
-        if (powers != null && !powers.isEmpty()) {
-            return powers.stream()
-                    .map(Powers::getDescription)
-                    .collect(Collectors.joining(", "));
-        } else {
-            return "No powers available.";
-        }
-    }
-
-
     @Override
     public String toString() {
         return "Hero{" +
@@ -140,4 +117,13 @@ public class Hero {
                 '}';
     }
 
+    public String getPowersAsString() {
+        if (powers != null && !powers.isEmpty()) {
+            return powers.stream()
+                    .map(Powers::getDescription)
+                    .collect(Collectors.joining(", "));
+        } else {
+            return "No powers available.";
+        }
+    }
 }

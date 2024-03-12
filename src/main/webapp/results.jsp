@@ -36,7 +36,7 @@
         <tbody>
         <c:forEach var="hero" items="${heroes}">
             <tr>
-                <td>${hero.codeName}</td>
+                <td><a href="wiki/${hero.codeName}.jsp">${hero.codeName}</a></td>
                 <td>${hero.getPowersAsString()}</td>
                 <td>${hero.alignment}</td>
                 <td>${hero.realName}</td>

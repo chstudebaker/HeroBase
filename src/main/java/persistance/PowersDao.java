@@ -10,8 +10,9 @@ import org.hibernate.query.Query;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+
+import java.util.Collections;
 import java.util.List;
 
 public class PowersDao {
@@ -52,9 +53,14 @@ public class PowersDao {
 
     public int insert(Powers power) {
         try (Session session = sessionFactory.openSession()) {
+            logger.debug("Attempting to insert power: {}", power);
+
             Transaction transaction = session.beginTransaction();
             session.persist(power);
             transaction.commit();
+
+            logger.debug("Power inserted successfully with ID: {}", power.getPowerID());
+
             return power.getPowerID();
         } catch (Exception e) {
             logger.error("Error inserting power", e);
@@ -79,19 +85,44 @@ public class PowersDao {
      * @return The Powers object if found, or null if not found.
      */
     public Powers getByDescription(String description) {
-        try (Session session = SessionFactoryProvider.getSessionFactory().openSession()) {
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Powers> criteriaQueryDef = builder.createQuery(Powers.class);
-            Root<Powers> root = criteriaQueryDef.from(Powers.class);
-            Predicate predicate = builder.equal(root.get("description"), description);
-            criteriaQueryDef.where(predicate);
-            Query<Powers> query = session.createQuery(criteriaQueryDef); // No explicit typing
-            return query.uniqueResult();
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<Powers> criteriaQuery = criteriaBuilder.createQuery(Powers.class);
+            Root<Powers> root = criteriaQuery.from(Powers.class);
+
+            // Use criteria to find powers with the given description
+            criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("description"), description));
+            Powers power = session.createQuery(criteriaQuery).uniqueResult();
+
+            return power;
         } catch (Exception e) {
-            logger.error("Error retrieving power by description: " + description, e);
+            // Handle exceptions (log or throw as needed)
+            e.printStackTrace();
+            return null;
+        }
+    }
+    /**
+     * Retrieve all power descriptions from the database.
+     *
+     * @return List of power descriptions.
+     */
+    public List<String> getAllDescriptions() {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<String> criteriaQuery = builder.createQuery(String.class);
+            Root<Powers> root = criteriaQuery.from(Powers.class);
+
+            // Select only the description column
+            criteriaQuery.select(root.get("description"));
+
+            Query<String> query = session.createQuery(criteriaQuery);
+            return query.getResultList();
+        } catch (Exception e) {
+            logger.error("Error retrieving all power descriptions", e);
             throw e;
         }
     }
+
 
     public List<Powers> getAll() {
         try (Session session = sessionFactory.openSession()) {

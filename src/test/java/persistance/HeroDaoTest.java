@@ -26,6 +26,9 @@ class HeroDaoTest {
     private final Logger logger = LogManager.getLogger(this.getClass());
     SessionFactory sessionFactory = SessionFactoryProvider.getSessionFactory();
 
+
+
+
     /**
      * Run set up tasks before each test:
      * 1. Execute SQL which deletes everything from the table and inserts records.
