@@ -26,6 +26,9 @@ public class Hero {
     @Column(name = "Alignment")
     private String alignment;
 
+    @Column(name = "Images")
+    private String images;
+
     @OneToMany(mappedBy = "hero", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Powers> powers;
 
@@ -64,6 +67,7 @@ public class Hero {
         this.realName = realName != null ? realName : ""; // Set a default value if realName is null
         this.bio = bio;
         this.alignment = alignment;
+        this.images = images = images != null ? images : "";;
         this.powers = new ArrayList<>();
     }
     public int getHeroId() {
@@ -105,6 +109,10 @@ public class Hero {
     public void setAlignment(String alignment) {
         this.alignment = alignment;
     }
+
+    public String getImages() {return images;}
+
+    public void setImages(String images) {this.images = images;}
     @Override
     public String toString() {
         return "Hero{" +

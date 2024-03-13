@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Hero Website</title>
+    <title>HeroBase</title>
     <link rel="stylesheet" href="css/heroBase.css">
 </head>
 <body>
@@ -35,7 +35,7 @@
         <tbody>
         <c:forEach var="hero" items="${heroList}">
             <tr>
-                <td><a href="wiki?heroId=${hero.heroId}">${hero.codeName}</a></td>
+                <td><a href="generateWiki?heroId=${hero.heroId}">${hero.codeName}</a></td>
                 <td>${hero.alignment}</td>
                 <td>${hero.realName}</td>
             </tr>
