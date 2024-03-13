@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @WebServlet("/AddPowers")
 public class AddPower extends HttpServlet {
@@ -18,8 +20,11 @@ public class AddPower extends HttpServlet {
         PowersDao powersDao = new PowersDao();
         List<String> powerDescriptions = powersDao.getAllDescriptions();
 
-        // Set power descriptions in request attributes
-        request.setAttribute("powerDescriptions", powerDescriptions);
+        // Eliminate duplicate power descriptions using a HashSet
+        Set<String> uniquePowerDescriptions = new HashSet<>(powerDescriptions);
+
+        // Set unique power descriptions in request attributes
+        request.setAttribute("powerDescriptions", uniquePowerDescriptions);
 
         // Forward the request to the JSP
         request.getRequestDispatcher("addPower.jsp").forward(request, response);
@@ -56,6 +61,4 @@ public class AddPower extends HttpServlet {
             response.sendRedirect("addPowersFailure.jsp");
         }
     }
-
-
 }
