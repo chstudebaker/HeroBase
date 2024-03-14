@@ -29,6 +29,25 @@ public class PowersDao {
             throw e;
         }
     }
+    /**
+     * Retrieve powers associated with a specific hero ID.
+     *
+     * @param heroId The ID of the hero whose powers are to be retrieved.
+     * @return A list of powers associated with the specified hero ID.
+     */
+    public List<Powers> getByHeroId(int heroId) {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Powers> criteriaQuery = builder.createQuery(Powers.class);
+            Root<Powers> root = criteriaQuery.from(Powers.class);
+            criteriaQuery.select(root).where(builder.equal(root.get("hero").get("id"), heroId));
+            Query<Powers> query = session.createQuery(criteriaQuery);
+            return query.getResultList();
+        } catch (Exception e) {
+            logger.error("Error retrieving powers by hero ID: " + heroId, e);
+            throw e;
+        }
+    }
 
 
     public Powers getById(int id) {

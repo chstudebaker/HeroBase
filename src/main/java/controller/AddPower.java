@@ -36,10 +36,12 @@ public class AddPower extends HttpServlet {
         String heroID = request.getParameter("heroID"); // Retrieve heroID from the form
         String selectedPower = request.getParameter("selectedPower"); // Retrieve selected power from the form
         String customPower = request.getParameter("customPower"); // Retrieve custom power from the form
+        String explanation = request.getParameter("explanation");
 
         // Create a new instance of Powers entity
         Powers power = new Powers();
         power.setDescription(selectedPower != null && !selectedPower.isEmpty() ? selectedPower : customPower);
+        power.setExplanation(explanation); // Set the explanation field
 
         // Set the HeroID on the Powers entity
         if (heroID != null && !heroID.isEmpty()) {

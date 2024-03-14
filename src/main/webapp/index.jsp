@@ -10,7 +10,6 @@
 <body>
 <c:import url="header.jsp" />
 <c:import url="nav.jsp" />
-
 <h1>Welcome to HeroBase</h1>
 <c:choose>
     <c:when test="${empty userName}">

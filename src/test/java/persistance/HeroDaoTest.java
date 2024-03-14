@@ -55,8 +55,8 @@ class HeroDaoTest {
     @Test
     void insertSuccess() {
         // Create an Hero with a Power
-        Hero hero = new Hero("Crushstone", "Brock Pebble", "placeholder bio", "good");
-        Powers power = new Powers("stone skin", hero);
+        Hero hero = new Hero("Crushstone", "Brock Pebble", "placeholder bio", "good", "test", "test");
+        Powers power = new Powers("stone skin","test", hero);
 
         // Set Powers to Hero
         hero.setPowers(Collections.singletonList(power));

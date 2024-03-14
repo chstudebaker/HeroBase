@@ -7,12 +7,13 @@
 <body>
 <c:import url="header.jsp" />
 <c:import url="nav.jsp" />
+
 <h2>Add New Hero</h2>
 
 <form action="AddHero" method="post">
     <!-- Hero Name -->
-    <label for="heroName">Hero Name:</label>
-    <input type="text" id="heroName" name="heroName" required><br>
+    <label for="codeName">Hero Name:</label>
+    <input type="text" id="codeName" name="codeName" required><br>
 
     <!-- Real Name -->
     <label for="realName">Real Name:</label>
@@ -31,15 +32,14 @@
         <option value="Other">Other</option>
     </select><br>
 
-    <!-- Add Power Button -->
-    <label for="powerPopup">Add Powers</label>
-    <input type="checkbox" id="powerPopup" style="display: none;">
-    <div id="powerList" style="max-height: 200px; overflow-y: scroll;">
-        <!-- Populate with checkbox list dynamically -->
-        <c:forEach var="power" items="${powersList}">
-            <input type="checkbox" name="powers" value="${power.description}">${power.description}<br>
-        </c:forEach>
-    </div>
+    <!-- descriptions -->
+    <label for="descriptions">Descriptions:</label>
+    <textarea id="descriptions" name="descriptions" rows="4" cols="50"></textarea><br>
+
+    <!-- personality -->
+    <label for="personality">Bio:</label>
+    <textarea id="personality" name="personality" rows="4" cols="50"></textarea><br>
+
     <!-- Submit Button -->
     <input type="submit" value="Add Hero">
 

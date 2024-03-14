@@ -42,7 +42,7 @@ class PowerDaoTest {
         Hero hero;
         hero = heroDao.getById(1);
         // Insert a new Powers entity
-        Powers power = new Powers("Fire Manipulation", hero);
+        Powers power = new Powers("Fire Manipulation", "test", hero);
         int insertedPowerId = dao.insert(power);
 
         // Retrieve the inserted Powers entity
@@ -69,10 +69,10 @@ class PowerDaoTest {
     void getByIdSuccess() {
         System.out.println("Starting getByIdSuccess test...");
 
-        Hero hero = new Hero("Windchild", "Lance Talon", "bio", "Good");
+        Hero hero = new Hero("Windchild", "Lance Talon", "bio", "Good", "test", "test");
         heroDao.insert(hero);
 
-        Powers powers = new Powers("Windchild", hero);
+        Powers powers = new Powers("Windchild", "test", hero);
         dao.insert(powers);
 
         // Check if heroDao and dao are not null
@@ -124,10 +124,10 @@ class PowerDaoTest {
     void deleteSuccess() {
         System.out.println("Starting deleteSuccess test...");
 
-        Hero hero = new Hero("TestHero", "TestRealName", "testBio", "testAlignment");
+        Hero hero = new Hero("TestHero", "TestRealName", "testBio", "testAlignment", "test", "test");
         heroDao.insert(hero);
 
-        Powers powersToDelete = new Powers("TestDescription", hero);
+        Powers powersToDelete = new Powers("TestDescription", "test", hero);
         dao.insert(powersToDelete);
 
         dao.delete(powersToDelete);
@@ -150,7 +150,7 @@ class PowerDaoTest {
         Hero hero;
         hero = heroDao.getById(1);
         // Create a new Powers instance
-        Powers power = new Powers("Telekinesis", hero);
+        Powers power = new Powers("Telekinesis", "test", hero);
 
         // Insert the power
         int insertedPowerId = dao.insert(power);
@@ -168,11 +168,11 @@ class PowerDaoTest {
     @Test
     void deleteHeroWithPowersSuccess() {
         // Create a test Hero
-        Hero testHero = new Hero("TestHero", "TestRealName", "testBio", "testAlignment");
+        Hero testHero = new Hero("TestHero", "TestRealName", "testBio", "testAlignment", "test", "test");
         heroDao.insert(testHero);
 
         // Create a test Power associated with the test Hero
-        Powers testPower = new Powers("TestDescription", testHero);
+        Powers testPower = new Powers("TestDescription", "test", testHero);
         dao.insert(testPower);
 
         // Retrieve the associated Powers before deletion
@@ -193,11 +193,11 @@ class PowerDaoTest {
     @Test
     void deletePowersWithHeroSuccess() {
         // Create a test Hero
-        Hero testHero = new Hero("TestHero", "TestRealName", "testBio", "testAlignment");
+        Hero testHero = new Hero("TestHero", "TestRealName", "testBio", "testAlignment", "test", "test");
         heroDao.insert(testHero);
 
         // Create a test Power associated with the test Hero
-        Powers testPower = new Powers("TestDescription", testHero);
+        Powers testPower = new Powers("TestDescription", "test", testHero);
         dao.insert(testPower);
 
         // Retrieve the associated Hero before deletion

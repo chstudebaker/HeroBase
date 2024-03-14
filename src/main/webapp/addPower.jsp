@@ -16,6 +16,10 @@
     <input type="text" id="heroID" name="heroID" value="${param.heroId}" required>
     <br>
 
+    <label for="explanation">Explanation of power:</label>
+    <input type="text" id="explanation" name="explanation">
+    <br>
+
     <!-- Powers (Radio Buttons) -->
     <label>Powers:</label><br>
     <c:forEach var="power" items="${powerDescriptions}">

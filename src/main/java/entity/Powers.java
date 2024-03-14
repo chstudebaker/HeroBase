@@ -14,6 +14,9 @@ public class Powers {
     @Column(name = "Description", nullable = false)
     private String description;
 
+    @Column(name = "Explanation")
+    private String explanation;
+
     @ManyToOne
     @JoinColumn(name = "HeroID")
     private Hero hero;
@@ -23,8 +26,9 @@ public class Powers {
     public Powers() {
     }
 
-    public Powers(String description, Hero hero) {
+    public Powers(String description, String explanation, Hero hero) {
         this.description = description;
+        this.explanation = explanation;
         this.hero = hero;
     }
 
@@ -42,6 +46,13 @@ public class Powers {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    public String getExplanation() {
+        return explanation;
+    }
+
+    public void setExplanation(String explanation) {
+        this.explanation = explanation;
     }
 
     public Hero getHero() {

@@ -27,20 +27,18 @@
         <thead>
         <tr>
             <th>Code Name</th>
-            <th>Powers</th>
-            <th>Alignment</th>
             <th>Real Name</th>
-            <th>Bio</th>
+            <th>Alignment</th>
+            <th>Powers</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach var="hero" items="${heroes}">
             <tr>
-                <td><a href="wiki/${hero.codeName}.jsp">${hero.codeName}</a></td>
-                <td>${hero.getPowersAsString()}</td>
-                <td>${hero.alignment}</td>
+                <td><a href="generateWiki?heroId=${hero.heroId}">${hero.codeName}</a></td>
                 <td>${hero.realName}</td>
-                <td>${hero.bio}</td>
+                <td>${hero.alignment}</td>
+                <td>${hero.getPowersAsString()}</td>
             </tr>
         </c:forEach>
         </tbody>

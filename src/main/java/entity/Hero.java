@@ -29,6 +29,13 @@ public class Hero {
     @Column(name = "Images")
     private String images;
 
+    @Column(name = "Descriptions")
+    private String descriptions;
+
+    @Column(name = "Personality")
+    private String personality;
+
+
     @OneToMany(mappedBy = "hero", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Powers> powers;
 
@@ -62,11 +69,13 @@ public class Hero {
         this.powers = new ArrayList<>();
     }
 
-    public Hero(String codeName, String realName, String bio, String alignment) {
+    public Hero(String codeName, String realName, String bio, String alignment, String descriptions, String personality) {
         this.codeName = codeName;
         this.realName = realName != null ? realName : ""; // Set a default value if realName is null
         this.bio = bio;
         this.alignment = alignment;
+        this.descriptions = descriptions;
+        this.personality = personality;
         this.images = images = images != null ? images : "";;
         this.powers = new ArrayList<>();
     }
@@ -100,6 +109,20 @@ public class Hero {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+    public String getDescriptions() {
+        return descriptions;
+    }
+
+    public void setDescriptions(String descriptions) {
+        this.descriptions = descriptions;
+    }
+    public String getPersonality() {
+        return personality;
+    }
+
+    public void setPersonality(String personality) {
+        this.personality = personality;
     }
 
     public String getAlignment() {

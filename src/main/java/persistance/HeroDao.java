@@ -59,14 +59,15 @@ public class HeroDao {
         }
     }
 
-    public void update(Hero hero) {
+    public boolean update(Hero hero) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             session.merge(hero);
             transaction.commit();
+            return true; // If the update operation succeeds
         } catch (Exception e) {
             logger.error("Error updating hero", e);
-            throw e;
+            return false; // If an error occurs during the update operation
         }
     }
 
