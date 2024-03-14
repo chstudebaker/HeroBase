@@ -7,37 +7,6 @@
     <title>Hero Wiki</title>
     <link rel="stylesheet" href="css/heroBase.css">
     <link rel="stylesheet" href="css/infobox.css">
-    <style>
-        .container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .hero-info {
-            display: flex;
-            flex-direction: row;
-            align-items: flex-start;
-            margin-bottom: 20px;
-        }
-
-        .hero-bio {
-            flex: 1 1 70%;
-            margin-right: 20px; /* Adjust as needed */
-        }
-
-        .infobox {
-            flex: 0 0 30%;
-            align-self: flex-start;
-        }
-
-        .whitespace {
-            flex: 1 1 auto;
-        }
-
-        .power {
-            margin-bottom: 10px;
-        }
-    </style>
 </head>
 <body>
 <c:import url="header.jsp" />
@@ -67,18 +36,20 @@
         </div>
         <div class="infobox">
             <img src="${hero.images}" alt="Hero Image">
-            <div class="info">
-                <h2>Hero Details</h2>
-                <c:choose>
-                    <c:when test="${empty hero}">
-                        <p>No hero information found.</p>
-                    </c:when>
-                    <c:otherwise>
-                        <p><strong>Real Name:</strong> ${hero.realName}</p>
-                        <p><strong>Alignment:</strong> ${hero.alignment}</p>
-                    </c:otherwise>
-                </c:choose>
-            </div>
+            <table class="info-table">
+                <tr>
+                    <th>Attribute</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Real Name:</td>
+                    <td>${hero.realName}</td>
+                </tr>
+                <tr>
+                    <td>Alignment:</td>
+                    <td>${hero.alignment}</td>
+                </tr>
+            </table>
         </div>
     </div>
     <div class="whitespace"></div>

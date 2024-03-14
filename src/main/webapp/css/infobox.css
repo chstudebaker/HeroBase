@@ -1,26 +1,88 @@
-.infobox {
+.container {
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    flex-direction: column;
+}
+
+.hero-info {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
     margin-bottom: 20px;
 }
 
+.hero-bio {
+    flex: 1 1 70%;
+    margin-right: 20px; /* Adjust as needed */
+}
+
+.infobox {
+    flex: 0 0 25%; /* Reduce the width of the infobox */
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid black; /* Add dual line border */
+    padding: 10px; /* Add padding to create space around the content */
+    margin: 0 10px; /* Add margin to create space between infobox and hero-bio */
+}
+
+/* Infobox */
+.container .hero-info .infobox{
+    padding-right:0px;
+    transform:translatex(42px) translatey(23px);
+    width:42% !important;
+    margin-right:0px;
+    margin-left:1px;
+    padding-left:0px;
+    margin-bottom:143px;
+    min-height:4px;
+    height:437px;
+    min-width:16px;
+    max-width:209px;
+}
+
+/* Image */
+.hero-info .infobox img{
+    padding-bottom:0px;
+    width:150px;
+    height:150px;
+}
+
+
 .infobox img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-left: 20px;
+    width: 100px; /* Adjust width as needed */
+    height: 100px; /* Adjust height as needed */
+    margin-bottom: 10px; /* Add margin to separate the image from the table */
 }
 
-.infobox .info {
-    margin-right: 20px;
+.info-table {
+    width: 100%; /* Make the table fill the container */
+    border-collapse: collapse; /* Collapse the borders of the table */
 }
 
-.infobox h2 {
-    margin-top: 0;
-    font-size: 24px;
+.info-table th,
+.info-table td {
+    border: 1px solid black; /* Add border to table cells */
+    padding: 8px; /* Add padding to table cells */
+    text-align: center; /* Center-align text in table cells */
 }
 
-.infobox p {
-    margin: 5px 0;
+.info-table th {
+    background-color: lightgray; /* Add background color to header row */
+}
+
+.info-table tr:nth-child(even) {
+    background-color: #f2f2f2; /* Add background color to even rows */
+}
+
+.info-table tr:nth-child(odd) {
+    background-color: white; /* Add background color to odd rows */
+}
+
+.whitespace {
+    flex: 1 1 auto;
+}
+
+.power {
+    margin-bottom: 10px;
 }

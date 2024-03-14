@@ -4,6 +4,19 @@ body, h1, h2, h3, p, ul, li {
     padding: 0;
 }
 
+/* List Item */
+.power ul li{
+    transform:translatex(0px) translatey(0px);
+    position:relative;
+    left:22px;
+    z-index:26;
+}
+
+/* List Item */
+.container .hero-info .hero-bio .power ul li{
+    width:77% !important;
+}
+
 /* Set the default font and background color */
 body {
     font-family: 'Arial', sans-serif;

@@ -20,11 +20,14 @@
     <input type="text" id="explanation" name="explanation">
     <br>
 
-    <!-- Powers (Radio Buttons) -->
+    <!-- Powers (Scrollable List) -->
     <label>Powers:</label><br>
-    <c:forEach var="power" items="${powerDescriptions}">
-    <input type="radio" name="selectedPower" value="${power}">${power}<br>
-    </c:forEach><br>
+    <div style="height: 150px; overflow-y: auto;">
+        <c:forEach var="power" items="${powerDescriptions}">
+            <input type="radio" name="selectedPower" value="${power}">${power}<br>
+        </c:forEach>
+    </div>
+    <br>
 
     <!-- Add Power Form Redirect -->
     <label for="addPowerRedirect">Add New Power:</label>
@@ -34,5 +37,6 @@
     <!-- Submit Button -->
     <input type="submit" value="Add Power">
 
+</form>
 </body>
 </html>

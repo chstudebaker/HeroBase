@@ -35,7 +35,7 @@
         <tbody>
         <c:forEach var="hero" items="${heroes}">
             <tr>
-                <td><a href="generateWiki?heroId=${hero.heroId}">${hero.codeName}</a></td>
+                <td><img class="hero-icon" src="${hero.images}" alt="Hero Icon">   <a href="generateWiki?heroId=${hero.heroId}">${hero.codeName}</a></td>
                 <td>${hero.realName}</td>
                 <td>${hero.alignment}</td>
                 <td>${hero.getPowersAsString()}</td>
