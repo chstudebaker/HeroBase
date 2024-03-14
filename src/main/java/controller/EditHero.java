@@ -42,6 +42,7 @@ public class EditHero extends HttpServlet {
         // Forward the request to editHero.jsp
         request.getRequestDispatcher("editHero.jsp").forward(request, response);
     }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve form data
         String heroIDParam = request.getParameter("heroId");
@@ -51,6 +52,7 @@ public class EditHero extends HttpServlet {
         String alignment = request.getParameter("alignment");
         String descriptions = request.getParameter("descriptions");
         String personality = request.getParameter("personality");
+        String image = request.getParameter("image");
 
         // Validate that heroID is not empty
         if (heroIDParam == null || heroIDParam.isEmpty()) {
@@ -71,6 +73,7 @@ public class EditHero extends HttpServlet {
         updatedHero.setAlignment(alignment);
         updatedHero.setDescriptions(descriptions);
         updatedHero.setPersonality(personality);
+        updatedHero.setImages(image);
 
         // Update the hero in the database
         HeroDao heroDao = new HeroDao();

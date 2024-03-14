@@ -90,7 +90,22 @@ public class HeroDao {
         }
         return id;
     }
-
+    public String getImagePath(int heroId) {
+        try (Session session = sessionFactory.openSession()) {
+            // Retrieve the hero by ID
+            Hero hero = session.get(Hero.class, heroId);
+            if (hero != null) {
+                // Return the image path of the hero
+                return hero.getImages();
+            } else {
+                logger.warn("Hero with ID " + heroId + " not found.");
+                return null;
+            }
+        } catch (Exception e) {
+            logger.error("Error retrieving image path for hero with ID: " + heroId, e);
+            throw e;
+        }
+    }
     public void delete(Hero hero) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();

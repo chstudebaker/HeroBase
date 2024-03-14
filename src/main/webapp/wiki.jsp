@@ -59,7 +59,9 @@
             <c:forEach var="power" items="${powers}">
                 <div class="power">
                     <h3>${power.description}</h3>
-                    <p>${power.explanation}</p>
+                    <ul>
+                        <li>${power.explanation}</li>
+                    </ul>
                 </div>
             </c:forEach>
         </div>

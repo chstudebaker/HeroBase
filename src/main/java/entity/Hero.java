@@ -69,14 +69,14 @@ public class Hero {
         this.powers = new ArrayList<>();
     }
 
-    public Hero(String codeName, String realName, String bio, String alignment, String descriptions, String personality) {
+    public Hero(String codeName, String realName, String bio, String alignment, String descriptions, String personality, String images) {
         this.codeName = codeName;
         this.realName = realName != null ? realName : ""; // Set a default value if realName is null
         this.bio = bio;
         this.alignment = alignment;
         this.descriptions = descriptions;
         this.personality = personality;
-        this.images = images = images != null ? images : "";;
+        this.images = images != null ? images : "";;
         this.powers = new ArrayList<>();
     }
     public int getHeroId() {

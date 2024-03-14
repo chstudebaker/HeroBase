@@ -23,11 +23,12 @@ public class AddHero extends HttpServlet {
         String alignment = request.getParameter("alignment");
         String descriptions = request.getParameter("descriptions");
         String personality = request.getParameter("personality");
+        String image = request.getParameter("image");
         // Assuming you have a HeroDao for database operations
         HeroDao heroDao = new HeroDao();
 
         // Create a Hero object
-        Hero hero = new Hero(heroName, realName, bio, alignment, descriptions, personality);
+        Hero hero = new Hero(heroName, realName, bio, alignment, descriptions, personality, image);
 
         // Insert the hero into the database
         int insertedHeroId = heroDao.insert(hero);

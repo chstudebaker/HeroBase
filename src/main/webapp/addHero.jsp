@@ -40,9 +40,14 @@
     <label for="personality">Bio:</label>
     <textarea id="personality" name="personality" rows="4" cols="50"></textarea><br>
 
+    <!-- Image Name -->
+    <label for="image">Image Name:</label>
+    <input type="text" id="image" name="imageName" value="images/" required><br>
+
     <!-- Submit Button -->
     <input type="submit" value="Add Hero">
-
 </form>
+
+
 </body>
 </html>
