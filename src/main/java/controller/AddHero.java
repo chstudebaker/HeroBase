@@ -17,7 +17,7 @@ public class AddHero extends HttpServlet {
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve form data
-        String heroName = request.getParameter("heroName");
+        String codeName = request.getParameter("codeName");
         String realName = request.getParameter("realName");
         String bio = request.getParameter("bio");
         String alignment = request.getParameter("alignment");
@@ -28,7 +28,7 @@ public class AddHero extends HttpServlet {
         HeroDao heroDao = new HeroDao();
 
         // Create a Hero object
-        Hero hero = new Hero(heroName, realName, bio, alignment, descriptions, personality, image);
+        Hero hero = new Hero(codeName, realName, bio, alignment, descriptions, personality, image);
 
         // Insert the hero into the database
         int insertedHeroId = heroDao.insert(hero);

@@ -11,6 +11,7 @@
 <body>
 <c:import url="header.jsp" />
 <c:import url="nav.jsp" />
+<a href="editHero?heroID=${hero.heroId}" class="btn btn-primary edit-button">Edit</a>
 <div class="container">
     <div class="hero-info">
         <div class="hero-bio">
@@ -54,7 +55,5 @@
     </div>
     <div class="whitespace"></div>
 </div>
-<!-- Add an "Edit" button with the hero ID included in the URL -->
-<a href="editHero?heroID=${hero.heroId}" class="btn btn-primary">Edit</a>
 </body>
 </html>

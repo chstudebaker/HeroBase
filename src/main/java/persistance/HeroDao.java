@@ -90,6 +90,35 @@ public class HeroDao {
         }
         return id;
     }
+
+    public boolean deleteHeroAndPowersById(int heroId) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            // Retrieve the hero by ID
+            Hero hero = session.get(Hero.class, heroId);
+
+            if (hero != null) {
+                // Delete the associated powers
+                for (Powers power : hero.getPowers()) {
+                    session.delete(power);
+                }
+
+                // Then delete the hero
+                session.delete(hero);
+
+                transaction.commit();
+                return true; // Return true if deletion is successful
+            } else {
+                // If the hero with the given ID is not found, return false
+                return false;
+            }
+        } catch (Exception e) {
+            logger.error("Error deleting hero and powers by ID: " + heroId, e);
+            return false; // Return false if an error occurs during deletion
+        }
+    }
+
     public String getImagePath(int heroId) {
         try (Session session = sessionFactory.openSession()) {
             // Retrieve the hero by ID

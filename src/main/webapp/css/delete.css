@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    text-align: center;
+}
+
+.container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.button-wrapper a {
+    display: inline-block;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.button-wrapper .yes {
+    background-color: #ff0000; /* Red color for Yes button */
+    color: #fff;
+}
+
+.button-wrapper .no {
+    background-color: #00ff00; /* Green color for No button */
+    color: #fff;
+}
