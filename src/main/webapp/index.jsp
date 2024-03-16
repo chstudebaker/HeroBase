@@ -45,7 +45,7 @@
                 <td>${hero.realName}</td>
                 <td>
                     <div class="delete-wrapper">
-                        <a href="delete.jsp?heroId=${hero.heroId}">
+                        <a href="deleteHero.jsp?heroId=${hero.heroId}">
                             <img class="trash-icon" src="images/trash.png" alt="Trash Can Icon">
                         </a>
                     </div>

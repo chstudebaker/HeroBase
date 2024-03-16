@@ -59,13 +59,18 @@ public class PowersDao {
         }
     }
 
-    public void update(Powers power) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        session.merge(power);
-        transaction.commit();
-        session.close();
+    public boolean update(Powers power) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.merge(power);
+            transaction.commit();
+            return true; // If the update operation succeeds
+        } catch (Exception e) {
+            logger.error("Error updating power", e);
+            return false; // If an error occurs during the update operation
+        }
     }
+
 
     public int insert(Powers power) {
         try (Session session = sessionFactory.openSession()) {

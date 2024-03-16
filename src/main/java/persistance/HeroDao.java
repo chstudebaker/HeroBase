@@ -1,5 +1,6 @@
 package persistance;
 
+import entity.Equipment;
 import entity.Hero;
 import entity.Powers;
 import org.apache.logging.log4j.LogManager;
@@ -9,6 +10,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import jakarta.persistence.TypedQuery;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -75,12 +77,6 @@ public class HeroDao {
         int id = 0;
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-
-            // Ensure associated powers are set on the hero before persisting
-            for (Powers power : hero.getPowers()) {
-                session.persist(power);  // Explicitly persist each power
-            }
-
             session.persist(hero);
             transaction.commit();
             id = hero.getHeroId();
@@ -91,64 +87,19 @@ public class HeroDao {
         return id;
     }
 
-    public boolean deleteHeroAndPowersById(int heroId) {
+
+    public boolean delete(Hero hero) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
 
-            // Retrieve the hero by ID
-            Hero hero = session.get(Hero.class, heroId);
-
-            if (hero != null) {
-                // Delete the associated powers
-                for (Powers power : hero.getPowers()) {
-                    session.delete(power);
-                }
-
-                // Then delete the hero
-                session.delete(hero);
-
-                transaction.commit();
-                return true; // Return true if deletion is successful
-            } else {
-                // If the hero with the given ID is not found, return false
-                return false;
-            }
-        } catch (Exception e) {
-            logger.error("Error deleting hero and powers by ID: " + heroId, e);
-            return false; // Return false if an error occurs during deletion
-        }
-    }
-
-    public String getImagePath(int heroId) {
-        try (Session session = sessionFactory.openSession()) {
-            // Retrieve the hero by ID
-            Hero hero = session.get(Hero.class, heroId);
-            if (hero != null) {
-                // Return the image path of the hero
-                return hero.getImages();
-            } else {
-                logger.warn("Hero with ID " + heroId + " not found.");
-                return null;
-            }
-        } catch (Exception e) {
-            logger.error("Error retrieving image path for hero with ID: " + heroId, e);
-            throw e;
-        }
-    }
-    public void delete(Hero hero) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-
-            // Make sure the hero is attached to the session
-            Hero attachedHero = session.get(Hero.class, hero.getHeroId());
-
-            // Delete the hero and its associated powers
-            session.delete(attachedHero);
+            // Delete the hero and its associated powers (due to cascading delete)
+            session.delete(hero);
 
             transaction.commit();
-        } catch (Exception e) {
+            return true; // Return true if deletion is successful
+        } catch (HibernateException e) {
             logger.error("Error deleting hero and associated powers", e);
-            throw e;
+            return false; // Return false if an error occurs during deletion
         }
     }
 

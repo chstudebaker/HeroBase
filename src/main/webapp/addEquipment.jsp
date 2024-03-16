@@ -1,0 +1,24 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Add Equipment</title>
+    <link rel="stylesheet" href="css/heroBase.css">
+</head>
+<body>
+<c:import url="header.jsp" />
+<c:import url="nav.jsp" />
+<h2>Add Equipment</h2>
+<form action="AddEntity?type=equipment" method="post">
+    <label for="heroID">Hero ID:</label>
+    <input type="text" id="heroID" name="heroID" value="${param.heroId}" required>
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" required><br>
+    <label for="description">Description:</label><br>
+    <textarea id="description" name="description" required></textarea><br>
+    <input type="submit" value="Add Equipment">
+
+</form>
+</body>
+</html>

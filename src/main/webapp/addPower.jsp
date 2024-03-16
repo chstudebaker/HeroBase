@@ -10,7 +10,7 @@
 <c:import url="nav.jsp" />
 <h2>Add Powers to Hero</h2>
 
-<form action="AddPowers" method="post">
+<form action="AddEntity?type=power" method="post">
 
     <label for="heroID">Hero ID:</label>
     <input type="text" id="heroID" name="heroID" value="${param.heroId}" required>

@@ -13,7 +13,7 @@
 <div class="container">
   <h2>Are you sure you want to delete?</h2>
   <div class="button-wrapper">
-    <a href="DeleteHero?heroId=${param.heroId}" class="yes">Yes</a>
+    <a href="DeleteEntity?heroId=${param.heroId}" class="yes">Yes</a>
     <a href="heroList" class="no">No</a>
   </div>
 </div>

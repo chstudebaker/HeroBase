@@ -12,9 +12,9 @@
 <body>
 <c:import url="header.jsp" />
 <c:import url="nav.jsp" />
-<h1>Error Adding Hero</h1>
+<h1>Error Adding Item</h1>
 
-<form action="AddHero" method="get">
+<form action="AddEntity?type=hero" method="get">
     <button type="submit">Return to Add Hero Form</button>
 </form>
 </body>

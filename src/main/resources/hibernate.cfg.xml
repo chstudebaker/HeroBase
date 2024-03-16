@@ -19,6 +19,7 @@
         <!-- Add the mapping class element -->
         <mapping class="entity.Hero"/>
         <mapping class="entity.Powers"/>
+        <mapping class="entity.Equipment"/>
 
 
     </session-factory>

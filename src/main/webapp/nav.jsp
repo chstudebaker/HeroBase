@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/heroBase.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -36,10 +37,8 @@
 <nav>
     <a href="${pageContext.request.contextPath}/">Home</a>
     <a href="${pageContext.request.contextPath}/results.jsp">Search</a>
-    <a href="${pageContext.request.contextPath}/AddHero">Add Hero</a>
-    <a href="${pageContext.request.contextPath}/AddPowers">Add Power</a>
+    <a href="${pageContext.request.contextPath}/AddEntity?type=hero">Add Hero</a>
     <a href="${pageContext.request.contextPath}/logIn">Log In</a>
-
 </nav>
 
 </body>

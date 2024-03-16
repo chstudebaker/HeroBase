@@ -35,50 +35,31 @@ public class Hero {
     @Column(name = "Personality")
     private String personality;
 
-
     @OneToMany(mappedBy = "hero", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Powers> powers;
 
-    public void addPower(Powers power) {
-        if (powers == null) {
-            powers = new ArrayList<>();
-        } else {
-            // Remove existing powers before adding the new one
-            powers.clear();
-        }
-        powers.add(power);
-        power.setHero(this);
-    }
-
-    public void removePower(Powers power) {
-        if (powers != null) {
-            powers.remove(power);
-            power.setHero(null);
-        }
-    }
-
-    public List<Powers> getPowers() {
-        return powers;
-    }
-
-    public void setPowers(List<Powers> powers) {
-        this.powers = powers;
-    }
+    @OneToMany(mappedBy = "hero", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Equipment> equipment;
 
     public Hero() {
         this.powers = new ArrayList<>();
+        this.equipment = new ArrayList<>();
     }
 
-    public Hero(String codeName, String realName, String bio, String alignment, String descriptions, String personality, String images) {
+    public Hero(String codeName, String realName, String bio, String alignment, String images, String descriptions, String personality) {
         this.codeName = codeName;
-        this.realName = realName != null ? realName : ""; // Set a default value if realName is null
+        this.realName = realName;
         this.bio = bio;
         this.alignment = alignment;
+        this.images = images;
         this.descriptions = descriptions;
         this.personality = personality;
-        this.images = images != null ? images : "";;
         this.powers = new ArrayList<>();
+        this.equipment = new ArrayList<>();
     }
+
+    // Getters and setters for other fields
+
     public int getHeroId() {
         return heroId;
     }
@@ -110,20 +91,6 @@ public class Hero {
     public void setBio(String bio) {
         this.bio = bio;
     }
-    public String getDescriptions() {
-        return descriptions;
-    }
-
-    public void setDescriptions(String descriptions) {
-        this.descriptions = descriptions;
-    }
-    public String getPersonality() {
-        return personality;
-    }
-
-    public void setPersonality(String personality) {
-        this.personality = personality;
-    }
 
     public String getAlignment() {
         return alignment;
@@ -133,17 +100,59 @@ public class Hero {
         this.alignment = alignment;
     }
 
-    public String getImages() {return images;}
+    public String getImages() {
+        return images;
+    }
 
-    public void setImages(String images) {this.images = images;}
+    public void setImages(String images) {
+        this.images = images;
+    }
+
+    public String getDescriptions() {
+        return descriptions;
+    }
+
+    public void setDescriptions(String descriptions) {
+        this.descriptions = descriptions;
+    }
+
+    public String getPersonality() {
+        return personality;
+    }
+
+    public void setPersonality(String personality) {
+        this.personality = personality;
+    }
+
+    public List<Powers> getPowers() {
+        return powers;
+    }
+
+    public void setPowers(List<Powers> powers) {
+        this.powers = powers;
+    }
+
+    public List<Equipment> getEquipment() {
+        return equipment;
+    }
+
+    public void setEquipment(List<Equipment> equipment) {
+        this.equipment = equipment;
+    }
+
     @Override
     public String toString() {
         return "Hero{" +
-                "id=" + heroId +
+                "heroId=" + heroId +
                 ", codeName='" + codeName + '\'' +
                 ", realName='" + realName + '\'' +
                 ", bio='" + bio + '\'' +
                 ", alignment='" + alignment + '\'' +
+                ", images='" + images + '\'' +
+                ", descriptions='" + descriptions + '\'' +
+                ", personality='" + personality + '\'' +
+                ", powers=" + powers +
+                ", equipment=" + equipment +
                 '}';
     }
 

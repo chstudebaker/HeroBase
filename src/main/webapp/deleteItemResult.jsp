@@ -4,23 +4,16 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Add Powers Result</title>
+    <title>Delete Item Result</title>
     <link rel="stylesheet" href="css/heroBase.css">
 </head>
 <body>
 <c:import url="header.jsp" />
 <c:import url="nav.jsp" />
-<h1>Power Addition Failed</h1>
-<p>Failed to add the power. Please try again.</p>
-<form action="AddHero" method="get">
-    <input type="submit" value="Add Another Hero">
-</form>
-<form action="AddPowers" method="get">
-    <input type="submit" value="Add Another Power">
-</form>
+<h1>Delete Successful</h1>
+<p>The item was successfully deleted.</p>
 <form action="${pageContext.request.contextPath}/" method="get">
     <input type="submit" value="Return Home">
 </form>
 </body>
 </html>
-

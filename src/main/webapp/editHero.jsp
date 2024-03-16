@@ -10,7 +10,7 @@
 
 <h2>Edit Hero</h2>
 
-<form action="editHero" method="post">
+<form action="EditEntity?type=hero" method="post">
     <!-- Hidden input field for heroID -->
     <input type="hidden" id="heroId" name="heroId" value="${hero.heroId}">
 

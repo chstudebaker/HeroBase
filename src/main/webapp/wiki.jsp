@@ -7,11 +7,53 @@
     <title>Hero Wiki</title>
     <link rel="stylesheet" href="css/heroBase.css">
     <link rel="stylesheet" href="css/infobox.css">
+    <style>
+        .edit-delete-buttons {
+            display: flex;
+        }
+
+        .power .edit-delete-buttons {
+            display: none;
+        }
+
+        .power:hover .edit-delete-buttons {
+            display: flex;
+        }
+
+        .edit-delete-buttons a {
+            margin-right: 5px;
+        }
+
+
+        .edit-button-hero {
+            position: fixed;
+            top: 60px; /* Adjust as needed depending on your nav bar height */
+            left: 10px;
+            z-index: 1000; /* Ensure it stays above other elements */
+        }
+
+
+        .edit-button {
+            background-color: #3498db; /* Blue color */
+            color: white;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .delete-button {
+            background-color: #e74c3c; /* Red color */
+            color: white;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
 <c:import url="header.jsp" />
 <c:import url="nav.jsp" />
-<a href="editHero?heroID=${hero.heroId}" class="btn btn-primary edit-button">Edit</a>
+<a href="EditEntity?type=hero&heroID=${hero.heroId}" class="btn btn-primary edit-button-hero">Edit</a>
 <div class="container">
     <div class="hero-info">
         <div class="hero-bio">
@@ -32,6 +74,25 @@
                     <ul>
                         <li>${power.explanation}</li>
                     </ul>
+                    <div class="edit-delete-buttons">
+                        <a href="EditEntity?type=power&powerID=${power.powerID}" class="edit-button">Edit</a>
+                        <a href="DeleteEntity?type=power&powerID=${power.powerID}" class="delete-button">Delete</a>
+                    </div>
+                </div>
+            </c:forEach>
+            <hr>
+            <hr>
+            <h2>Equipment:</h2>
+            <c:forEach var="equipment" items="${equipment}">
+                <div class="power">
+                    <h3>${equipment.name}</h3>
+                    <ul>
+                        <li>${equipment.description}</li>
+                    </ul>
+                    <div class="edit-delete-buttons">
+                        <a href="EditEntity?type=equipment&equipmentID=${equipment.equipmentId}" class="edit-button">Edit</a>
+                        <a href="DeleteEntity?type=equipment&equipmentID=${equipment.equipmentId}" class="delete-button">Delete</a>
+                    </div>
                 </div>
             </c:forEach>
         </div>

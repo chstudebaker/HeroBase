@@ -10,9 +10,9 @@
 
 <h2>Add New Hero</h2>
 
-<form action="AddHero" method="post">
+<form action="AddEntity?type=hero" method="post">
     <!-- Hero Name -->
-    <label for="codeName">Hero Name:</label>
+    <label for="codeName">Code Name:</label>
     <input type="text" id="codeName" name="codeName" required><br>
 
     <!-- Real Name -->
@@ -37,7 +37,7 @@
     <textarea id="descriptions" name="descriptions" rows="4" cols="50"></textarea><br>
 
     <!-- personality -->
-    <label for="personality">Bio:</label>
+    <label for="personality">Personality:</label>
     <textarea id="personality" name="personality" rows="4" cols="50"></textarea><br>
 
     <!-- Image Name -->
