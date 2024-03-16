@@ -17,6 +17,8 @@
     <input type="text" id="name" name="name" required><br>
     <label for="description">Description:</label><br>
     <textarea id="description" name="description" required></textarea><br>
+    <label for="images">images Name:</label>
+    <input type="text" id="images" name="images" value="images/" required><br>
     <input type="submit" value="Add Equipment">
 
 </form>

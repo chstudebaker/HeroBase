@@ -40,9 +40,9 @@
     <label for="personality">Personality:</label>
     <textarea id="personality" name="personality" rows="4" cols="50"></textarea><br>
 
-    <!-- Image Name -->
-    <label for="image">Image Name:</label>
-    <input type="text" id="image" name="imageName" value="images/" required><br>
+    <!-- images Name -->
+    <label for="images">images Name:</label>
+    <input type="text" id="images" name="images" value="images/" required><br>
 
     <!-- Submit Button -->
     <input type="submit" value="Add Hero">

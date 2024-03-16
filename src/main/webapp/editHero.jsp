@@ -43,9 +43,9 @@
     <label for="personality">Personality:</label>
     <textarea id="personality" name="personality" rows="4" cols="50">${hero.personality}</textarea><br>
 
-    <!-- Image Name -->
-    <label for="image">Image Name:</label>
-    <input type="text" id="image" name="image" value="${hero.images}" required><br>
+    <!-- images Name -->
+    <label for="images">images Name:</label>
+    <input type="text" id="images" name="images" value="${hero.images}" required><br>
 
     <!-- Submit Button -->
     <input type="submit" value="Update Hero">

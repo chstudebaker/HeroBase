@@ -13,20 +13,23 @@
 <c:if test="${success}">
     <h1>Addition Successful</h1>
     <p>The item was successfully added.</p>
+    <form action="generateWiki" method="get">
+        <input type="hidden" name="heroId" value="${addedItemId}">
+        <input type="submit" value="Return to Wiki">
     <form action="AddEntity" method="get">
         <input type="hidden" name="type" value="hero">
         <input type="hidden" name="heroId" value="${heroId}">
-        <button type="submit">Add Power</button>
+        <input type="submit" value="Add a new Hero">
     </form>
     <form action="AddEntity" method="get">
         <input type="hidden" name="type" value="power">
         <input type="hidden" name="heroId" value="${heroId}">
-        <button type="submit">Add Power</button>
+        <input type="submit" value="Add a new Power">
     </form>
     <form action="AddEntity" method="get">
         <input type="hidden" name="type" value="equipment">
         <input type="hidden" name="heroId" value="${heroId}">
-        <button type="submit">Add Equipment</button>
+        <input type="submit" value="Add a new piece of Equipment">
     </form>
     <form action="${pageContext.request.contextPath}/" method="get">
         <input type="submit" value="Return Home">

@@ -16,6 +16,8 @@
     <input type="text" id="name" name="name" value="${equipment.name}" required><br>
     <label for="description">Description:</label><br>
     <textarea id="description" name="description" required>${equipment.description}</textarea><br>
+    <label for="images">images Name:</label>
+    <input type="text" id="images" name="images" value="${equipment.images}" required><br>
     <button type="submit">Save Changes</button>
 </form>
 </body>

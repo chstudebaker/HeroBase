@@ -87,26 +87,24 @@ public class AddEntity extends HttpServlet {
         String alignment = request.getParameter("alignment");
         String descriptions = request.getParameter("descriptions");
         String personality = request.getParameter("personality");
-        String image = request.getParameter("image");
+        String images = request.getParameter("images");
 
         // Assuming you have a HeroDao for database operations
         HeroDao heroDao = new HeroDao();
 
         // Create a Hero object
-        Hero hero = new Hero(codeName, realName, bio, alignment, descriptions, personality, image);
+        Hero hero = new Hero(codeName, realName, bio, alignment, descriptions, personality, images);
 
         // Insert the hero into the database
-        int insertedHeroId = heroDao.insert(hero);
+        Integer insertedHeroId = heroDao.insert(hero);
 
+        boolean success = insertedHeroId != null && insertedHeroId > 0;
         // Check if the hero was successfully inserted
-        if (insertedHeroId > 0) {
-            // Hero addition was successful
-            request.setAttribute("heroId", insertedHeroId);
-            request.getRequestDispatcher("addPowerPrompt.jsp").forward(request, response);
-        } else {
-            // Hero addition failed
-            response.sendRedirect("error.jsp");
-        }
+        request.setAttribute("success", success);
+
+        request.setAttribute("addedItemId", insertedHeroId);
+        // Forward the request to the JSP
+        request.getRequestDispatcher("addItemResult.jsp").forward(request, response);
     }
 
     private void addPower(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -131,6 +129,7 @@ public class AddEntity extends HttpServlet {
         // Save the Powers entity
         Integer insertedPowerId = powersDao.insert(power);
         boolean success = insertedPowerId != null && insertedPowerId > 0;
+        request.setAttribute("addedItemId", heroID);
 
         // Set the success attribute in the request
         request.setAttribute("success", success);
@@ -145,11 +144,13 @@ public class AddEntity extends HttpServlet {
         String heroID = request.getParameter("heroID"); // Retrieve heroID from the form
         String name = request.getParameter("name"); // Retrieve equipment name from the form
         String description = request.getParameter("description"); // Retrieve equipment description from the form
+        String images = request.getParameter("images");
 
         // Create a new instance of Equipment entity
         Equipment equipment = new Equipment();
         equipment.setName(name); // Set the equipment name
         equipment.setDescription(description); // Set the equipment description
+        equipment.setImages(images);
 
         // Set the hero ID on the Equipment entity
         if (heroID != null && !heroID.isEmpty()) {
@@ -164,6 +165,7 @@ public class AddEntity extends HttpServlet {
 
         // Check if the equipment was successfully inserted
         boolean success = insertedEquipmentId != null && insertedEquipmentId > 0;
+        request.setAttribute("addedItemId", heroID);
 
         // Set the success attribute in the request
         request.setAttribute("success", success);

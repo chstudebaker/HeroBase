@@ -80,12 +80,13 @@
                     </div>
                 </div>
             </c:forEach>
+            <a href="AddEntity?type=power&heroId=${hero.heroId}" class="edit-button">Add</a>
             <hr>
             <hr>
             <h2>Equipment:</h2>
             <c:forEach var="equipment" items="${equipment}">
                 <div class="power">
-                    <h3>${equipment.name}</h3>
+                    <h3><img class="hero-icon" src="${equipment.images}" alt="Hero Icon">${equipment.name}</h3>
                     <ul>
                         <li>${equipment.description}</li>
                     </ul>
@@ -95,6 +96,7 @@
                     </div>
                 </div>
             </c:forEach>
+            <a href="AddEntity?type=equipment&heroId=${hero.heroId}" class="edit-button">Add</a>
         </div>
         <div class="infobox">
             <img src="${hero.images}" alt="Hero Image">

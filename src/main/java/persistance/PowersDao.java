@@ -89,14 +89,15 @@ public class PowersDao {
         }
     }
 
-    public void delete(Powers power) {
+    public boolean delete(Powers power) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             session.delete(power);
             transaction.commit();
+            return true; // Return true if deletion is successful
         } catch (Exception e) {
             logger.error("Error deleting power", e);
-            throw e;
+            return false; // Return false if an error occurs during deletion
         }
     }
 

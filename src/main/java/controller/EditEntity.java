@@ -98,7 +98,7 @@ public class EditEntity extends HttpServlet {
         String alignment = request.getParameter("alignment");
         String descriptions = request.getParameter("descriptions");
         String personality = request.getParameter("personality");
-        String image = request.getParameter("image");
+        String images = request.getParameter("images");
 
         // Validate that heroID is not empty
         if (heroIDParam == null || heroIDParam.isEmpty()) {
@@ -119,7 +119,7 @@ public class EditEntity extends HttpServlet {
         updatedHero.setAlignment(alignment);
         updatedHero.setDescriptions(descriptions);
         updatedHero.setPersonality(personality);
-        updatedHero.setImages(image);
+        updatedHero.setImages(images);
 
         // Update the hero in the database
         HeroDao heroDao = new HeroDao();
@@ -127,6 +127,8 @@ public class EditEntity extends HttpServlet {
 
         // Set the success attribute in the request
         request.setAttribute("success", success);
+
+        request.setAttribute("editedItemId", heroId);
 
         // Forward the request to the JSP
         request.getRequestDispatcher("editItemResult.jsp").forward(request, response);
@@ -147,27 +149,38 @@ public class EditEntity extends HttpServlet {
         // Parse powerID to an integer
         int powerID = Integer.parseInt(powerIDParam);
 
-        // Create a Power object with the updated information
-        Powers updatedPower = new Powers();
-        updatedPower.setPowerID(powerID);
-        updatedPower.setDescription(description);
-        updatedPower.setExplanation(explanation);
+        // Retrieve the existing power from the database
+        PowersDao powerDao = new PowersDao();
+        Powers existingPower = powerDao.getById(powerID);
+
+        if (existingPower == null) {
+            // Handle the case where the power doesn't exist
+            response.sendRedirect("error.jsp");
+            return;
+        }
+
+        // Update the description and explanation of the existing power
+        existingPower.setDescription(description);
+        existingPower.setExplanation(explanation);
 
         // Update the power in the database
-        PowersDao powerDao = new PowersDao(); // Assuming PowerDao is your data access object for powers
-        boolean success = powerDao.update(updatedPower);
+        boolean success = powerDao.update(existingPower);
 
         // Set the success attribute in the request
         request.setAttribute("success", success);
 
+        request.setAttribute("editedItemId", existingPower.getHeroID());
+
         // Forward the request to the JSP
         request.getRequestDispatcher("editItemResult.jsp").forward(request, response);
     }
+
     private void editEquipment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve form data
         String equipmentIDParam = request.getParameter("equipmentID");
         String name = request.getParameter("name");
         String description = request.getParameter("description");
+        String images = request.getParameter("images");
 
         // Validate that equipmentID is not empty
         if (equipmentIDParam == null || equipmentIDParam.isEmpty()) {
@@ -179,15 +192,25 @@ public class EditEntity extends HttpServlet {
         // Parse equipmentID to an integer
         int equipmentID = Integer.parseInt(equipmentIDParam);
 
-        // Create an Equipment object with the updated information
-        Equipment updatedEquipment = new Equipment();
-        updatedEquipment.setEquipmentId(equipmentID);
-        updatedEquipment.setName(name);
-        updatedEquipment.setDescription(description);
+        // Retrieve the existing equipment from the database
+        EquipmentDao equipmentDao = new EquipmentDao();
+        Equipment existingEquipment = equipmentDao.getById(equipmentID);
+
+        if (existingEquipment == null) {
+            // Handle the case where the equipment doesn't exist
+            response.sendRedirect("error.jsp");
+            return;
+        }
+
+        // Update the name and description of the existing equipment
+        existingEquipment.setName(name);
+        existingEquipment.setDescription(description);
+        existingEquipment.setImages(images);
 
         // Update the equipment in the database
-        EquipmentDao equipmentDao = new EquipmentDao(); // Assuming EquipmentDao is your data access object for equipment
-        boolean success = equipmentDao.update(updatedEquipment);
+        boolean success = equipmentDao.update(existingEquipment);
+
+        request.setAttribute("editedItemId", existingEquipment.getHeroID());
 
         // Set the success attribute in the request
         request.setAttribute("success", success);
@@ -195,6 +218,7 @@ public class EditEntity extends HttpServlet {
         // Forward the request to the JSP
         request.getRequestDispatcher("editItemResult.jsp").forward(request, response);
     }
+
 
 
 }
