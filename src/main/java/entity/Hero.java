@@ -35,6 +35,15 @@ public class Hero {
     @Column(name = "Personality")
     private String personality;
 
+    @Column(name = "Height")
+    private String height;
+
+    @Column(name = "Weight")
+    private String weight;
+
+    @Column(name = "Emblem")
+    private String emblem;
+
     @OneToMany(mappedBy = "hero", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Powers> powers;
 
@@ -46,7 +55,7 @@ public class Hero {
         this.equipment = new ArrayList<>();
     }
 
-    public Hero(String codeName, String realName, String bio, String alignment, String images, String descriptions, String personality) {
+    public Hero(String codeName, String realName, String bio, String alignment, String images, String descriptions, String personality, String height, String weight, String emblem) {
         this.codeName = codeName;
         this.realName = realName;
         this.bio = bio;
@@ -54,6 +63,9 @@ public class Hero {
         this.images = images;
         this.descriptions = descriptions;
         this.personality = personality;
+        this.height = height;
+        this.weight = weight;
+        this.emblem = emblem;
         this.powers = new ArrayList<>();
         this.equipment = new ArrayList<>();
     }
@@ -124,6 +136,30 @@ public class Hero {
         this.personality = personality;
     }
 
+    public String getHeight() {
+        return height;
+    }
+
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
+    public String getEmblem() {
+        return emblem;
+    }
+
+    public void setEmblem(String emblem) {
+        this.emblem = emblem;
+    }
+
     public List<Powers> getPowers() {
         return powers;
     }
@@ -151,6 +187,9 @@ public class Hero {
                 ", images='" + images + '\'' +
                 ", descriptions='" + descriptions + '\'' +
                 ", personality='" + personality + '\'' +
+                ", height=" + height +
+                ", weight=" + weight +
+                ", emblem='" + emblem + '\'' +
                 ", powers=" + powers +
                 ", equipment=" + equipment +
                 '}';

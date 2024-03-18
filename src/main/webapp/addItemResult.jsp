@@ -31,7 +31,7 @@
         <input type="hidden" name="heroId" value="${heroId}">
         <input type="submit" value="Add a new piece of Equipment">
     </form>
-    <form action="${pageContext.request.contextPath}/" method="get">
+    <form action="heroList" method="get">
         <input type="submit" value="Return Home">
     </form>
 </c:if>
@@ -53,7 +53,7 @@
         <input type="hidden" name="heroId" value="${heroId}">
         <button type="submit">Add Equipment</button>
     </form>
-    <form action="${pageContext.request.contextPath}/" method="get">
+    <form action="heroList" method="get">
         <input type="submit" value="Return Home">
     </form>
 </c:if>

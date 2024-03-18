@@ -16,48 +16,40 @@
 }
 
 .infobox {
-    flex: 0 0 25%; /* Reduce the width of the infobox */
+    flex: 0 0 auto; /* Adjust the width as needed */
     align-self: flex-start;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     border: 2px solid black; /* Add dual line border */
     padding: 10px; /* Add padding to create space around the content */
     margin: 0 10px; /* Add margin to create space between infobox and hero-bio */
+    position: relative;
+    text-align: center; /* Center-align the content */
 }
 
-/* Infobox */
-.container .hero-info .infobox{
-    padding-right:0px;
-    transform:translatex(42px) translatey(23px);
-    width:42% !important;
-    margin-right:0px;
-    margin-left:1px;
-    padding-left:0px;
-    margin-bottom:143px;
-    min-height:4px;
-    height:437px;
-    min-width:16px;
-    max-width:209px;
+.infobox img {
+    width: 150px; /* Adjust width as needed */
+    height: 150px; /* Adjust height as needed */
+    margin-bottom: 10px; /* Add margin to separate the image from the table */
+}
+
+.emblem-container {
+    position: relative; /* Change position to relative */
+    text-align: center; /* Center-align the content */
+}
+
+.emblem-container img {
+    max-width: 80px; /* Adjust the size as needed */
+    height: auto; /* Maintain aspect ratio */
 }
 
 /* Image */
-.hero-info .infobox img{
-    padding-bottom:0px;
-    width:150px;
-    height:150px;
-}
-
-
-.infobox img {
-    width: 100px; /* Adjust width as needed */
-    height: 100px; /* Adjust height as needed */
+.hero-info .infobox img {
     margin-bottom: 10px; /* Add margin to separate the image from the table */
 }
 
 .info-table {
     width: 100%; /* Make the table fill the container */
     border-collapse: collapse; /* Collapse the borders of the table */
+    margin-top: 20px; /* Add margin to separate the table from other content */
 }
 
 .info-table th,
@@ -79,10 +71,53 @@
     background-color: white; /* Add background color to odd rows */
 }
 
-.whitespace {
-    flex: 1 1 auto;
-}
-
 .power {
     margin-bottom: 10px;
+}
+.blog-container {
+    background-color: #f6f8fa;
+    border: 1px solid #d1d5da;
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.blog-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.blog-content {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.blog-info {
+    font-size: 14px;
+    color: #586069;
+}
+
+.blog-info-item {
+    margin-right: 8px;
+}
+
+.blog-info-item:last-child {
+    margin-right: 0;
+}
+
+.blog-container {
+    position: relative;
+}
+
+.delete-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.trash-icon {
+    width: 24px; /* Adjust icon size as needed */
+    height: 24px; /* Adjust icon size as needed */
 }

@@ -20,6 +20,7 @@
         <mapping class="entity.Hero"/>
         <mapping class="entity.Powers"/>
         <mapping class="entity.Equipment"/>
+        <mapping class="entity.Blog"/>
 
 
     </session-factory>

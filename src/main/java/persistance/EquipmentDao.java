@@ -1,7 +1,7 @@
 package persistance;
 
 import entity.Equipment;
-import entity.Hero;
+import jakarta.persistence.*;
 import jakarta.persistence.criteria.Root;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,7 +10,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.TypedQuery;
 import org.hibernate.query.Query;
 
 import java.util.List;
@@ -19,6 +18,7 @@ public class EquipmentDao {
 
     private static final Logger logger = LogManager.getLogger(EquipmentDao.class);
     private final SessionFactory sessionFactory = SessionFactoryProvider.getSessionFactory();
+
 
     public List<Equipment> getAllEquipment() {
         try (Session session = sessionFactory.openSession()) {
@@ -85,20 +85,15 @@ public class EquipmentDao {
         }
     }
 
-    public boolean delete(int equipmentId) {
+    public boolean delete(Equipment equipment) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-            Equipment equipment = session.get(Equipment.class, equipmentId);
-            if (equipment != null) {
-                session.delete(equipment);
-                transaction.commit();
-                return true; // If deletion is successful
-            } else {
-                return false; // If equipment with the given ID is not found
-            }
+            session.delete(equipment);
+            transaction.commit();
+            return true; // Return true if deletion is successful
         } catch (Exception e) {
-            logger.error("Error deleting equipment with ID: " + equipmentId, e);
-            return false; // If an error occurs during deletion
+            logger.error("Error deleting equipment", e);
+            return false; // Return false if an error occurs during deletion
         }
     }
 }

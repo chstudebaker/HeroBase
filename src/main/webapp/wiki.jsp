@@ -86,25 +86,44 @@
             <h2>Equipment:</h2>
             <c:forEach var="equipment" items="${equipment}">
                 <div class="power">
-                    <h3><img class="hero-icon" src="${equipment.images}" alt="Hero Icon">${equipment.name}</h3>
+                    <h3><img class="hero-icon" src="${equipment.images}" alt="Equipment Icon">${equipment.name}</h3>
                     <ul>
                         <li>${equipment.description}</li>
                     </ul>
                     <div class="edit-delete-buttons">
-                        <a href="EditEntity?type=equipment&equipmentID=${equipment.equipmentId}" class="edit-button">Edit</a>
-                        <a href="DeleteEntity?type=equipment&equipmentID=${equipment.equipmentId}" class="delete-button">Delete</a>
+                        <a href="EditEntity?type=equipment&equipmentId=${equipment.equipmentId}" class="edit-button">Edit</a>
+                        <a href="DeleteEntity?type=equipment&equipmentId=${equipment.equipmentId}" class="delete-button">Delete</a>
                     </div>
                 </div>
             </c:forEach>
             <a href="AddEntity?type=equipment&heroId=${hero.heroId}" class="edit-button">Add</a>
+            <!-- Add Blog Button -->
+            <a href="AddEntity?type=blog&heroId=${hero.heroId}" class="edit-button">Add Blog</a>
+
+            <c:forEach var="blog" items="${blogs}">
+                <div class="blog-container">
+                    <div class="blog-title">${blog.blogTitle}</div>
+                    <div class="blog-content">${blog.blogContent}</div>
+                    <div class="blog-info">
+                        <span class="blog-info-item">Date: ${blog.dateTime}</span>
+                    </div>
+                    <!-- Trash icon for deleting the blog -->
+                    <div class="edit-delete-buttons">
+                        <a href="EditEntity?type=blog&blogId=${blog.blogId}" class="edit-button">Edit</a>
+                        <div class="delete-wrapper">
+                            <a href="DeleteEntity?type=blog&blogId=${blog.blogId}">
+                                <img class="trash-icon" src="images/trash.png" alt="Trash Can Icon">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
         </div>
         <div class="infobox">
-            <img src="${hero.images}" alt="Hero Image">
+            <div class="hero-image-container">
+                <img src="${hero.images}" alt="Hero Image">
+            </div>
             <table class="info-table">
-                <tr>
-                    <th>Attribute</th>
-                    <th>Value</th>
-                </tr>
                 <tr>
                     <td>Real Name:</td>
                     <td>${hero.realName}</td>
@@ -113,8 +132,21 @@
                     <td>Alignment:</td>
                     <td>${hero.alignment}</td>
                 </tr>
+                <tr>
+                    <td>Height:</td>
+                    <td>${hero.height}</td>
+                </tr>
+                <tr>
+                    <td>Weight:</td>
+                    <td>${hero.weight}</td>
+                </tr>
             </table>
+            <div class="emblem-container">
+                <p><strong>Emblem</strong></p>
+                <img src="${hero.emblem}" alt="Hero Emblem">
+            </div>
         </div>
+
     </div>
     <div class="whitespace"></div>
 </div>

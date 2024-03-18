@@ -1,6 +1,9 @@
 package controller;
 
+import entity.Blog;
 import entity.Equipment;
+import persistance.BlogDao;
+import util.FileUploadHandler;
 import entity.Hero;
 import entity.Powers;
 import persistance.EquipmentDao;
@@ -8,12 +11,16 @@ import persistance.HeroDao;
 import persistance.PowersDao;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
 
+
+@MultipartConfig
 @WebServlet("/EditEntity")
 public class EditEntity extends HttpServlet {
 
@@ -51,7 +58,7 @@ public class EditEntity extends HttpServlet {
             request.setAttribute("power", power);
             request.getRequestDispatcher("editPower.jsp").forward(request, response);
         } else if ("equipment".equals(entityType)) {
-            String equipmentIDParam = request.getParameter("equipmentID");
+            String equipmentIDParam = request.getParameter("equipmentId");
             if (equipmentIDParam == null || equipmentIDParam.isEmpty()) {
                 response.sendRedirect("error.jsp");
                 return;
@@ -65,6 +72,21 @@ public class EditEntity extends HttpServlet {
             }
             request.setAttribute("equipment", equipment);
             request.getRequestDispatcher("editEquipment.jsp").forward(request, response);
+        } else if ("blog".equals(entityType)) {
+            String blogIdParam = request.getParameter("blogId");
+            if (blogIdParam == null || blogIdParam.isEmpty()) {
+                response.sendRedirect("error.jsp");
+                return;
+            }
+            int blogId = Integer.parseInt(blogIdParam);
+            BlogDao blogDao = new BlogDao();
+            Blog blog = blogDao.getById(blogId);
+            if (blog == null) {
+                response.sendRedirect("error.jsp");
+                return;
+            }
+            request.setAttribute("blog", blog);
+            request.getRequestDispatcher("editBlog.jsp").forward(request, response);
         } else {
             response.sendRedirect("error.jsp");
         }
@@ -83,6 +105,8 @@ public class EditEntity extends HttpServlet {
         } else if ("equipment".equals(entityType)) {
             // Handle POST request to edit equipment
             editEquipment(request, response);
+        } else if ("blog".equals(entityType)) {
+            editBlog(request, response);
         } else {
             // Handle invalid or missing entity type
             response.sendRedirect("error.jsp");
@@ -98,8 +122,10 @@ public class EditEntity extends HttpServlet {
         String alignment = request.getParameter("alignment");
         String descriptions = request.getParameter("descriptions");
         String personality = request.getParameter("personality");
-        String images = request.getParameter("images");
-
+        String height = request.getParameter("height");
+        String weight = request.getParameter("weight");
+        Part filePart = request.getPart("images");
+        Part emblemPart = request.getPart("emblem");
         // Validate that heroID is not empty
         if (heroIDParam == null || heroIDParam.isEmpty()) {
             // If heroID is missing, redirect to an error page or handle the error appropriately
@@ -110,6 +136,29 @@ public class EditEntity extends HttpServlet {
         // Parse heroID to an integer
         int heroId = Integer.parseInt(heroIDParam);
 
+
+        String images = null;
+        if (filePart.getSize() > 0) { // Check if a new image is selected
+            FileUploadHandler fileUploadHandler = new FileUploadHandler();
+            images = fileUploadHandler.handleFileUpload(filePart);
+        } else { // If no new image is selected, retain the existing image URL
+            HeroDao heroDao = new HeroDao();
+            Hero existingHero = heroDao.getById(heroId);
+            images = existingHero.getImages();
+        }
+
+        // Handle emblem upload
+        String emblem = null;
+        if (emblemPart.getSize() > 0) { // Check if a new emblem is selected
+            FileUploadHandler fileUploadHandler = new FileUploadHandler();
+            emblem = fileUploadHandler.handleFileUpload(emblemPart);
+        } else { // If no new emblem is selected, retain the existing emblem URL
+            HeroDao heroDao = new HeroDao();
+            Hero existingHero = heroDao.getById(heroId);
+            emblem = existingHero.getEmblem();
+        }
+
+
         // Create a Hero object with the updated information
         Hero updatedHero = new Hero();
         updatedHero.setHeroId(heroId);
@@ -119,7 +168,10 @@ public class EditEntity extends HttpServlet {
         updatedHero.setAlignment(alignment);
         updatedHero.setDescriptions(descriptions);
         updatedHero.setPersonality(personality);
-        updatedHero.setImages(images);
+        updatedHero.setHeight(height);
+        updatedHero.setWeight(weight);
+        updatedHero.setImages(images); // Set the relative path
+        updatedHero.setEmblem(emblem);
 
         // Update the hero in the database
         HeroDao heroDao = new HeroDao();
@@ -177,10 +229,10 @@ public class EditEntity extends HttpServlet {
 
     private void editEquipment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve form data
-        String equipmentIDParam = request.getParameter("equipmentID");
+        String equipmentIDParam = request.getParameter("equipmentId");
         String name = request.getParameter("name");
         String description = request.getParameter("description");
-        String images = request.getParameter("images");
+        Part filePart = request.getPart("images");
 
         // Validate that equipmentID is not empty
         if (equipmentIDParam == null || equipmentIDParam.isEmpty()) {
@@ -192,6 +244,10 @@ public class EditEntity extends HttpServlet {
         // Parse equipmentID to an integer
         int equipmentID = Integer.parseInt(equipmentIDParam);
 
+        // Handle file upload and get the relative path
+        FileUploadHandler fileUploadHandler = new FileUploadHandler();
+        String images = fileUploadHandler.handleFileUpload(filePart);
+
         // Retrieve the existing equipment from the database
         EquipmentDao equipmentDao = new EquipmentDao();
         Equipment existingEquipment = equipmentDao.getById(equipmentID);
@@ -202,10 +258,10 @@ public class EditEntity extends HttpServlet {
             return;
         }
 
-        // Update the name and description of the existing equipment
+        // Update the name, description, and images of the existing equipment
         existingEquipment.setName(name);
         existingEquipment.setDescription(description);
-        existingEquipment.setImages(images);
+        existingEquipment.setImages(images); // Set the relative path
 
         // Update the equipment in the database
         boolean success = equipmentDao.update(existingEquipment);
@@ -219,6 +275,42 @@ public class EditEntity extends HttpServlet {
         request.getRequestDispatcher("editItemResult.jsp").forward(request, response);
     }
 
+    private void editBlog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Retrieve form data
+        String blogIdParam = request.getParameter("blogId");
+        String blogTitle = request.getParameter("blogTitle");
+        String blogContent = request.getParameter("blogContent");
 
+        // Validate that blogId is not empty
+        if (blogIdParam == null || blogIdParam.isEmpty()) {
+            response.sendRedirect("error.jsp");
+            return;
+        }
 
+        // Parse blogId to an integer
+        int blogId = Integer.parseInt(blogIdParam);
+
+        // Retrieve the existing blog from the database
+        BlogDao blogDao = new BlogDao();
+        Blog existingBlog = blogDao.getById(blogId);
+
+        if (existingBlog == null) {
+            response.sendRedirect("error.jsp");
+            return;
+        }
+
+        // Update the blog title, content, and images
+        existingBlog.setBlogTitle(blogTitle);
+        existingBlog.setBlogContent(blogContent);
+
+        // Update the blog in the database
+        boolean success = blogDao.update(existingBlog);
+
+        // Set the success attribute in the request
+        request.setAttribute("success", success);
+
+        // Forward the request to the JSP
+        request.setAttribute("editedItemId", existingBlog.getHeroID());
+        request.getRequestDispatcher("editItemResult.jsp").forward(request, response);
+    }
 }

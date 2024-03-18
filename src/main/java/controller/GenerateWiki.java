@@ -3,6 +3,8 @@ package controller;
 import entity.Equipment;
 import entity.Hero;
 import entity.Powers;
+import entity.Blog;
+import persistance.BlogDao;
 import persistance.EquipmentDao;
 import persistance.HeroDao;
 import persistance.PowersDao;
@@ -41,11 +43,16 @@ public class GenerateWiki extends HttpServlet {
         EquipmentDao equipmentDao = new EquipmentDao();
         List<Equipment> equipment = equipmentDao.getByHeroId(heroId);
 
+        BlogDao blogDao = new BlogDao();
+        List<Blog> blogs = blogDao.getByHeroId(heroId);
+
 
         // Set hero object and powers as request attributes
         request.setAttribute("hero", hero);
         request.setAttribute("powers", powers);
         request.setAttribute("equipment", equipment);
+        request.setAttribute("blogs", blogs);
+
 
         // Forward the request to the wiki.jsp page to display the generated content
         request.getRequestDispatcher("wiki.jsp").forward(request, response);

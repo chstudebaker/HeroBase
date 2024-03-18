@@ -10,7 +10,7 @@
 
 <h2>Add New Hero</h2>
 
-<form action="AddEntity?type=hero" method="post">
+<form action="AddEntity?type=hero" method="post" enctype="multipart/form-data">
     <!-- Hero Name -->
     <label for="codeName">Code Name:</label>
     <input type="text" id="codeName" name="codeName" required><br>
@@ -41,8 +41,17 @@
     <textarea id="personality" name="personality" rows="4" cols="50"></textarea><br>
 
     <!-- images Name -->
-    <label for="images">images Name:</label>
-    <input type="text" id="images" name="images" value="images/" required><br>
+    <label for="images">Upload Image:</label>
+    <input type="file" id="images" name="images" accept="image/*" required><br>
+
+    <label for="height">Height:</label>
+    <input type="text" id="height" name="height" required><br>
+
+    <label for="weight">Code Name:</label>
+    <input type="text" id="weight" name="weight" required><br>
+
+    <label for="emblem">Upload Emblem:</label>
+    <input type="file" id="emblem" name="emblem" accept="image/*" required><br>
 
     <!-- Submit Button -->
     <input type="submit" value="Add Hero">

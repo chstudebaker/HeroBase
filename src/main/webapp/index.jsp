@@ -38,7 +38,7 @@
         <c:forEach var="hero" items="${heroList}">
             <tr>
                 <td>
-                    <img class="hero-icon" src="${hero.images}" alt="Hero Icon">
+                    <img class="hero-icon" src="${pageContext.request.contextPath}/${hero.images}" alt="Hero Icon">
                     <a href="generateWiki?heroId=${hero.heroId}">${hero.codeName}</a>
                 </td>
                 <td>${hero.alignment}</td>

@@ -3,6 +3,33 @@
 <head>
     <title>Edit Hero</title>
     <link rel="stylesheet" href="css/heroBase.css">
+    <script>
+        window.onload = function() {
+            // Select the image input elements
+            const imageInputs = document.querySelectorAll('input[type="file"]');
+
+            // Add event listener to each input
+            imageInputs.forEach(function(input) {
+                // Add event listener to detect changes in the input field
+                input.addEventListener('change', function() {
+                    // Get the selected file
+                    const file = this.files[0];
+
+                    // Get the corresponding label element
+                    const label = this.nextElementSibling;
+
+                    // Check if a file is selected
+                    if (file) {
+                        // Update the label text with the file name
+                        label.textContent = file.name;
+                    } else {
+                        // If no file is selected, revert to default text
+                        label.textContent = 'Choose Image';
+                    }
+                });
+            });
+        };
+    </script>
 </head>
 <body>
 <c:import url="header.jsp" />
@@ -10,7 +37,7 @@
 
 <h2>Edit Hero</h2>
 
-<form action="EditEntity?type=hero" method="post">
+<form action="EditEntity?type=hero" method="post" enctype="multipart/form-data">
     <!-- Hidden input field for heroID -->
     <input type="hidden" id="heroId" name="heroId" value="${hero.heroId}">
 
@@ -43,9 +70,31 @@
     <label for="personality">Personality:</label>
     <textarea id="personality" name="personality" rows="4" cols="50">${hero.personality}</textarea><br>
 
-    <!-- images Name -->
-    <label for="images">images Name:</label>
-    <input type="text" id="images" name="images" value="${hero.images}" required><br>
+    <!-- Image -->
+    <label for="images">Image:</label>
+    <input type="file" id="images" name="images" accept="image/*">
+    <!-- Label for current image -->
+    <label id="imageLabel" class="current-image">${hero.images ? hero.images : 'Current Image'}</label><br>
+
+    <!-- Current Hero Image -->
+    <img src="${hero.images}" alt="Current Image" class="current-image">
+
+    <!-- Height -->
+    <label for="height">Height:</label>
+    <input type="text" id="height" name="height" value="${hero.height}" required><br>
+
+    <!-- Weight -->
+    <label for="weight">Code Name:</label>
+    <input type="text" id="weight" name="weight" value="${hero.weight}"><br>
+
+    <!-- Emblem -->
+    <label for="emblem">Upload Emblem:</label>
+    <input type="file" id="emblem" name="emblem" accept="image/*">
+    <!-- Label for current emblem -->
+    <label id="emblemLabel" class="current-image">${hero.emblem ? hero.emblem : 'Current Image'}</label><br>
+
+    <!-- Current Emblem Image -->
+    <img src="${hero.emblem}" alt="Current Image" class="current-image">
 
     <!-- Submit Button -->
     <input type="submit" value="Update Hero">

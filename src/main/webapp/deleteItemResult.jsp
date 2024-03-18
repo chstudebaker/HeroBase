@@ -10,10 +10,23 @@
 <body>
 <c:import url="header.jsp" />
 <c:import url="nav.jsp" />
-<h1>Delete Successful</h1>
-<p>The item was successfully deleted.</p>
-<form action="${pageContext.request.contextPath}/" method="get">
-    <input type="submit" value="Return Home">
-</form>
+<c:if test="${success}">
+    <h1>Delete Successful</h1>
+    <p>The item was successfully deleted.</p>
+    <form action="generateWiki" method="get">
+        <input type="hidden" name="heroId" value="${deletedItemId}">
+        <input type="submit" value="Return to Wiki">
+    </form>
+    <form action="heroList" method="get">
+        <input type="submit" value="Return Home">
+    </form>
+</c:if>
+<c:if test="${!success}">
+    <h1>Delete Failed</h1>
+    <p>Failed to delete item. Please try again.</p>
+    <form action="heroList" method="get">
+        <input type="submit" value="Return Home">
+    </form>
+</c:if>
 </body>
 </html>

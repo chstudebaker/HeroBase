@@ -1,9 +1,11 @@
 package controller;
 
+import entity.Blog;
 import entity.Equipment;
 import entity.Hero;
 import entity.Powers;
 import org.apache.logging.log4j.Level;
+import persistance.BlogDao;
 import persistance.HeroDao;
 import persistance.PowersDao;
 import persistance.EquipmentDao;
@@ -44,6 +46,10 @@ public class DeleteEntity extends HttpServlet {
             // Handle deletion of equipment
             logger.log(Level.INFO, "Deleting equipment");
             deleteEquipment(request, response);
+        } else if ("blog".equals(entityType)) {
+            // Handle deletion of a blog
+            logger.log(Level.INFO, "Deleting a blog");
+            deleteBlog(request, response);
         } else {
             // Handle invalid or missing entity type
             logger.log(Level.WARN, "Invalid entity type: " + entityType);
@@ -52,7 +58,7 @@ public class DeleteEntity extends HttpServlet {
     }
 
 
-    private void deleteHero(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void deleteHero(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // Retrieve heroId from request parameters
         String heroIdParam = request.getParameter("heroID");
 
@@ -64,39 +70,22 @@ public class DeleteEntity extends HttpServlet {
             return;
         }
 
-        try {
-            // Parse heroId to an integer
-            int heroId = Integer.parseInt(heroIdParam);
+        // Parse heroId to an integer
+        int heroId = Integer.parseInt(heroIdParam);
 
-            // Retrieve hero from database using HeroDao
-            HeroDao heroDao = new HeroDao();
-            Hero hero = heroDao.getById(heroId);
+        // Retrieve hero from database using HeroDao
+        HeroDao heroDao = new HeroDao();
+        Hero hero = heroDao.getById(heroId);
 
-            // Check if hero exists
-            if (hero != null) {
-                // Attempt to delete the hero
-                boolean success = heroDao.delete(hero);
-                if (success) {
-                    // Redirect to deleteSuccess.jsp if deletion is successful
-                    response.sendRedirect("deleteSuccess.jsp?type=hero");
-                    return;
-                }
-            } else {
-                // Redirect to deleteFailure.jsp if hero is not found
-                response.sendRedirect("deleteFailure.jsp?type=hero");
-                return;
-            }
-        } catch (NumberFormatException e) {
-            // Handle invalid heroId format (not a number)
-            logger.error("Invalid hero ID format: " + heroIdParam);
-            response.sendRedirect("error.jsp");
-            return;
-        } catch (Exception e) {
-            // Handle other exceptions
-            logger.error("Error deleting hero", e);
-            response.sendRedirect("error.jsp");
-            return;
-        }
+        boolean success = heroDao.delete(hero);
+        logger.debug("Deletion success: " + success);
+
+        // Set attributes for forwarding the request
+        request.setAttribute("success", success);
+        request.setAttribute("deletedItemId", heroId);
+
+        // Forward the request to the JSP
+        request.getRequestDispatcher("deleteItemResult.jsp").forward(request, response);
     }
 
     private void deletePower(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -125,12 +114,14 @@ public class DeleteEntity extends HttpServlet {
 
         request.setAttribute("success", success);
 
+        request.setAttribute("deletedItemId", power.getHero().getHeroId());
+
         // Forward the request to the JSP
         request.getRequestDispatcher("deleteItemResult.jsp").forward(request, response);
     }
 
     private void deleteEquipment(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String equipmentIdParam = request.getParameter("equipmentID");
+        String equipmentIdParam = request.getParameter("equipmentId");
 
         if (equipmentIdParam == null || equipmentIdParam.isEmpty()) {
             logger.error("Equipment ID parameter is missing or empty.");
@@ -141,16 +132,60 @@ public class DeleteEntity extends HttpServlet {
         int equipmentId = Integer.parseInt(equipmentIdParam);
 
         EquipmentDao equipmentDao = new EquipmentDao();
+        Equipment equipment = equipmentDao.getById(equipmentId);
 
-        // Attempt to delete the equipment with the provided ID
-        boolean success = equipmentDao.delete(equipmentId);
-        logger.debug("Deletion success: " + success);
+        if (equipment == null) {
+            response.sendRedirect("error.jsp");
+            return;
+        }
+
+        boolean success = equipmentDao.delete(equipment);
+
+
+        request.setAttribute("deletedItemId", equipment.getHero().getHeroId());
 
         request.setAttribute("success", success);
+
+        request.getRequestDispatcher("deleteItemResult.jsp").forward(request, response);
+
+    }
+
+    private void deleteBlog(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        // Retrieve blogId from request parameters
+        String blogIdParam = request.getParameter("blogId");
+
+        // Check if blogId parameter is missing or empty
+        if (blogIdParam == null || blogIdParam.isEmpty()) {
+            // Handle missing or empty blogId parameter
+            logger.error("Blog ID parameter is missing or empty.");
+            response.sendRedirect("error.jsp");
+            return;
+        }
+
+        // Parse blogId to an integer
+        int blogId = Integer.parseInt(blogIdParam);
+
+        // Retrieve blog from database using BlogDao
+        BlogDao blogDao = new BlogDao();
+        Blog blog = blogDao.getById(blogId);
+
+        // Check if the blog exists
+        if (blog == null) {
+            // Handle the case where the blog doesn't exist
+            logger.error("Blog with ID " + blogId + " not found.");
+            response.sendRedirect("error.jsp");
+            return;
+        }
+
+        // Attempt to delete the blog
+        boolean success = blogDao.delete(blog);
+        logger.debug("Deletion success: " + success);
+
+        // Set attributes for forwarding the request
+        request.setAttribute("success", success);
+        request.setAttribute("deletedItemId", blog.getHero().getHeroId());
 
         // Forward the request to the JSP
         request.getRequestDispatcher("deleteItemResult.jsp").forward(request, response);
     }
-
-
 }

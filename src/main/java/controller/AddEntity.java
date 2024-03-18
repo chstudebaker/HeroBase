@@ -1,24 +1,30 @@
 package controller;
 
+import entity.Blog;
 import entity.Hero;
 import entity.Powers;
 import entity.Equipment;
+import persistance.BlogDao;
 import persistance.HeroDao;
 import persistance.PowersDao;
 import persistance.EquipmentDao;
+import util.FileUploadHandler;
+
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @WebServlet("/AddEntity")
+@MultipartConfig
 public class AddEntity extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(AddEntity.class.getName());
@@ -34,20 +40,20 @@ public class AddEntity extends HttpServlet {
         } else if ("power".equals(entityType)) {
             // Retrieve power descriptions from the database
             PowersDao powersDao = new PowersDao();
-            List<String> powerDescriptionsList = powersDao.getAllDescriptions();
-
-            // Convert the list to a HashSet to get unique values
-            Set<String> powerDescriptions = new HashSet<>(powerDescriptionsList);
+            Set<String> powerDescriptions = new HashSet<>(powersDao.getAllDescriptions());
 
             // Set power descriptions in request attributes
             request.setAttribute("powerDescriptions", powerDescriptions);
 
             // Forward the request to the JSP
             request.getRequestDispatcher("addPower.jsp").forward(request, response);
-        }
-        else if ("equipment".equals(entityType)) {
+        } else if ("equipment".equals(entityType)) {
             logger.log(Level.INFO, "Forwarding to addEquipment.jsp");
             request.getRequestDispatcher("addEquipment.jsp").forward(request, response);
+        } else if ("blog".equals(entityType)) {
+            // Forward to addBlog.jsp
+            logger.log(Level.INFO, "Forwarding to addBlog.jsp");
+            request.getRequestDispatcher("addBlog.jsp").forward(request, response);
         } else {
             // Handle invalid or missing entity type
             logger.log(Level.WARNING, "Invalid entity type: " + entityType);
@@ -57,7 +63,6 @@ public class AddEntity extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String entityType = request.getParameter("type");
-
 
         logger.log(Level.INFO, "Received POST request for entity type: " + entityType);
         if ("hero".equals(entityType)) {
@@ -72,29 +77,40 @@ public class AddEntity extends HttpServlet {
             // Handle addition of equipment
             logger.log(Level.INFO, "Adding equipment");
             addEquipment(request, response);
+        } else if ("blog".equals(entityType)) {
+            // Handle addition of a blog
+            logger.log(Level.INFO, "Adding a blog");
+            addBlog(request, response);
         } else {
             // Handle invalid or missing entity type
             logger.log(Level.WARNING, "Invalid entity type: " + entityType);
             response.sendRedirect("error.jsp");
         }
+        // No need to handle file uploads here, as they are handled within specific entity handling methods
     }
 
     private void addHero(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Retrieve form data for adding a hero
         String codeName = request.getParameter("codeName");
         String realName = request.getParameter("realName");
         String bio = request.getParameter("bio");
         String alignment = request.getParameter("alignment");
         String descriptions = request.getParameter("descriptions");
         String personality = request.getParameter("personality");
-        String images = request.getParameter("images");
+        String height = request.getParameter("height");
+        String weight = request.getParameter("weight");
+        Part filePart = request.getPart("images");
+        Part emblemPart = request.getPart("emblem");
+
+        // Process file uploads separately
+        FileUploadHandler fileUploadHandler = new FileUploadHandler();
+        String images = fileUploadHandler.handleFileUpload(filePart);
+        String emblem = fileUploadHandler.handleFileUpload(emblemPart);
 
         // Assuming you have a HeroDao for database operations
         HeroDao heroDao = new HeroDao();
 
         // Create a Hero object
-        Hero hero = new Hero(codeName, realName, bio, alignment, descriptions, personality, images);
-
+        Hero hero = new Hero(codeName, realName, bio, alignment, images, descriptions, personality, height, weight, emblem);
         // Insert the hero into the database
         Integer insertedHeroId = heroDao.insert(hero);
 
@@ -108,10 +124,9 @@ public class AddEntity extends HttpServlet {
     }
 
     private void addPower(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Retrieve form data
-        String heroID = request.getParameter("heroID"); // Retrieve heroID from the form
-        String selectedPower = request.getParameter("selectedPower"); // Retrieve selected power from the form
-        String customPower = request.getParameter("customPower"); // Retrieve custom power from the form
+        String heroID = request.getParameter("heroID");
+        String selectedPower = request.getParameter("selectedPower");
+        String customPower = request.getParameter("customPower");
         String explanation = request.getParameter("explanation");
 
         // Create a new instance of Powers entity
@@ -138,19 +153,24 @@ public class AddEntity extends HttpServlet {
         request.getRequestDispatcher("addItemResult.jsp").forward(request, response);
     }
 
-
     private void addEquipment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Retrieve form data
-        String heroID = request.getParameter("heroID"); // Retrieve heroID from the form
-        String name = request.getParameter("name"); // Retrieve equipment name from the form
-        String description = request.getParameter("description"); // Retrieve equipment description from the form
-        String images = request.getParameter("images");
+        String heroID = request.getParameter("heroID");
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
+        Part filePart = request.getPart("images");
+
+        // Handle file upload
+        String images = null;
+        if (filePart != null && filePart.getSize() > 0) {
+            FileUploadHandler fileUploadHandler = new FileUploadHandler();
+            images = fileUploadHandler.handleFileUpload(filePart);
+        }
 
         // Create a new instance of Equipment entity
         Equipment equipment = new Equipment();
         equipment.setName(name); // Set the equipment name
         equipment.setDescription(description); // Set the equipment description
-        equipment.setImages(images);
+        equipment.setImages(images); // Set the file path to the Equipment entity
 
         // Set the hero ID on the Equipment entity
         if (heroID != null && !heroID.isEmpty()) {
@@ -172,7 +192,36 @@ public class AddEntity extends HttpServlet {
 
         // Forward the request to the JSP
         request.getRequestDispatcher("addItemResult.jsp").forward(request, response);
+    }
+
+    private void addBlog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String heroID = request.getParameter("heroID");
+        String blogTitle = request.getParameter("blogTitle");
+        String blogContent = request.getParameter("blogContent");
+        // You may include code to handle date and time if needed
+
+        // Create a new instance of Blog entity
+        Blog blog = new Blog();
+        blog.setBlogTitle(blogTitle);
+        blog.setBlogContent(blogContent);
+        // Set date and time if needed
+
+        if (heroID != null && !heroID.isEmpty()) {
+            blog.setHeroID(Integer.parseInt(heroID));
+        }
+        BlogDao blogDao = new BlogDao();
+
+        // Save the Blog entity
+        Integer insertedBlogId = blogDao.insert(blog);
+        boolean success = insertedBlogId != null && insertedBlogId > 0;
+
+        // Set the success attribute in the request
+        request.setAttribute("success", success);
+
+        request.setAttribute("addedItemId", heroID);
+
+        // Forward the request to the JSP
+        request.getRequestDispatcher("addItemResult.jsp").forward(request, response);
 
     }
 }
-
