@@ -1,46 +1,28 @@
-3-7
-Got basic website framework up and running. Created entities, Search User servlet 
-and Index, Header, and results jsp pages.
+March 9 - March 12, 2024
 
-Website doesnt work yet, but the code just needs a little fixing.
+Tasks:
+Implemented Cognito functionality for user authentication.
+Updated many-to-one relationship in database structure and entity classes.
+Fixed one-to-many relationship.
+Started on unit tests for Hero entity.
+Total Hours: 20 hours
+Week 2: March 13 - March 16, 2024
 
-3-8
-Had to rework my entire database, again. Added a HeroPowers entity to manage 
-relationships.
+Tasks:
+Removed duplicate powers from the add powers form.
+Completed the wiki feature with images.
+Cleaned up the web app.
+Made corrections and added checkpoint 1 to git.
+Total Hours: 18 hours
+March 17 - March 19, 2024
 
-Added a HeroDao, PowersDao, and HeroPowersDao. Created unit tests for each.
-They can run individually just fine, but dont run as a unit yet.
+Tasks:
+Added a nav bar to the application.
+Updated database structure and entity classes.
+Fixed image upload issues and set the database to an RDS database through AWS.
+Got API working through Postman.
 
-Created log4j functionality and created a hibernate config file.
-
-Got cognito up and running. I can now sign in, create users, and authenticate 
-them
-
-3-9
-Went to the museaum, so did not get much work done. 
-
-However, reworked my database yet again. Figured out that if I put heroId as a
-foreign key in Powers, I can reduce my number of tables to two. Genius! Makes
-things easier.
-
-Got all my unit tests running individually for both Hero and Powers. Next step is
-to get them running at the same time, every time
-
-3-10
-Another museaum. Seriously, how many of these things are there? (sorry, I just 
-to say it)
-
-Created some neat CSS to use with my project. its starting to look like a real
-website now!
-
-Started on Add hero feature. Having some trouble creating a dynamic list of 
-powers, but Im making it a goal!
-
-Also hoping to allow a user to search on a hero, then use the name as a link to 
-a seperate page with a huge dump of information. Like a fandom. Shouldnt be too
-hard with EL to work with.
-
-3-11 
-Today, I am planning to make corrections to my project based on the teachers 
-feedback. Came back from vaca early, so I am now able to get some serious work 
-done. Hoping to have everything fixed by the end of the day.
+Full user authentication added, restricting non-users from editing, adding, or deleting items.
+Updated the nav bar to show the logged-in user and only display the log-out button when a user is logged in.
+Added the blogs feature and image upload feature with the fileUploadHandler class in the util folder.
+Total Hours: 15 hours

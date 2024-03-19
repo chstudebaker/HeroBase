@@ -1,4 +1,4 @@
-**Objective:** Develop HeroHub, a platform for fans, writers, and artists to explore, contribute, and engage with hero-related content.
+**Objective:** Develop HeroBase, a platform for fans, writers, and artists to explore, contribute, and engage with hero-related content.
 
 **MVP User Story Plan:**
 
@@ -33,10 +33,10 @@
 - Start Date: 03/25/2024
 - End Date: 03/28/2024
 - Tasks:
-  - [ ] Design community features such as forums or discussion boards
-  - [ ] Implement frontend UI for community features
-  - [ ] Develop backend functionality for user interactions and discussions
-  - [ ] Test community engagement features
+  - [X] Design community features such as forums or discussion boards
+  - [X] Implement frontend UI for community features
+  - [X] Develop backend functionality for user interactions and discussions
+  - [X] Test community engagement features
 
 **Writer:**
 
@@ -48,15 +48,6 @@
   - [X] Update frontend UI to display detailed hero information
   - [ ] Enhance backend API to provide comprehensive hero data
   - [X] Test access to detailed hero profiles
-
-**[ ] Collaborative Features with Other Writers**
-- Start Date: 04/05/2024
-- End Date: 4/12/2024
-- Tasks:
-  - [ ] Design collaborative writing tools such as co-authoring and commenting
-  - [ ] Implement frontend UI for collaborative features
-  - [ ] Develop backend functionality for collaborative writing interactions
-  - [ ] Test collaborative writing functionality
 
 **Artist:**
 
@@ -72,19 +63,19 @@
 - Start Date: 4/12/2024
 - End Date: 04/19/2024
 - Tasks:
-  - [ ] Design gallery feature for artists to showcase their artwork
-  - [ ] Implement frontend UI for artists to upload and display artwork
-  - [ ] Develop backend functionality to support artwork uploads and display
-  - [ ] Test artwork showcase functionality
+  - [X] Design gallery feature for artists to showcase their artwork
+  - [X] Implement frontend UI for artists to upload and display artwork
+  - [X] Develop backend functionality to support artwork uploads and display
+  - [X] Test artwork showcase functionality
 
-**[ ] View Artworks Contributed by Other Artists**
+**[X] View Artworks Contributed by Other Artists**
 - Start Date: 04/19/2024
 - End Date: 04/26/2024
 - Tasks:
-  - [ ] Design UI for browsing and viewing artwork contributed by other artists
-  - [ ] Implement frontend gallery for displaying artworks
-  - [ ] Develop backend functionality to retrieve and display artwork data
-  - [ ] Test viewing artworks contributed by other artists
+  - [X] Design UI for browsing and viewing artwork contributed by other artists
+  - [X] Implement frontend gallery for displaying artworks
+  - [X] Develop backend functionality to retrieve and display artwork data
+  - [X] Test viewing artworks contributed by other artists
 
 **Authentication:**
 
@@ -97,19 +88,19 @@
   - [x] Develop backend functionality for user registration and authentication
   - [x] Test user sign up process
 
-**[ ] Log In to Account**
+**[X] Log In to Account**
 - Start Date: 03/19/2024
 - End Date: 03/21/2024
 - Tasks:
-  - [ ] Design user login form and authentication process
-  - [ ] Implement frontend UI for user login
-  - [ ] Develop backend functionality for user login and session management
-  - [ ] Test user log in process
+  - [X] Design user login form and authentication process
+  - [X] Implement frontend UI for user login
+  - [X] Develop backend functionality for user login and session management
+  - [X] Test user log in process
 
-**[ ] Log Out of Account**
+**[X] Log Out of Account**
 - Start Date: 03/22/2024
 - End Date: 03/24/2024
 - Tasks:
-  - [ ] Implement log out functionality in frontend UI
-  - [ ] Develop backend functionality to handle user log out
-  - [ ] Test user log out process
+  - [X] Implement log out functionality in frontend UI
+  - [X] Develop backend functionality to handle user log out
+  - [X] Test user log out process
