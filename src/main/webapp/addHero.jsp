@@ -11,6 +11,7 @@
 <h2>Add New Hero</h2>
 
 <form action="AddEntity?type=hero" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="userId" value="${param.userId}">
     <!-- Hero Name -->
     <label for="codeName">Code Name:</label>
     <input type="text" id="codeName" name="codeName" required><br>

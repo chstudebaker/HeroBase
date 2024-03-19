@@ -11,6 +11,7 @@
 <c:import url="nav.jsp" />
 <h2>Add Equipment</h2>
 <form action="AddEntity?type=equipment" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="userId" value="${param.userId}">
     <label for="heroID">Hero ID:</label>
     <input type="text" id="heroID" name="heroID" value="${param.heroId}" required>
     <label for="name">Name:</label><br>

@@ -29,67 +29,73 @@ public class AddEntity extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(AddEntity.class.getName());
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String entityType = request.getParameter("type");
+        String userID = request.getParameter("userId");
 
-        logger.log(Level.INFO, "Received GET request for entity type: " + entityType);
+        if (userID != null && !userID.isEmpty()) {
+            if ("hero".equals(entityType)) {
+                logger.log(Level.INFO, "Forwarding to addHero.jsp");
+                request.getRequestDispatcher("addHero.jsp").forward(request, response);
+            } else if ("power".equals(entityType)) {
+                // Retrieve power descriptions from the database
+                PowersDao powersDao = new PowersDao();
+                Set<String> powerDescriptions = new HashSet<>(powersDao.getAllDescriptions());
 
-        if ("hero".equals(entityType)) {
-            logger.log(Level.INFO, "Forwarding to addHero.jsp");
-            request.getRequestDispatcher("addHero.jsp").forward(request, response);
-        } else if ("power".equals(entityType)) {
-            // Retrieve power descriptions from the database
-            PowersDao powersDao = new PowersDao();
-            Set<String> powerDescriptions = new HashSet<>(powersDao.getAllDescriptions());
+                // Set power descriptions in request attributes
+                request.setAttribute("powerDescriptions", powerDescriptions);
 
-            // Set power descriptions in request attributes
-            request.setAttribute("powerDescriptions", powerDescriptions);
-
-            // Forward the request to the JSP
-            request.getRequestDispatcher("addPower.jsp").forward(request, response);
-        } else if ("equipment".equals(entityType)) {
-            logger.log(Level.INFO, "Forwarding to addEquipment.jsp");
-            request.getRequestDispatcher("addEquipment.jsp").forward(request, response);
-        } else if ("blog".equals(entityType)) {
-            // Forward to addBlog.jsp
-            logger.log(Level.INFO, "Forwarding to addBlog.jsp");
-            request.getRequestDispatcher("addBlog.jsp").forward(request, response);
+                // Forward the request to the JSP
+                request.getRequestDispatcher("addPower.jsp").forward(request, response);
+            } else if ("equipment".equals(entityType)) {
+                logger.log(Level.INFO, "Forwarding to addEquipment.jsp");
+                request.getRequestDispatcher("addEquipment.jsp").forward(request, response);
+            } else if ("blog".equals(entityType)) {
+                // Forward to addBlog.jsp
+                logger.log(Level.INFO, "Forwarding to addBlog.jsp");
+                request.getRequestDispatcher("addBlog.jsp").forward(request, response);
+            } else {
+                // Handle invalid or missing entity type
+                logger.log(Level.WARNING, "Invalid entity type: " + entityType);
+                response.sendRedirect("error.jsp");
+            }
         } else {
-            // Handle invalid or missing entity type
-            logger.log(Level.WARNING, "Invalid entity type: " + entityType);
-            response.sendRedirect("error.jsp");
+            // Redirect to an error page or display a message indicating lack of permissions
+            response.sendRedirect("only_users.jsp");
         }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String entityType = request.getParameter("type");
 
-        logger.log(Level.INFO, "Received POST request for entity type: " + entityType);
-        if ("hero".equals(entityType)) {
-            // Handle addition of a hero
-            logger.log(Level.INFO, "Adding a hero");
-            addHero(request, response);
-        } else if ("power".equals(entityType)) {
-            // Handle addition of a power
-            logger.log(Level.INFO, "Adding a power");
-            addPower(request, response);
-        } else if ("equipment".equals(entityType)) {
-            // Handle addition of equipment
-            logger.log(Level.INFO, "Adding equipment");
-            addEquipment(request, response);
-        } else if ("blog".equals(entityType)) {
-            // Handle addition of a blog
-            logger.log(Level.INFO, "Adding a blog");
-            addBlog(request, response);
-        } else {
-            // Handle invalid or missing entity type
-            logger.log(Level.WARNING, "Invalid entity type: " + entityType);
-            response.sendRedirect("error.jsp");
-        }
-        // No need to handle file uploads here, as they are handled within specific entity handling methods
+
+            if ("hero".equals(entityType)) {
+                // Handle addition of a hero
+                logger.log(Level.INFO, "Adding a hero");
+                addHero(request, response);
+            } else if ("power".equals(entityType)) {
+                // Handle addition of a power
+                logger.log(Level.INFO, "Adding a power");
+                addPower(request, response);
+            } else if ("equipment".equals(entityType)) {
+                // Handle addition of equipment
+                logger.log(Level.INFO, "Adding equipment");
+                addEquipment(request, response);
+            } else if ("blog".equals(entityType)) {
+                // Handle addition of a blog
+                logger.log(Level.INFO, "Adding a blog");
+                addBlog(request, response);
+            } else {
+                // Handle invalid or missing entity type
+                logger.log(Level.WARNING, "Invalid entity type: " + entityType);
+                response.sendRedirect("error.jsp");
+            }
+
     }
 
     private void addHero(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String userID = request.getParameter("userId");
         String codeName = request.getParameter("codeName");
         String realName = request.getParameter("realName");
         String bio = request.getParameter("bio");
@@ -120,10 +126,11 @@ public class AddEntity extends HttpServlet {
 
         request.setAttribute("addedItemId", insertedHeroId);
         // Forward the request to the JSP
-        request.getRequestDispatcher("addItemResult.jsp").forward(request, response);
+        request.getRequestDispatcher("addItemResult.jsp?userId=" + userID).forward(request, response);
     }
 
     private void addPower(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String userID = request.getParameter("userId");
         String heroID = request.getParameter("heroID");
         String selectedPower = request.getParameter("selectedPower");
         String customPower = request.getParameter("customPower");
@@ -150,10 +157,11 @@ public class AddEntity extends HttpServlet {
         request.setAttribute("success", success);
 
         // Forward the request to the JSP
-        request.getRequestDispatcher("addItemResult.jsp").forward(request, response);
+        request.getRequestDispatcher("addItemResult.jsp?userId=" + userID).forward(request, response);
     }
 
     private void addEquipment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String userID = request.getParameter("userId");
         String heroID = request.getParameter("heroID");
         String name = request.getParameter("name");
         String description = request.getParameter("description");
@@ -191,10 +199,11 @@ public class AddEntity extends HttpServlet {
         request.setAttribute("success", success);
 
         // Forward the request to the JSP
-        request.getRequestDispatcher("addItemResult.jsp").forward(request, response);
+        request.getRequestDispatcher("addItemResult.jsp?userId=" + userID).forward(request, response);
     }
 
     private void addBlog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String userID = request.getParameter("userId");
         String heroID = request.getParameter("heroID");
         String blogTitle = request.getParameter("blogTitle");
         String blogContent = request.getParameter("blogContent");
@@ -221,7 +230,7 @@ public class AddEntity extends HttpServlet {
         request.setAttribute("addedItemId", heroID);
 
         // Forward the request to the JSP
-        request.getRequestDispatcher("addItemResult.jsp").forward(request, response);
+        request.getRequestDispatcher("addItemResult.jsp?userId=" + userID).forward(request, response);
 
     }
 }

@@ -17,14 +17,19 @@ public class HeroList extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Retrieve userId from the request
+        String userId = request.getParameter("userId");
+
         // Retrieve all heroes
         List<Hero> allHeroes = heroDao.getAllHeroes();
 
-        // Set the heroList as an attribute in the request
+        // Set the heroList and userId as attributes in the request
         request.setAttribute("heroList", allHeroes);
+        request.setAttribute("userId", userId); // Pass userId to the JSP
 
         // Forward to the hero list page
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }
+
 }

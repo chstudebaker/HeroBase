@@ -29,8 +29,10 @@ public class GenerateWiki extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Retrieve hero ID from the request parameter
         int heroId = Integer.parseInt(request.getParameter("heroId"));
+
+        // Retrieve userId from the session
+        String userId = (String) request.getSession().getAttribute("userId");
 
         // Fetch hero details from the database
         HeroDao heroDao = new HeroDao();
@@ -46,13 +48,12 @@ public class GenerateWiki extends HttpServlet {
         BlogDao blogDao = new BlogDao();
         List<Blog> blogs = blogDao.getByHeroId(heroId);
 
-
-        // Set hero object and powers as request attributes
+        // Set hero object, powers, and userId as request attributes
         request.setAttribute("hero", hero);
         request.setAttribute("powers", powers);
         request.setAttribute("equipment", equipment);
         request.setAttribute("blogs", blogs);
-
+        request.setAttribute("userId", userId); // Pass userId to the JSP
 
         // Forward the request to the wiki.jsp page to display the generated content
         request.getRequestDispatcher("wiki.jsp").forward(request, response);

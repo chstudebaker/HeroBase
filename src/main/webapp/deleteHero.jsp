@@ -11,10 +11,14 @@
 <c:import url="header.jsp" />
 <c:import url="nav.jsp" />
 <div class="container">
+  <!-- Hidden input field to store userId -->
+  <input type="hidden" name="userId" value="${param.userId}">
   <h2>Are you sure you want to delete?</h2>
   <div class="button-wrapper">
-    <a href="DeleteEntity?heroId=${param.heroId}" class="yes">Yes</a>
-    <a href="heroList" class="no">No</a>
+    <!-- Include userId in the URL of the "Yes" link -->
+    <a href="DeleteEntity?type=hero&heroId=${param.heroId}&userId=${param.userId}" class="yes">Yes</a>
+    <!-- Include userId in the URL of the "No" link -->
+    <a href="heroList?userId=${param.userId}" class="no">No</a>
   </div>
 </div>
 </body>

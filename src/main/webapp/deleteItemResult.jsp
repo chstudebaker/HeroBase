@@ -14,10 +14,14 @@
     <h1>Delete Successful</h1>
     <p>The item was successfully deleted.</p>
     <form action="generateWiki" method="get">
+        <!-- Include userId in the URL -->
         <input type="hidden" name="heroId" value="${deletedItemId}">
+        <input type="hidden" name="userId" value="${param.userId}">
         <input type="submit" value="Return to Wiki">
     </form>
     <form action="heroList" method="get">
+        <!-- Include userId in the URL -->
+        <input type="hidden" name="userId" value="${param.userId}">
         <input type="submit" value="Return Home">
     </form>
 </c:if>
@@ -25,6 +29,8 @@
     <h1>Delete Failed</h1>
     <p>Failed to delete item. Please try again.</p>
     <form action="heroList" method="get">
+        <!-- Include userId in the URL -->
+        <input type="hidden" name="userId" value="${param.userId}">
         <input type="submit" value="Return Home">
     </form>
 </c:if>

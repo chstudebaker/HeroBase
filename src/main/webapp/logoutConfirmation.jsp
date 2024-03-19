@@ -5,16 +5,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error</title>
+    <title>Logging out</title>
     <link rel="stylesheet" href="css/heroBase.css">
+
 </head>
 <body>
 <c:import url="header.jsp" />
 <c:import url="nav.jsp" />
-<h1>Error</h1>
-<h2>There was an error. Please return to the index and try again.</h2>
+<h1>Logged Out</h1>
+<h2>You have successfully logged out. See you next time!</h2>
 <form action="heroList" method="get">
-    <input type="hidden" name="userId" value="${param.userId}">
     <input type="submit" value="Return Home">
 </form>
 </body>

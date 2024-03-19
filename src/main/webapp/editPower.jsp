@@ -13,6 +13,7 @@
 <h1>Edit Power</h1>
 <form action="EditEntity?type=power" method="POST">
   <input type="hidden" name="powerID" value="${param.powerID}">
+  <input type="hidden" name="userId" value="${param.userId}">
   <label for="description">Description:</label><br>
   <input type="text" id="description" name="description" value="${power.description}" required><br>
   <label for="explanation">Explanation:</label><br>

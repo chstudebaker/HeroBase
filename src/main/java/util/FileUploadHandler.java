@@ -18,7 +18,7 @@ public class FileUploadHandler {
             throw new IOException("Unable to retrieve file name from Content-Disposition header");
         }
 
-        String relativePath = "images/" + fileName; // Relative path within the application
+        String relativePath = "/images/" + fileName; // Relative path within the application
         String uploadDirectory = "C:/Users/cstudebaker/IdeaProjects/untitled/src/main/webapp/images"; // Absolute path to the images directory
 
         File uploadDir = new File(uploadDirectory);

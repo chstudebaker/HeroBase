@@ -31,37 +31,41 @@ public class DeleteEntity extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String entityType = request.getParameter("type");
+        String userID = request.getParameter("userId");
 
         logger.log(Level.INFO, "Received POST request for entity type: " + entityType);
-
-        if ("hero".equals(entityType)) {
-            // Handle deletion of a hero
-            logger.log(Level.INFO, "Deleting a hero");
-            deleteHero(request, response);
-        } else if ("power".equals(entityType)) {
-            // Handle deletion of a power
-            logger.log(Level.INFO, "Deleting a power");
-            deletePower(request, response);
-        } else if ("equipment".equals(entityType)) {
-            // Handle deletion of equipment
-            logger.log(Level.INFO, "Deleting equipment");
-            deleteEquipment(request, response);
-        } else if ("blog".equals(entityType)) {
-            // Handle deletion of a blog
-            logger.log(Level.INFO, "Deleting a blog");
-            deleteBlog(request, response);
+        if (userID != null && !userID.isEmpty()) {
+            if ("hero".equals(entityType)) {
+                // Handle deletion of a hero
+                logger.log(Level.INFO, "Deleting a hero");
+                deleteHero(request, response);
+            } else if ("power".equals(entityType)) {
+                // Handle deletion of a power
+                logger.log(Level.INFO, "Deleting a power");
+                deletePower(request, response);
+            } else if ("equipment".equals(entityType)) {
+                // Handle deletion of equipment
+                logger.log(Level.INFO, "Deleting equipment");
+                deleteEquipment(request, response);
+            } else if ("blog".equals(entityType)) {
+                // Handle deletion of a blog
+                logger.log(Level.INFO, "Deleting a blog");
+                deleteBlog(request, response);
+            } else {
+                // Handle invalid or missing entity type
+                logger.log(Level.WARN, "Invalid entity type: " + entityType);
+                response.sendRedirect("error.jsp");
+            }
         } else {
-            // Handle invalid or missing entity type
-            logger.log(Level.WARN, "Invalid entity type: " + entityType);
-            response.sendRedirect("error.jsp");
+            response.sendRedirect("only_users.jsp");
         }
     }
 
 
     private void deleteHero(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // Retrieve heroId from request parameters
-        String heroIdParam = request.getParameter("heroID");
-
+        String heroIdParam = request.getParameter("heroId");
+        String userID = request.getParameter("userId");
         // Check if heroId parameter is missing or empty
         if (heroIdParam == null || heroIdParam.isEmpty()) {
             // Handle missing or empty heroId parameter
@@ -85,12 +89,12 @@ public class DeleteEntity extends HttpServlet {
         request.setAttribute("deletedItemId", heroId);
 
         // Forward the request to the JSP
-        request.getRequestDispatcher("deleteItemResult.jsp").forward(request, response);
+        request.getRequestDispatcher("deleteItemResult.jsp?userId=" + userID).forward(request, response);
     }
 
     private void deletePower(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String powerIdParam = request.getParameter("powerID");
-
+        String userID = request.getParameter("userId");
         if (powerIdParam == null || powerIdParam.isEmpty()) {
             logger.error("Power ID parameter is missing or empty.");
             response.sendRedirect("error.jsp");
@@ -117,12 +121,12 @@ public class DeleteEntity extends HttpServlet {
         request.setAttribute("deletedItemId", power.getHero().getHeroId());
 
         // Forward the request to the JSP
-        request.getRequestDispatcher("deleteItemResult.jsp").forward(request, response);
+        request.getRequestDispatcher("deleteItemResult.jsp?userId=" + userID).forward(request, response);
     }
 
     private void deleteEquipment(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String equipmentIdParam = request.getParameter("equipmentId");
-
+        String userID = request.getParameter("userId");
         if (equipmentIdParam == null || equipmentIdParam.isEmpty()) {
             logger.error("Equipment ID parameter is missing or empty.");
             response.sendRedirect("error.jsp");
@@ -146,13 +150,14 @@ public class DeleteEntity extends HttpServlet {
 
         request.setAttribute("success", success);
 
-        request.getRequestDispatcher("deleteItemResult.jsp").forward(request, response);
+        request.getRequestDispatcher("deleteItemResult.jsp?userId=" + userID).forward(request, response);
 
     }
 
     private void deleteBlog(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // Retrieve blogId from request parameters
         String blogIdParam = request.getParameter("blogId");
+        String userID = request.getParameter("userId");
 
         // Check if blogId parameter is missing or empty
         if (blogIdParam == null || blogIdParam.isEmpty()) {
@@ -186,6 +191,6 @@ public class DeleteEntity extends HttpServlet {
         request.setAttribute("deletedItemId", blog.getHero().getHeroId());
 
         // Forward the request to the JSP
-        request.getRequestDispatcher("deleteItemResult.jsp").forward(request, response);
+        request.getRequestDispatcher("deleteItemResult.jsp?userId=" + userID).forward(request, response);
     }
 }

@@ -26,69 +26,74 @@ public class EditEntity extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String entityType = request.getParameter("type");
+        String userID = request.getParameter("userId");
 
-        if ("hero".equals(entityType)) {
-            String heroIDParam = request.getParameter("heroID");
-            if (heroIDParam == null || heroIDParam.isEmpty()) {
+        if (userID != null && !userID.isEmpty()) {
+            if ("hero".equals(entityType)) {
+                String heroIDParam = request.getParameter("heroID");
+                if (heroIDParam == null || heroIDParam.isEmpty()) {
+                    response.sendRedirect("error.jsp");
+                    return;
+                }
+                int heroID = Integer.parseInt(heroIDParam);
+                HeroDao heroDao = new HeroDao();
+                Hero hero = heroDao.getById(heroID);
+                if (hero == null) {
+                    response.sendRedirect("error.jsp");
+                    return;
+                }
+                request.setAttribute("hero", hero);
+                request.getRequestDispatcher("editHero.jsp").forward(request, response);
+            } else if ("power".equals(entityType)) {
+                String powerIDParam = request.getParameter("powerID");
+                if (powerIDParam == null || powerIDParam.isEmpty()) {
+                    response.sendRedirect("error.jsp");
+                    return;
+                }
+                int powerID = Integer.parseInt(powerIDParam);
+                PowersDao powersDao = new PowersDao();
+                Powers power = powersDao.getById(powerID);
+                if (power == null) {
+                    response.sendRedirect("error.jsp");
+                    return;
+                }
+                request.setAttribute("power", power);
+                request.getRequestDispatcher("editPower.jsp").forward(request, response);
+            } else if ("equipment".equals(entityType)) {
+                String equipmentIDParam = request.getParameter("equipmentId");
+                if (equipmentIDParam == null || equipmentIDParam.isEmpty()) {
+                    response.sendRedirect("error.jsp");
+                    return;
+                }
+                int equipmentID = Integer.parseInt(equipmentIDParam);
+                EquipmentDao equipmentDao = new EquipmentDao();
+                Equipment equipment = equipmentDao.getById(equipmentID);
+                if (equipment == null) {
+                    response.sendRedirect("error.jsp");
+                    return;
+                }
+                request.setAttribute("equipment", equipment);
+                request.getRequestDispatcher("editEquipment.jsp").forward(request, response);
+            } else if ("blog".equals(entityType)) {
+                String blogIdParam = request.getParameter("blogId");
+                if (blogIdParam == null || blogIdParam.isEmpty()) {
+                    response.sendRedirect("error.jsp");
+                    return;
+                }
+                int blogId = Integer.parseInt(blogIdParam);
+                BlogDao blogDao = new BlogDao();
+                Blog blog = blogDao.getById(blogId);
+                if (blog == null) {
+                    response.sendRedirect("error.jsp");
+                    return;
+                }
+                request.setAttribute("blog", blog);
+                request.getRequestDispatcher("editBlog.jsp").forward(request, response);
+            } else {
                 response.sendRedirect("error.jsp");
-                return;
             }
-            int heroID = Integer.parseInt(heroIDParam);
-            HeroDao heroDao = new HeroDao();
-            Hero hero = heroDao.getById(heroID);
-            if (hero == null) {
-                response.sendRedirect("error.jsp");
-                return;
-            }
-            request.setAttribute("hero", hero);
-            request.getRequestDispatcher("editHero.jsp").forward(request, response);
-        } else if ("power".equals(entityType)) {
-            String powerIDParam = request.getParameter("powerID");
-            if (powerIDParam == null || powerIDParam.isEmpty()) {
-                response.sendRedirect("error.jsp");
-                return;
-            }
-            int powerID = Integer.parseInt(powerIDParam);
-            PowersDao powersDao = new PowersDao();
-            Powers power = powersDao.getById(powerID);
-            if (power == null) {
-                response.sendRedirect("error.jsp");
-                return;
-            }
-            request.setAttribute("power", power);
-            request.getRequestDispatcher("editPower.jsp").forward(request, response);
-        } else if ("equipment".equals(entityType)) {
-            String equipmentIDParam = request.getParameter("equipmentId");
-            if (equipmentIDParam == null || equipmentIDParam.isEmpty()) {
-                response.sendRedirect("error.jsp");
-                return;
-            }
-            int equipmentID = Integer.parseInt(equipmentIDParam);
-            EquipmentDao equipmentDao = new EquipmentDao();
-            Equipment equipment = equipmentDao.getById(equipmentID);
-            if (equipment == null) {
-                response.sendRedirect("error.jsp");
-                return;
-            }
-            request.setAttribute("equipment", equipment);
-            request.getRequestDispatcher("editEquipment.jsp").forward(request, response);
-        } else if ("blog".equals(entityType)) {
-            String blogIdParam = request.getParameter("blogId");
-            if (blogIdParam == null || blogIdParam.isEmpty()) {
-                response.sendRedirect("error.jsp");
-                return;
-            }
-            int blogId = Integer.parseInt(blogIdParam);
-            BlogDao blogDao = new BlogDao();
-            Blog blog = blogDao.getById(blogId);
-            if (blog == null) {
-                response.sendRedirect("error.jsp");
-                return;
-            }
-            request.setAttribute("blog", blog);
-            request.getRequestDispatcher("editBlog.jsp").forward(request, response);
         } else {
-            response.sendRedirect("error.jsp");
+            response.sendRedirect("only_users.jsp");
         }
     }
 
@@ -115,6 +120,7 @@ public class EditEntity extends HttpServlet {
 
     private void editHero(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve form data
+        String userID = request.getParameter("userId");
         String heroIDParam = request.getParameter("heroId");
         String codeName = request.getParameter("codeName");
         String realName = request.getParameter("realName");
@@ -183,10 +189,11 @@ public class EditEntity extends HttpServlet {
         request.setAttribute("editedItemId", heroId);
 
         // Forward the request to the JSP
-        request.getRequestDispatcher("editItemResult.jsp").forward(request, response);
+        request.getRequestDispatcher("editItemResult.jsp?userId=" + userID).forward(request, response);
     }
     private void editPower(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve form data
+        String userID = request.getParameter("userId");
         String powerIDParam = request.getParameter("powerID");
         String description = request.getParameter("description");
         String explanation = request.getParameter("explanation");
@@ -194,7 +201,7 @@ public class EditEntity extends HttpServlet {
         // Validate that powerID is not empty
         if (powerIDParam == null || powerIDParam.isEmpty()) {
             // If powerID is missing, redirect to an error page or handle the error appropriately
-            response.sendRedirect("error.jsp");
+            response.sendRedirect("error.jsp?userId=" + userID);
             return;
         }
 
@@ -207,7 +214,7 @@ public class EditEntity extends HttpServlet {
 
         if (existingPower == null) {
             // Handle the case where the power doesn't exist
-            response.sendRedirect("error.jsp");
+            response.sendRedirect("error.jsp?userId=" + userID);
             return;
         }
 
@@ -224,11 +231,12 @@ public class EditEntity extends HttpServlet {
         request.setAttribute("editedItemId", existingPower.getHeroID());
 
         // Forward the request to the JSP
-        request.getRequestDispatcher("editItemResult.jsp").forward(request, response);
+        request.getRequestDispatcher("editItemResult.jsp?userId=" + userID).forward(request, response);
     }
 
     private void editEquipment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve form data
+        String userID = request.getParameter("userId");
         String equipmentIDParam = request.getParameter("equipmentId");
         String name = request.getParameter("name");
         String description = request.getParameter("description");
@@ -272,11 +280,12 @@ public class EditEntity extends HttpServlet {
         request.setAttribute("success", success);
 
         // Forward the request to the JSP
-        request.getRequestDispatcher("editItemResult.jsp").forward(request, response);
+        request.getRequestDispatcher("editItemResult.jsp?userId=" + userID).forward(request, response);
     }
 
     private void editBlog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve form data
+        String userID = request.getParameter("userId");
         String blogIdParam = request.getParameter("blogId");
         String blogTitle = request.getParameter("blogTitle");
         String blogContent = request.getParameter("blogContent");
@@ -311,6 +320,6 @@ public class EditEntity extends HttpServlet {
 
         // Forward the request to the JSP
         request.setAttribute("editedItemId", existingBlog.getHeroID());
-        request.getRequestDispatcher("editItemResult.jsp").forward(request, response);
+        request.getRequestDispatcher("editItemResult.jsp?userId=" + userID).forward(request, response);
     }
 }

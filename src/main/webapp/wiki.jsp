@@ -53,7 +53,7 @@
 <body>
 <c:import url="header.jsp" />
 <c:import url="nav.jsp" />
-<a href="EditEntity?type=hero&heroID=${hero.heroId}" class="btn btn-primary edit-button-hero">Edit</a>
+<a href="EditEntity?type=hero&heroID=${hero.heroId}&userId=${param.userId}" class="btn btn-primary edit-button-hero">Edit</a>
 <div class="container">
     <div class="hero-info">
         <div class="hero-bio">
@@ -75,12 +75,12 @@
                         <li>${power.explanation}</li>
                     </ul>
                     <div class="edit-delete-buttons">
-                        <a href="EditEntity?type=power&powerID=${power.powerID}" class="edit-button">Edit</a>
-                        <a href="DeleteEntity?type=power&powerID=${power.powerID}" class="delete-button">Delete</a>
+                        <a href="EditEntity?type=power&powerID=${power.powerID}&userId=${param.userId}" class="edit-button">Edit</a>
+                        <a href="DeleteEntity?type=power&powerID=${power.powerID}&userId=${param.userId}" class="delete-button">Delete</a>
                     </div>
                 </div>
             </c:forEach>
-            <a href="AddEntity?type=power&heroId=${hero.heroId}" class="edit-button">Add</a>
+            <a href="AddEntity?type=power&heroId=${hero.heroId}&userId=${param.userId}" class="edit-button">Add</a>
             <hr>
             <hr>
             <h2>Equipment:</h2>
@@ -91,14 +91,14 @@
                         <li>${equipment.description}</li>
                     </ul>
                     <div class="edit-delete-buttons">
-                        <a href="EditEntity?type=equipment&equipmentId=${equipment.equipmentId}" class="edit-button">Edit</a>
-                        <a href="DeleteEntity?type=equipment&equipmentId=${equipment.equipmentId}" class="delete-button">Delete</a>
+                        <a href="EditEntity?type=equipment&equipmentId=${equipment.equipmentId}&userId=${param.userId}" class="edit-button">Edit</a>
+                        <a href="DeleteEntity?type=equipment&equipmentId=${equipment.equipmentId}&userId=${param.userId}" class="delete-button">Delete</a>
                     </div>
                 </div>
             </c:forEach>
-            <a href="AddEntity?type=equipment&heroId=${hero.heroId}" class="edit-button">Add</a>
+            <a href="AddEntity?type=equipment&heroId=${hero.heroId}&userId=${param.userId}" class="edit-button">Add</a>
             <!-- Add Blog Button -->
-            <a href="AddEntity?type=blog&heroId=${hero.heroId}" class="edit-button">Add Blog</a>
+            <a href="AddEntity?type=blog&heroId=${hero.heroId}&userId=${param.userId}" class="edit-button">Add Blog</a>
 
             <c:forEach var="blog" items="${blogs}">
                 <div class="blog-container">
@@ -109,9 +109,9 @@
                     </div>
                     <!-- Trash icon for deleting the blog -->
                     <div class="edit-delete-buttons">
-                        <a href="EditEntity?type=blog&blogId=${blog.blogId}" class="edit-button">Edit</a>
+                        <a href="EditEntity?type=blog&blogId=${blog.blogId}&userId=${param.userId}" class="edit-button">Edit</a>
                         <div class="delete-wrapper">
-                            <a href="DeleteEntity?type=blog&blogId=${blog.blogId}">
+                            <a href="DeleteEntity?type=blog&blogId=${blog.blogId}&userId=${param.userId}">
                                 <img class="trash-icon" src="images/trash.png" alt="Trash Can Icon">
                             </a>
                         </div>
@@ -120,6 +120,9 @@
             </c:forEach>
         </div>
         <div class="infobox">
+            <div class="hero-name-row">
+                <p style="text-align: center; font-weight: bold;">${hero.codeName}</p>
+            </div>
             <div class="hero-image-container">
                 <img src="${hero.images}" alt="Hero Image">
             </div>

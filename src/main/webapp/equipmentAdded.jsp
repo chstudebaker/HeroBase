@@ -10,10 +10,11 @@
 <body>
 <c:import url="header.jsp" />
 <c:import url="nav.jsp" />
-<h1>Equipment Added Successful</h1>
+<h1>Equipment Added Successfully</h1>
 <p>The equipment was successfully added.</p>
 
 <form action="AddEntity?type=equipment" method="get">
+    <input type="hidden" name="userId" value="${param.userId}">
     <button type="submit">Add Equipment</button>
 </form>
 

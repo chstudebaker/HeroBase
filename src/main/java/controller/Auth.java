@@ -68,6 +68,7 @@ public class Auth extends HttpServlet implements PropertiesLoader {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String authCode = req.getParameter("code");
         String userName = null;
+        String userId = null; // Initialize userId
 
         if (authCode == null) {
             // TODO forward to an error page or back to the login
@@ -78,6 +79,10 @@ public class Auth extends HttpServlet implements PropertiesLoader {
                 TokenResponse tokenResponse = getToken(authRequest);
                 userName = validate(tokenResponse);
                 req.setAttribute("userName", userName);
+
+                // Retrieve userId from the tokenResponse or any other source
+                // For example, if the userId is present in the tokenResponse, you can extract it like this:
+                userId = validate(tokenResponse);
             } catch (IOException e) {
                 logger.error("Error getting or validating the token: " + e.getMessage(), e);
                 req.getRequestDispatcher(ERROR_PAGE).forward(req, resp);
@@ -86,9 +91,12 @@ public class Auth extends HttpServlet implements PropertiesLoader {
                 req.getRequestDispatcher(ERROR_PAGE).forward(req, resp);
             }
         }
-        RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
+        // Append userId as a query parameter in the URL
+        String redirectURL = "/heroList?userId=" + userId;
+        RequestDispatcher dispatcher = req.getRequestDispatcher(redirectURL);
         dispatcher.forward(req, resp);
     }
+
 
     private TokenResponse getToken(HttpRequest authRequest) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
@@ -143,7 +151,9 @@ public class Auth extends HttpServlet implements PropertiesLoader {
         // Verify the token
         DecodedJWT jwt = verifier.verify(tokenResponse.getIdToken());
         String userName = jwt.getClaim("cognito:username").asString();
+        String userId = jwt.getClaim("sub").asString(); // Extract userId from the claim "sub"
         logger.debug("here's the username: " + userName);
+        logger.debug("here's the userId: " + userId); // Log the userId
 
         logger.debug("here are all the available claims: " + jwt.getClaims());
 
@@ -152,6 +162,7 @@ public class Auth extends HttpServlet implements PropertiesLoader {
 
         return userName;
     }
+
 
     private HttpRequest buildAuthRequest(String authCode) {
         String keys = CLIENT_ID + ":" + CLIENT_SECRET;

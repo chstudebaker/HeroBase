@@ -13,15 +13,6 @@
 
 <h1>Welcome to HeroBase</h1>
 
-<c:choose>
-    <c:when test="${empty userName}">
-        <p>Just want to browse? Feel free to use this site. However, members enjoy additional perks! Feel free to create an account using the log in link above!</p>
-    </c:when>
-    <c:otherwise>
-        <h3>Welcome ${userName}</h3>
-    </c:otherwise>
-</c:choose>
-
 <div class="container">
     <h2>List of Heroes</h2>
 
@@ -39,13 +30,13 @@
             <tr>
                 <td>
                     <img class="hero-icon" src="${pageContext.request.contextPath}/${hero.images}" alt="Hero Icon">
-                    <a href="generateWiki?heroId=${hero.heroId}">${hero.codeName}</a>
+                    <a href="generateWiki?heroId=${hero.heroId}&userId=${param.userId}">${hero.codeName}</a>
                 </td>
                 <td>${hero.alignment}</td>
                 <td>${hero.realName}</td>
                 <td>
                     <div class="delete-wrapper">
-                        <a href="deleteHero.jsp?heroId=${hero.heroId}">
+                        <a href="deleteHero.jsp?heroId=${hero.heroId}&userId=${param.userId}">
                             <img class="trash-icon" src="images/trash.png" alt="Trash Can Icon">
                         </a>
                     </div>
