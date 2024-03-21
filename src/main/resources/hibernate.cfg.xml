@@ -20,10 +20,10 @@
         <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
 
         <!-- Add the mapping class element -->
-        <mapping class="entity.Hero"/>
-        <mapping class="entity.Powers"/>
-        <mapping class="entity.Equipment"/>
-        <mapping class="entity.Blog"/>
+        <mapping class="com.chstudebaker.herobase.entity.Hero"/>
+        <mapping class="com.chstudebaker.herobase.entity.Powers"/>
+        <mapping class="com.chstudebaker.herobase.entity.Equipment"/>
+        <mapping class="com.chstudebaker.herobase.entity.Blog"/>
 
 
     </session-factory>
