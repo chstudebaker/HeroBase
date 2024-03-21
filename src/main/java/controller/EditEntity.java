@@ -24,12 +24,16 @@ import java.io.IOException;
 @WebServlet("/EditEntity")
 public class EditEntity extends HttpServlet {
 
+    public static final String HERO = "hero";
+    public static final String POWER = "power";
+    public static final String EQUIPMENT = "equipment";
+    public static final String BLOG = "blog";
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String entityType = request.getParameter("type");
         String userID = request.getParameter("userId");
 
         if (userID != null && !userID.isEmpty()) {
-            if ("hero".equals(entityType)) {
+            if (HERO.equals(entityType)) {
                 String heroIDParam = request.getParameter("heroID");
                 if (heroIDParam == null || heroIDParam.isEmpty()) {
                     response.sendRedirect("error.jsp");
@@ -42,9 +46,9 @@ public class EditEntity extends HttpServlet {
                     response.sendRedirect("error.jsp");
                     return;
                 }
-                request.setAttribute("hero", hero);
+                request.setAttribute(HERO, hero);
                 request.getRequestDispatcher("editHero.jsp").forward(request, response);
-            } else if ("power".equals(entityType)) {
+            } else if (POWER.equals(entityType)) {
                 String powerIDParam = request.getParameter("powerID");
                 if (powerIDParam == null || powerIDParam.isEmpty()) {
                     response.sendRedirect("error.jsp");
@@ -59,7 +63,7 @@ public class EditEntity extends HttpServlet {
                 }
                 request.setAttribute("power", power);
                 request.getRequestDispatcher("editPower.jsp").forward(request, response);
-            } else if ("equipment".equals(entityType)) {
+            } else if (EQUIPMENT.equals(entityType)) {
                 String equipmentIDParam = request.getParameter("equipmentId");
                 if (equipmentIDParam == null || equipmentIDParam.isEmpty()) {
                     response.sendRedirect("error.jsp");
@@ -74,7 +78,7 @@ public class EditEntity extends HttpServlet {
                 }
                 request.setAttribute("equipment", equipment);
                 request.getRequestDispatcher("editEquipment.jsp").forward(request, response);
-            } else if ("blog".equals(entityType)) {
+            } else if (BLOG.equals(entityType)) {
                 String blogIdParam = request.getParameter("blogId");
                 if (blogIdParam == null || blogIdParam.isEmpty()) {
                     response.sendRedirect("error.jsp");
@@ -101,7 +105,7 @@ public class EditEntity extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String entityType = request.getParameter("type");
 
-        if ("hero".equals(entityType)) {
+        if (HERO.equals(entityType)) {
             // Handle POST request to edit a hero
             editHero(request, response);
         } else if ("power".equals(entityType)) {

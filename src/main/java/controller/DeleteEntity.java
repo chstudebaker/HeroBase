@@ -23,7 +23,10 @@ import java.io.IOException;
 public class DeleteEntity extends HttpServlet {
 
     private static final Logger logger = LogManager.getLogger(DeleteEntity.class);
-
+    public static final String HERO = "hero";
+    public static final String POWER = "power";
+    public static final String EQUIPMENT = "equipment";
+    public static final String BLOG = "blog";
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Forward the request to doPost method
         doPost(request, response);
@@ -35,19 +38,19 @@ public class DeleteEntity extends HttpServlet {
 
         logger.log(Level.INFO, "Received POST request for entity type: " + entityType);
         if (userID != null && !userID.isEmpty()) {
-            if ("hero".equals(entityType)) {
+            if (HERO.equals(entityType)) {
                 // Handle deletion of a hero
                 logger.log(Level.INFO, "Deleting a hero");
                 deleteHero(request, response);
-            } else if ("power".equals(entityType)) {
+            } else if (POWER.equals(entityType)) {
                 // Handle deletion of a power
                 logger.log(Level.INFO, "Deleting a power");
                 deletePower(request, response);
-            } else if ("equipment".equals(entityType)) {
+            } else if (EQUIPMENT.equals(entityType)) {
                 // Handle deletion of equipment
                 logger.log(Level.INFO, "Deleting equipment");
                 deleteEquipment(request, response);
-            } else if ("blog".equals(entityType)) {
+            } else if (BLOG.equals(entityType)) {
                 // Handle deletion of a blog
                 logger.log(Level.INFO, "Deleting a blog");
                 deleteBlog(request, response);

@@ -28,6 +28,10 @@ import java.util.logging.Logger;
 public class AddEntity extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(AddEntity.class.getName());
+    public static final String HERO = "hero";
+    public static final String POWER = "power";
+    public static final String EQUIPMENT = "equipment";
+    public static final String BLOG = "blog";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,10 +39,10 @@ public class AddEntity extends HttpServlet {
         String userID = request.getParameter("userId");
 
         if (userID != null && !userID.isEmpty()) {
-            if ("hero".equals(entityType)) {
+            if (HERO.equals(entityType)) {
                 logger.log(Level.INFO, "Forwarding to addHero.jsp");
                 request.getRequestDispatcher("addHero.jsp").forward(request, response);
-            } else if ("power".equals(entityType)) {
+            } else if (POWER.equals(entityType)) {
                 // Retrieve power descriptions from the database
                 PowersDao powersDao = new PowersDao();
                 Set<String> powerDescriptions = new HashSet<>(powersDao.getAllDescriptions());
@@ -48,10 +52,10 @@ public class AddEntity extends HttpServlet {
 
                 // Forward the request to the JSP
                 request.getRequestDispatcher("addPower.jsp").forward(request, response);
-            } else if ("equipment".equals(entityType)) {
+            } else if (EQUIPMENT.equals(entityType)) {
                 logger.log(Level.INFO, "Forwarding to addEquipment.jsp");
                 request.getRequestDispatcher("addEquipment.jsp").forward(request, response);
-            } else if ("blog".equals(entityType)) {
+            } else if (BLOG.equals(entityType)) {
                 // Forward to addBlog.jsp
                 logger.log(Level.INFO, "Forwarding to addBlog.jsp");
                 request.getRequestDispatcher("addBlog.jsp").forward(request, response);
@@ -70,19 +74,19 @@ public class AddEntity extends HttpServlet {
         String entityType = request.getParameter("type");
 
 
-            if ("hero".equals(entityType)) {
+            if (HERO.equals(entityType)) {
                 // Handle addition of a hero
                 logger.log(Level.INFO, "Adding a hero");
                 addHero(request, response);
-            } else if ("power".equals(entityType)) {
+            } else if (POWER.equals(entityType)) {
                 // Handle addition of a power
                 logger.log(Level.INFO, "Adding a power");
                 addPower(request, response);
-            } else if ("equipment".equals(entityType)) {
+            } else if (POWER.equals(entityType)) {
                 // Handle addition of equipment
                 logger.log(Level.INFO, "Adding equipment");
                 addEquipment(request, response);
-            } else if ("blog".equals(entityType)) {
+            } else if (BLOG.equals(entityType)) {
                 // Handle addition of a blog
                 logger.log(Level.INFO, "Adding a blog");
                 addBlog(request, response);
