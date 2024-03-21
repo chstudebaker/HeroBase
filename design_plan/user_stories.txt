@@ -28,7 +28,6 @@ Update and Delete:
 Authentication:
 
 - As a user, I want to sign up for an account to access additional features.
-- As a user, I want to log in to my account to access personalized content and contribute to the platform.
 - As a user, I want to log out of my account to ensure the security of my information.
 
 Collaborative Features:
