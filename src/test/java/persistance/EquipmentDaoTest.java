@@ -2,12 +2,15 @@ package persistance;
 
 import entity.Equipment;
 import entity.Hero;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EquipmentDaoTest {
+    private static final Logger logger = LogManager.getLogger(BlogDaoTest.class);
 
     EquipmentDao dao;
     HeroDao heroDao;
@@ -23,7 +26,7 @@ class EquipmentDaoTest {
 
     @Test
     void getAllEquipmentSuccess() {
-        System.out.println("Starting getAllEquipmentSuccess test...");
+        logger.info("Starting getAllEquipmentSuccess test...");
 
         // Retrieve all equipment
         List<Equipment> equipmentList = dao.getAllEquipment();
@@ -32,12 +35,12 @@ class EquipmentDaoTest {
         assertNotNull(equipmentList);
         assertFalse(equipmentList.isEmpty());
 
-        System.out.println("Ending getAllEquipmentSuccess test...");
+        logger.info("Ending getAllEquipmentSuccess test...");
     }
 
     @Test
     void getByIdSuccess() {
-        System.out.println("Starting getByIdSuccess test...");
+        logger.info("Starting getByIdSuccess test...");
 
         // Retrieve equipment by ID
         Equipment equipment = dao.getById(1);
@@ -45,12 +48,12 @@ class EquipmentDaoTest {
         // Perform assertions
         assertNotNull(equipment);
 
-        System.out.println("Ending getByIdSuccess test...");
+        logger.info("Ending getByIdSuccess test...");
     }
 
     @Test
     void getByHeroIdSuccess() {
-        System.out.println("Starting getByHeroIdSuccess test...");
+        logger.info("Starting getByHeroIdSuccess test...");
 
         // Retrieve equipment by Hero ID
         List<Equipment> equipmentList = dao.getByHeroId(1);
@@ -59,12 +62,12 @@ class EquipmentDaoTest {
         assertNotNull(equipmentList);
         assertFalse(equipmentList.isEmpty());
 
-        System.out.println("Ending getByHeroIdSuccess test...");
+        logger.info("Ending getByHeroIdSuccess test...");
     }
 
     @Test
     void insertSuccess() {
-        System.out.println("Starting insertSuccess test...");
+        logger.info("Starting insertSuccess test...");
 
         // Create a new Hero instance
         // Create a new Hero instance
@@ -89,12 +92,12 @@ class EquipmentDaoTest {
         assertNotNull(retrievedEquipment);
         assertEquals("Sword", retrievedEquipment.getName());
 
-        System.out.println("Ending insertSuccess test...");
+        logger.info("Ending insertSuccess test...");
     }
 
     @Test
     void updateSuccess() {
-        System.out.println("Starting updateSuccess test...");
+        logger.info("Starting updateSuccess test...");
 
         // Retrieve an existing Equipment
         Equipment equipmentToUpdate = dao.getById(1);
@@ -113,12 +116,12 @@ class EquipmentDaoTest {
         assertNotNull(updatedEquipment);
         assertEquals("An updated description", updatedEquipment.getDescription());
 
-        System.out.println("Ending updateSuccess test...");
+        logger.info("Ending updateSuccess test...");
     }
 
     @Test
     void deleteSuccess() {
-        System.out.println("Starting deleteSuccess test...");
+        logger.info("Starting deleteSuccess test...");
 
         // Retrieve an existing Equipment to delete
         Equipment equipmentToDelete = dao.getById(1);
@@ -130,6 +133,6 @@ class EquipmentDaoTest {
         assertTrue(success);
         assertNull(dao.getById(1));
 
-        System.out.println("Ending deleteSuccess test...");
+        logger.info("Ending deleteSuccess test...");
     }
 }

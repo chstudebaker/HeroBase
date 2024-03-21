@@ -2,6 +2,8 @@ package persistance;
 
 import entity.Hero;
 import entity.Powers;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +12,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PowerDaoTest {
+    private static final Logger logger = LogManager.getLogger(BlogDaoTest.class);
 
     PowersDao dao;
     HeroDao heroDao;
@@ -24,7 +27,7 @@ class PowerDaoTest {
     }
     @Test
     void getAllDescriptionsSuccess() {
-        System.out.println("Starting getAllDescriptionsSuccess test...");
+        logger.info("Starting getAllDescriptionsSuccess test...");
 
         // Retrieve all descriptions
         List<String> descriptions = dao.getAllDescriptions();
@@ -34,11 +37,11 @@ class PowerDaoTest {
         assertTrue(descriptions.contains("Flight"));
         assertTrue(descriptions.contains("Super Strength"));
 
-        System.out.println("Ending getAllDescriptionsSuccess test...");
+        logger.info("Ending getAllDescriptionsSuccess test...");
     }
     @Test
     void update() {
-        System.out.println("Starting updateSuccess test...");
+        logger.info("Starting updateSuccess test...");
         Hero hero;
         hero = heroDao.getById(1);
         // Insert a new Powers entity
@@ -61,13 +64,13 @@ class PowerDaoTest {
         assertNotNull(updatedPower);
         assertEquals("Pyrokinesis", updatedPower.getDescription());
 
-        System.out.println("Ending updateSuccess test...");
+        logger.info("Ending updateSuccess test...");
     }
 
 
     @Test
     void getByIdSuccess() {
-        System.out.println("Starting getByIdSuccess test...");
+        logger.info("Starting getByIdSuccess test...");
 
         Hero hero = new Hero("Windchild", "Lance Talon", "bio", "Good", "test", "test", "test", "test", "test", "test");
         heroDao.insert(hero);
@@ -90,9 +93,9 @@ class PowerDaoTest {
         assertEquals("Windchild", retrievedPowers.getHero().getCodeName());
         assertEquals("Lance Talon", retrievedPowers.getHero().getRealName());
 
-        System.out.println("Assertions passed!");
+        logger.info("Assertions passed!");
 
-        System.out.println("Ending getByIdSuccess test...");
+        logger.info("Ending getByIdSuccess test...");
     }
 
     @Test
@@ -122,7 +125,7 @@ class PowerDaoTest {
 
     @Test
     void deleteSuccess() {
-        System.out.println("Starting deleteSuccess test...");
+        logger.info("Starting deleteSuccess test...");
 
         Hero hero = new Hero("TestHero", "TestRealName", "testBio", "testAlignment", "test", "test", "test", "test", "test", "test");
         heroDao.insert(hero);
@@ -133,20 +136,20 @@ class PowerDaoTest {
         dao.delete(powersToDelete);
         assertNull(dao.getById(powersToDelete.getPowerID()));
 
-        System.out.println("Ending deleteSuccess test...");
+        logger.info("Ending deleteSuccess test...");
     }
 
     @Test
     void getAllSuccess() {
-        System.out.println("Starting getAllSuccess test...");
+        logger.info("Starting getAllSuccess test...");
         List<Powers> powers = dao.getAllPowers();
         assertEquals(42, powers.size()); // Check for the inserted entries only
 
-        System.out.println("Ending getAllSuccess test...");
+        logger.info("Ending getAllSuccess test...");
     }
     @Test
     void insertSuccess() {
-        System.out.println("Starting insertSuccess test...");
+        logger.info("Starting insertSuccess test...");
         Hero hero;
         hero = heroDao.getById(1);
         // Create a new Powers instance
@@ -162,7 +165,7 @@ class PowerDaoTest {
         assertNotNull(retrievedPower);
         assertEquals("Telekinesis", retrievedPower.getDescription());
 
-        System.out.println("Ending insertSuccess test...");
+        logger.info("Ending insertSuccess test...");
     }
 
 
@@ -191,7 +194,7 @@ class PowerDaoTest {
 
     @Test
     void getByHeroIdSuccess() {
-        System.out.println("Starting getByHeroIdSuccess test...");
+        logger.info("Starting getByHeroIdSuccess test...");
 
         // Create a test Hero
         Hero testHero = new Hero("TestHero", "TestRealName", "testBio", "testAlignment", "test", "test", "test", "test", "test", "test");
@@ -212,7 +215,7 @@ class PowerDaoTest {
         assertEquals("TestDescription1", powers.get(0).getDescription());
         assertEquals("TestDescription2", powers.get(1).getDescription());
 
-        System.out.println("Ending getByHeroIdSuccess test...");
+        logger.info("Ending getByHeroIdSuccess test...");
     }
 
 }

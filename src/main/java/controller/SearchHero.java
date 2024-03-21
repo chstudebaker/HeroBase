@@ -25,7 +25,6 @@ public class SearchHero extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve search criteria from the form
-        System.out.println("Servlet doPost method is being executed.");  // Add this line for logging
         String searchCriteria = request.getParameter("searchCriteria");
         String searchTerm = request.getParameter("searchTerm");
 

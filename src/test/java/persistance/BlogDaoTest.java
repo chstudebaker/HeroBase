@@ -2,6 +2,8 @@ package persistance;
 
 import entity.Blog;
 import entity.Hero;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +12,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BlogDaoTest {
+    private static final Logger logger = LogManager.getLogger(BlogDaoTest.class);
 
     BlogDao dao;
     HeroDao heroDao;
@@ -25,21 +28,17 @@ class BlogDaoTest {
 
     @Test
     void getAllBlogsSuccess() {
-        System.out.println("Starting getAllBlogsSuccess test...");
-
         // Retrieve all blogs
         List<Blog> blogs = dao.getAllBlogs();
 
         // Perform assertions
         assertNotNull(blogs);
         assertEquals(0, blogs.size());
-
-        System.out.println("Ending getAllBlogsSuccess test...");
     }
 
     @Test
     void getByIdSuccess() {
-        System.out.println("Starting getByIdSuccess test...");
+        logger.info("Starting getByIdSuccess test...");
 
         Blog blog = new Blog();
         blog.setBlogTitle("Test Title");
@@ -54,12 +53,12 @@ class BlogDaoTest {
         assertEquals("Test Title", retrievedBlog.getBlogTitle());
         assertEquals("Test Content", retrievedBlog.getBlogContent());
 
-        System.out.println("Ending getByIdSuccess test...");
+        logger.info("Ending getByIdSuccess test...");
     }
 
     @Test
     void insertSuccess() {
-        System.out.println("Starting insertSuccess test...");
+        logger.info("Starting insertSuccess test...");
 
         Blog blog = new Blog();
         blog.setBlogTitle("Test Title");
@@ -76,12 +75,12 @@ class BlogDaoTest {
         assertEquals("Test Title", retrievedBlog.getBlogTitle());
         assertEquals("Test Content", retrievedBlog.getBlogContent());
 
-        System.out.println("Ending insertSuccess test...");
+        logger.info("Ending insertSuccess test...");
     }
 
     @Test
     void updateSuccess() {
-        System.out.println("Starting updateSuccess test...");
+        logger.info("Starting updateSuccess test...");
 
         // Insert a blog
         Blog blog = new Blog();
@@ -105,12 +104,12 @@ class BlogDaoTest {
         assertEquals("Updated Title", updatedBlog.getBlogTitle());
         assertEquals("Updated Content", updatedBlog.getBlogContent());
 
-        System.out.println("Ending updateSuccess test...");
+        logger.info("Ending updateSuccess test...");
     }
 
     @Test
     void deleteSuccess() {
-        System.out.println("Starting deleteSuccess test...");
+        logger.info("Starting deleteSuccess test...");
 
         // Insert a blog
         Blog blog = new Blog();
@@ -130,12 +129,12 @@ class BlogDaoTest {
         // Perform assertions
         assertNull(deletedBlog);
 
-        System.out.println("Ending deleteSuccess test...");
+        logger.info("Ending deleteSuccess test...");
     }
 
     @Test
     void getByHeroIdSuccess() {
-        System.out.println("Starting getByHeroIdSuccess test...");
+        logger.info("Starting getByHeroIdSuccess test...");
 
         // Insert a hero
         Hero hero = new Hero();
@@ -159,6 +158,6 @@ class BlogDaoTest {
         assertEquals("Test Title", blogs.get(0).getBlogTitle());
         assertEquals("Test Content", blogs.get(0).getBlogContent());
 
-        System.out.println("Ending getByHeroIdSuccess test...");
+        logger.info("Ending getByHeroIdSuccess test...");
     }
 }
