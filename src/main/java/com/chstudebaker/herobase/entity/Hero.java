@@ -88,8 +88,6 @@ public class Hero {
         this.equipment = new ArrayList<>();
     }
 
-    // Getters and setters for other fields
-
     /**
      * Retrieves the ID of the hero.
      * @return The hero ID.
@@ -106,7 +104,165 @@ public class Hero {
         this.heroId = heroId;
     }
 
-    // Other getters and setters...
+    /**
+     * Retrieves the code name of the hero.
+     * @return The code name of the hero.
+     */
+    public String getCodeName() {
+        return codeName;
+    }
+
+    /**
+     * Sets the code name of the hero.
+     * @param codeName The code name to set.
+     */
+    public void setCodeName(String codeName) {
+        this.codeName = codeName;
+    }
+
+    /**
+     * Retrieves the real name of the hero.
+     * @return The real name of the hero.
+     */
+    public String getRealName() {
+        return realName;
+    }
+
+    /**
+     * Sets the real name of the hero.
+     * @param realName The real name to set.
+     */
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    /**
+     * Retrieves the biography of the hero.
+     * @return The biography of the hero.
+     */
+    public String getBio() {
+        return bio;
+    }
+
+    /**
+     * Sets the biography of the hero.
+     * @param bio The biography to set.
+     */
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    /**
+     * Retrieves the alignment of the hero.
+     * @return The alignment of the hero.
+     */
+    public String getAlignment() {
+        return alignment;
+    }
+
+    /**
+     * Sets the alignment of the hero.
+     * @param alignment The alignment to set.
+     */
+    public void setAlignment(String alignment) {
+        this.alignment = alignment;
+    }
+
+    /**
+     * Retrieves the image path of the hero.
+     * @return The image path of the hero.
+     */
+    public String getImages() {
+        return images;
+    }
+
+    /**
+     * Sets the image path of the hero.
+     * @param images The image path to set.
+     */
+    public void setImages(String images) {
+        this.images = images;
+    }
+
+    /**
+     * Retrieves the descriptions of the hero.
+     * @return The descriptions of the hero.
+     */
+    public String getDescriptions() {
+        return descriptions;
+    }
+
+    /**
+     * Sets the descriptions of the hero.
+     * @param descriptions The descriptions to set.
+     */
+    public void setDescriptions(String descriptions) {
+        this.descriptions = descriptions;
+    }
+
+    /**
+     * Retrieves the personality traits of the hero.
+     * @return The personality traits of the hero.
+     */
+    public String getPersonality() {
+        return personality;
+    }
+
+    /**
+     * Sets the personality traits of the hero.
+     * @param personality The personality traits to set.
+     */
+    public void setPersonality(String personality) {
+        this.personality = personality;
+    }
+
+    /**
+     * Retrieves the height of the hero.
+     * @return The height of the hero.
+     */
+    public String getHeight() {
+        return height;
+    }
+
+    /**
+     * Sets the height of the hero.
+     * @param height The height to set.
+     */
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
+    /**
+     * Retrieves the weight of the hero.
+     * @return The weight of the hero.
+     */
+    public String getWeight() {
+        return weight;
+    }
+
+    /**
+     * Sets the weight of the hero.
+     * @param weight The weight to set.
+     */
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
+    /**
+     * Retrieves the emblem representing the hero.
+     * @return The emblem representing the hero.
+     */
+    public String getEmblem() {
+        return emblem;
+    }
+
+    /**
+     * Sets the emblem representing the hero.
+     * @param emblem The emblem to set.
+     */
+    public void setEmblem(String emblem) {
+        this.emblem = emblem;
+    }
 
     /**
      * Retrieves the powers associated with the hero as a concatenated string.
@@ -137,6 +293,23 @@ public class Hero {
     public void setEquipment(List<Equipment> equipment) {
         this.equipment = equipment;
     }
+    /**
+     * Retrieves the powers associated with the hero.
+     * @return The list of powers associated with the hero.
+     */
+    public List<Powers> getPowers() {
+        return powers;
+    }
+
+    /**
+     * Sets the powers associated with the hero.
+     * @param powers The list of powers to set.
+     */
+    public void setPowers(List<Powers> powers) {
+        this.powers = powers;
+    }
+
+
 
     @Override
     public String toString() {
