@@ -3,14 +3,14 @@
 <html>
 <head>
     <title>Add Powers</title>
-    <link rel="stylesheet" href="css/heroBase.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/heroBase.css">
 </head>
 <body>
-<c:import url="header.jsp" />
-<c:import url="nav.jsp" />
+<c:import url="${pageContext.request.contextPath}/header.jsp" />
+<c:import url="${pageContext.request.contextPath}/nav.jsp" />
 <h2>Add Powers to Hero</h2>
 
-<form action="AddEntity?type=power" method="post">
+<form action="${pageContext.request.contextPath}/AddEntity?type=power" method="post">
     <input type="hidden" name="userId" value="${param.userId}">
     <label for="heroID">Hero ID:</label>
     <input type="text" id="heroID" name="heroID" value="${param.heroId}" required>

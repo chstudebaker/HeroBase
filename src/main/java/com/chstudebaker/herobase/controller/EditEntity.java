@@ -41,33 +41,66 @@ public class EditEntity extends HttpServlet {
      * @throws IOException If an I/O error occurs.
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Retrieve parameters from request
         String entityType = request.getParameter("type");
         String userID = request.getParameter("userId");
 
-        // Handle entity editing based on type
         if (userID != null && !userID.isEmpty()) {
-            if (HERO.equals(entityType)) {
-                // Edit hero
-                editHero(request, response);
-            } else if (POWER.equals(entityType)) {
-                // Edit power
-                editPower(request, response);
-            } else if (EQUIPMENT.equals(entityType)) {
-                // Edit equipment
-                editEquipment(request, response);
-            } else if (BLOG.equals(entityType)) {
-                // Edit blog
-                editBlog(request, response);
+            if ("hero".equals(entityType)) {
+                String heroIDParam = request.getParameter("heroId");
+                if (heroIDParam == null || heroIDParam.isEmpty()) {
+                    response.sendRedirect("error.jsp");
+                    return;
+                }
+                int heroID = Integer.parseInt(heroIDParam);
+                HeroDao heroDao = new HeroDao();
+                Hero hero = heroDao.getById(heroID);
+                if (hero == null) {
+                    response.sendRedirect("error.jsp");
+                    return;
+                }
+                request.setAttribute("hero", hero);
+                request.getRequestDispatcher("editHero.jsp").forward(request, response);
+            } else if ("power".equals(entityType)) {
+                String powerIDParam = request.getParameter("powerID");
+                if (powerIDParam == null || powerIDParam.isEmpty()) {
+                    response.sendRedirect("error.jsp");
+                    return;
+                }
+                int powerID = Integer.parseInt(powerIDParam);
+                PowersDao powersDao = new PowersDao();
+                Powers power = powersDao.getById(powerID);
+                if (power == null) {
+                    response.sendRedirect("error.jsp");
+                    return;
+                }
+                request.setAttribute("power", power);
+                request.getRequestDispatcher("editPower.jsp").forward(request, response);
+            } else if ("equipment".equals(entityType)) {
+                String equipmentIDParam = request.getParameter("equipmentId");
+                if (equipmentIDParam == null || equipmentIDParam.isEmpty()) {
+                    response.sendRedirect("error.jsp");
+                    return;
+                }
+                int equipmentID = Integer.parseInt(equipmentIDParam);
+                EquipmentDao equipmentDao = new EquipmentDao();
+                Equipment equipment = equipmentDao.getById(equipmentID);
+                if (equipment == null) {
+                    response.sendRedirect("error.jsp");
+                    return;
+                }
+                request.setAttribute("equipment", equipment);
+                request.getRequestDispatcher("editEquipment.jsp").forward(request, response);
             } else {
-                // Invalid entity type
                 response.sendRedirect("error.jsp");
             }
         } else {
-            // User ID not provided
+            // Redirect to an error page or display a message indicating lack of permissions
             response.sendRedirect("only_users.jsp");
         }
     }
+
+
+
 
     /**
      * Handles HTTP POST requests.
@@ -96,7 +129,7 @@ public class EditEntity extends HttpServlet {
             editBlog(request, response);
         } else {
             // Invalid or missing entity type
-            response.sendRedirect("error.jsp");
+            response.sendRedirect("doPostError.jsp");
         }
     }
 
@@ -108,7 +141,7 @@ public class EditEntity extends HttpServlet {
      * @throws IOException If an I/O error occurs.
      */
     private void editHero(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-// Retrieve form data
+        // Retrieve form data
         String userID = request.getParameter("userId");
         String heroIDParam = request.getParameter("heroId");
         String codeName = request.getParameter("codeName");
@@ -121,6 +154,9 @@ public class EditEntity extends HttpServlet {
         String weight = request.getParameter("weight");
         Part filePart = request.getPart("images");
         Part emblemPart = request.getPart("emblem");
+
+
+
         // Validate that heroID is not empty
         if (heroIDParam == null || heroIDParam.isEmpty()) {
             // If heroID is missing, redirect to an error page or handle the error appropriately
@@ -131,7 +167,7 @@ public class EditEntity extends HttpServlet {
         // Parse heroID to an integer
         int heroId = Integer.parseInt(heroIDParam);
 
-
+        // Handle file upload for images
         String images = null;
         if (filePart.getSize() > 0) { // Check if a new image is selected
             FileUploadHandler fileUploadHandler = new FileUploadHandler();
@@ -142,7 +178,7 @@ public class EditEntity extends HttpServlet {
             images = existingHero.getImages();
         }
 
-        // Handle emblem upload
+        // Handle file upload for emblem
         String emblem = null;
         if (emblemPart.getSize() > 0) { // Check if a new emblem is selected
             FileUploadHandler fileUploadHandler = new FileUploadHandler();
@@ -152,7 +188,6 @@ public class EditEntity extends HttpServlet {
             Hero existingHero = heroDao.getById(heroId);
             emblem = existingHero.getEmblem();
         }
-
 
         // Create a Hero object with the updated information
         Hero updatedHero = new Hero();
@@ -175,10 +210,13 @@ public class EditEntity extends HttpServlet {
         // Set the success attribute in the request
         request.setAttribute("success", success);
 
+        // Set the edited item ID attribute in the request
         request.setAttribute("editedItemId", heroId);
 
         // Forward the request to the JSP
-        request.getRequestDispatcher("editItemResult.jsp?userId=" + userID).forward(request, response);    }
+        request.getRequestDispatcher("editItemResult.jsp?userId=" + userID).forward(request, response);
+    }
+
 
     /**
      * Edits a power based on the provided request parameters and forwards the request to a result page.
@@ -200,6 +238,8 @@ public class EditEntity extends HttpServlet {
             response.sendRedirect("error.jsp?userId=" + userID);
             return;
         }
+
+
 
         // Parse powerID to an integer
         int powerID = Integer.parseInt(powerIDParam);
@@ -268,6 +308,8 @@ public class EditEntity extends HttpServlet {
             return;
         }
 
+
+
         // Update the name, description, and images of the existing equipment
         existingEquipment.setName(name);
         existingEquipment.setDescription(description);
@@ -315,6 +357,8 @@ public class EditEntity extends HttpServlet {
             response.sendRedirect("error.jsp");
             return;
         }
+
+
 
         // Update the blog title, content, and images
         existingBlog.setBlogTitle(blogTitle);

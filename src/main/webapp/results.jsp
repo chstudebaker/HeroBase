@@ -2,16 +2,16 @@
 <html>
 <head>
     <title>Hero Search Results</title>
-    <link rel="stylesheet" href="css/heroBase.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/heroBase.css">
 </head>
 <body>
-<c:import url="header.jsp" />
-<c:import url="nav.jsp" />
+<c:import url="${pageContext.request.contextPath}/header.jsp" />
+<c:import url="${pageContext.request.contextPath}/nav.jsp" />
 <div class="container">
     <h2>Hero Search Results</h2>
 
     <!-- Hero Search Form -->
-    <form action="searchHero" method="post">
+    <form action="${pageContext.request.contextPath}/searchHero" method="post">
         <label for="searchTerm">Search Term:</label>
         <input type="text" id="searchTerm" name="searchTerm" required>
 
@@ -37,7 +37,7 @@
             <tr>
                 <td>
                     <img class="hero-icon" src="${pageContext.request.contextPath}/${hero.images}" alt="Hero Icon">
-                    <a href="generateWiki?heroId=${hero.heroId}&userId=${param.userId}">${hero.codeName}</a>
+                    <a href="${pageContext.request.contextPath}/generateWiki?heroId=${hero.heroId}&userId=${param.userId}">${hero.codeName}</a>
                 </td>
                 <td>${hero.realName}</td>
                 <td>${hero.alignment}</td>

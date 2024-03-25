@@ -2,15 +2,15 @@
 <html>
 <head>
     <title>Edit Hero</title>
-    <link rel="stylesheet" href="css/heroBase.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/heroBase.css">
 </head>
 <body>
-<c:import url="header.jsp" />
-<c:import url="nav.jsp" />
+<c:import url="${pageContext.request.contextPath}/header.jsp" />
+<c:import url="${pageContext.request.contextPath}/nav.jsp" />
 
 <h2>Edit Hero</h2>
 
-<form action="EditEntity?type=hero&userId=${param.userId}" method="post" enctype="multipart/form-data">
+<form action="${pageContext.request.contextPath}/EditEntity?type=hero&userId=${param.userId}" method="post" enctype="multipart/form-data">
     <!-- Hidden input field for heroID -->
     <input type="hidden" id="heroId" name="heroId" value="${hero.heroId}">
 
@@ -47,10 +47,10 @@
     <label for="images">Image:</label>
     <input type="file" id="images" name="images" accept="image/*">
     <!-- Label for current image -->
-    <label id="imageLabel" class="current-image">${hero.images ? hero.images : 'Current Image'}</label><br>
+    <label id="imageLabel" class="current-image">${pageContext.request.contextPath}/${hero.images ? hero.images : 'Current Image'}</label><br>
 
     <!-- Current Hero Image -->
-    <img src="${hero.images}" alt="Current Image" class="current-image">
+    <img src="${pageContext.request.contextPath}/${hero.images}" alt="Current Image" class="current-image">
 
     <!-- Height -->
     <label for="height">Height:</label>
@@ -64,10 +64,10 @@
     <label for="emblem">Upload Emblem:</label>
     <input type="file" id="emblem" name="emblem" accept="image/*">
     <!-- Label for current emblem -->
-    <label id="emblemLabel" class="current-image">${hero.emblem ? hero.emblem : 'Current Image'}</label><br>
+    <label id="emblemLabel" class="current-image">${pageContext.request.contextPath}/${hero.emblem ? hero.emblem : 'Current Image'}</label><br>
 
     <!-- Current Emblem Image -->
-    <img src="${hero.emblem}" alt="Current Image" class="current-image">
+    <img src="${pageContext.request.contextPath}/${hero.emblem}" alt="Current Image" class="current-image">
 
     <!-- Submit Button -->
     <input type="submit" value="Update Hero">

@@ -6,16 +6,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Only Users Page</title>
-    <link rel="stylesheet" type="text/css" href="css/heroBase.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/heroBase.css">
 </head>
 <body>
-<c:import url="header.jsp" />
-<c:import url="nav.jsp" />
+<c:import url="${pageContext.request.contextPath}/header.jsp" />
+<c:import url="${pageContext.request.contextPath}/nav.jsp" />
 
 <div class="container">
     <h1>Only Users Page</h1>
     <p>Sorry, this page is only accessible to logged-in users.</p>
-    <p>Please <a href="logIn">log in</a> to access this page.</p>
+    <p>Please <a href="${pageContext.request.contextPath}/logIn">log in</a> to access this page.</p>
 </div>
 </body>
 </html>

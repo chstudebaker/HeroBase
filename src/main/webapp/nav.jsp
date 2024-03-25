@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/heroBase.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/heroBase.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -69,21 +69,21 @@
 <body>
 
 <nav class="<c:if test='${not empty param.userId}'>logged-in</c:if>">
-    <a href="heroList?&userId=${param.userId}">Home</a>
-    <a href="results.jsp?&userId=${param.userId}">Search</a>
-    <a href="AddEntity?type=hero&userId=${param.userId}">Add Hero</a>
+    <a href="${pageContext.request.contextPath}/heroList?&userId=${param.userId}">Home</a>
+    <a href="${pageContext.request.contextPath}/results.jsp?&userId=${param.userId}">Search</a>
+    <a href="${pageContext.request.contextPath}/AddEntity?type=hero&userId=${param.userId}">Add Hero</a>
     <c:choose>
         <c:when test="${empty param.userId}">
-            <a href="logIn">Log In</a>
+            <a href="${pageContext.request.contextPath}/logIn">Log In</a>
         </c:when>
         <c:otherwise>
             <div class="profile-icon-container">
-                <img class="profile-icon" src="images/user_icon.png" alt="User Icon">
+                <img class="profile-icon" src="${pageContext.request.contextPath}/images/user_icon.png" alt="User Icon">
             </div>
             <div class="profile-info">
                 <span>${param.userId}</span>
             </div>
-            <a href="logout">Log Out</a>
+            <a href="${pageContext.request.contextPath}/logout">Log Out</a>
         </c:otherwise>
     </c:choose>
 </nav>

@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Hero Wiki</title>
-    <link rel="stylesheet" href="css/heroBase.css">
-    <link rel="stylesheet" href="css/infobox.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/heroBase.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/infobox.css">
     <style>
         .edit-delete-buttons {
             display: flex;
@@ -51,9 +51,9 @@
     </style>
 </head>
 <body>
-<c:import url="header.jsp" />
-<c:import url="nav.jsp" />
-<a href="EditEntity?type=hero&heroID=${hero.heroId}&userId=${param.userId}" class="btn btn-primary edit-button-hero">Edit</a>
+<c:import url="${pageContext.request.contextPath}/header.jsp" />
+<c:import url="${pageContext.request.contextPath}/nav.jsp" />
+<a href="${pageContext.request.contextPath}/EditEntity?type=hero&heroId=${hero.heroId}&userId=${param.userId}" class="btn btn-primary edit-button-hero">Edit</a>
 <div class="container">
     <div class="hero-info">
         <div class="hero-bio">
@@ -75,12 +75,12 @@
                         <li>${power.explanation}</li>
                     </ul>
                     <div class="edit-delete-buttons">
-                        <a href="EditEntity?type=power&powerID=${power.powerID}&userId=${param.userId}" class="edit-button">Edit</a>
-                        <a href="DeleteEntity?type=power&powerID=${power.powerID}&userId=${param.userId}" class="delete-button">Delete</a>
+                        <a href="${pageContext.request.contextPath}/EditEntity?type=power&powerID=${power.powerID}&userId=${param.userId}" class="edit-button">Edit</a>
+                        <a href="${pageContext.request.contextPath}/DeleteEntity?type=power&powerID=${power.powerID}&userId=${param.userId}" class="delete-button">Delete</a>
                     </div>
                 </div>
             </c:forEach>
-            <a href="AddEntity?type=power&heroId=${hero.heroId}&userId=${param.userId}" class="edit-button">Add</a>
+            <a href="${pageContext.request.contextPath}/AddEntity?type=power&heroId=${hero.heroId}&userId=${param.userId}" class="edit-button">Add</a>
             <hr>
             <hr>
             <h2>Equipment:</h2>
@@ -91,14 +91,14 @@
                         <li>${equipment.description}</li>
                     </ul>
                     <div class="edit-delete-buttons">
-                        <a href="EditEntity?type=equipment&equipmentId=${equipment.equipmentId}&userId=${param.userId}" class="edit-button">Edit</a>
-                        <a href="DeleteEntity?type=equipment&equipmentId=${equipment.equipmentId}&userId=${param.userId}" class="delete-button">Delete</a>
+                        <a href="${pageContext.request.contextPath}/EditEntity?type=equipment&equipmentId=${equipment.equipmentId}&userId=${param.userId}" class="edit-button">Edit</a>
+                        <a href="${pageContext.request.contextPath}/DeleteEntity?type=equipment&equipmentId=${equipment.equipmentId}&userId=${param.userId}" class="delete-button">Delete</a>
                     </div>
                 </div>
             </c:forEach>
-            <a href="AddEntity?type=equipment&heroId=${hero.heroId}&userId=${param.userId}" class="edit-button">Add</a>
+            <a href="${pageContext.request.contextPath}/AddEntity?type=equipment&heroId=${hero.heroId}&userId=${param.userId}" class="edit-button">Add</a>
             <!-- Add Blog Button -->
-            <a href="AddEntity?type=blog&heroId=${hero.heroId}&userId=${param.userId}" class="edit-button">Add Blog</a>
+            <a href="${pageContext.request.contextPath}/AddEntity?type=blog&heroId=${hero.heroId}&userId=${param.userId}" class="edit-button">Add Blog</a>
 
             <c:forEach var="blog" items="${blogs}">
                 <div class="blog-container">
@@ -109,10 +109,10 @@
                     </div>
                     <!-- Trash icon for deleting the blog -->
                     <div class="edit-delete-buttons">
-                        <a href="EditEntity?type=blog&blogId=${blog.blogId}&userId=${param.userId}" class="edit-button">Edit</a>
+                        <a href="${pageContext.request.contextPath}/EditEntity?type=blog&blogId=${blog.blogId}&userId=${param.userId}" class="edit-button">Edit</a>
                         <div class="delete-wrapper">
-                            <a href="DeleteEntity?type=blog&blogId=${blog.blogId}&userId=${param.userId}">
-                                <img class="trash-icon" src="images/trash.png" alt="Trash Can Icon">
+                            <a href="${pageContext.request.contextPath}/DeleteEntity?type=blog&blogId=${blog.blogId}&userId=${param.userId}">
+                                <img class="trash-icon" src="${pageContext.request.contextPath}/images/trash.png" alt="Trash Can Icon">
                             </a>
                         </div>
                     </div>

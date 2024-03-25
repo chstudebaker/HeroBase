@@ -5,15 +5,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Equipment Result</title>
-    <link rel="stylesheet" href="css/heroBase.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/heroBase.css">
 </head>
 <body>
-<c:import url="header.jsp" />
-<c:import url="nav.jsp" />
+<c:import url="${pageContext.request.contextPath}/header.jsp" />
+<c:import url="${pageContext.request.contextPath}/nav.jsp" />
 <h1>Equipment Added Successfully</h1>
 <p>The equipment was successfully added.</p>
 
-<form action="AddEntity?type=equipment" method="get">
+<form action="${pageContext.request.contextPath}/AddEntity"?type=equipment" method="get">
     <input type="hidden" name="userId" value="${param.userId}">
     <button type="submit">Add Equipment</button>
 </form>

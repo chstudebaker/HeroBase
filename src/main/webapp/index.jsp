@@ -5,11 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <title>HeroBase</title>
-    <link rel="stylesheet" href="css/heroBase.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/heroBase.css">
 </head>
 <body>
-<c:import url="header.jsp" />
-<c:import url="nav.jsp" />
+<c:import url="${pageContext.request.contextPath}/header.jsp" />
+<c:import url="${pageContext.request.contextPath}/nav.jsp" />
 
 <h1>Welcome to HeroBase</h1>
 
@@ -30,14 +30,14 @@
             <tr>
                 <td>
                     <img class="hero-icon" src="${pageContext.request.contextPath}/${hero.images}" alt="Hero Icon">
-                    <a href="generateWiki?heroId=${hero.heroId}&userId=${param.userId}">${hero.codeName}</a>
+                    <a href="${pageContext.request.contextPath}/generateWiki?heroId=${hero.heroId}&userId=${param.userId}">${hero.codeName}</a>
                 </td>
                 <td>${hero.alignment}</td>
                 <td>${hero.realName}</td>
                 <td>
                     <div class="delete-wrapper">
-                        <a href="deleteHero.jsp?heroId=${hero.heroId}&userId=${param.userId}">
-                            <img class="trash-icon" src="images/trash.png" alt="Trash Can Icon">
+                        <a href="${pageContext.request.contextPath}/deleteHero.jsp?heroId=${hero.heroId}&userId=${param.userId}">
+                            <img class="trash-icon" src="${pageContext.request.contextPath}/images/trash.png" alt="Trash Can Icon">
                         </a>
                     </div>
                 </td>

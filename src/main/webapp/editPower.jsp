@@ -5,13 +5,13 @@
 <head>
   <meta charset="UTF-8">
   <title>Edit Power</title>
-  <link rel="stylesheet" href="css/heroBase.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/heroBase.css">
 </head>
 <body>
-<c:import url="header.jsp" />
-<c:import url="nav.jsp" />
+<c:import url="${pageContext.request.contextPath}/header.jsp" />
+<c:import url="${pageContext.request.contextPath}/nav.jsp" />
 <h1>Edit Power</h1>
-<form action="EditEntity?type=power" method="POST">
+<form action="${pageContext.request.contextPath}/EditEntity?type=power" method="POST">
   <input type="hidden" name="powerID" value="${param.powerID}">
   <input type="hidden" name="userId" value="${param.userId}">
   <label for="description">Description:</label><br>

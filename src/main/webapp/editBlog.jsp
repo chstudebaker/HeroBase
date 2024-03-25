@@ -2,15 +2,15 @@
 <html>
 <head>
     <title>Edit Blog</title>
-    <link rel="stylesheet" href="css/heroBase.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/heroBase.css">
 </head>
 <body>
-<c:import url="header.jsp" />
-<c:import url="nav.jsp" />
+<c:import url="${pageContext.request.contextPath}/header.jsp" />
+<c:import url="${pageContext.request.contextPath}/nav.jsp" />
 
 <h2>Edit Blog</h2>
 
-<form action="EditEntity?type=blog&userId=${param.userId}" method="post">
+<form action="${pageContext.request.contextPath}/EditEntity?type=blog&userId=${param.userId}" method="post">
     <!-- Hidden input field for Blog ID -->
     <input type="hidden" id="blogId" name="blogId" value="${blog.blogId}">
 

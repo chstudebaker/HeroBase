@@ -5,21 +5,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Delete Item Result</title>
-    <link rel="stylesheet" href="css/heroBase.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/heroBase.css">
 </head>
 <body>
-<c:import url="header.jsp" />
-<c:import url="nav.jsp" />
+<c:import url="${pageContext.request.contextPath}/header.jsp" />
+<c:import url="${pageContext.request.contextPath}/nav.jsp" />
 <c:if test="${success}">
     <h1>Delete Successful</h1>
     <p>The item was successfully deleted.</p>
-    <form action="generateWiki" method="get">
+    <form action="${pageContext.request.contextPath}/generateWiki" method="get">
         <!-- Include userId in the URL -->
         <input type="hidden" name="heroId" value="${deletedItemId}">
         <input type="hidden" name="userId" value="${param.userId}">
         <input type="submit" value="Return to Wiki">
     </form>
-    <form action="heroList" method="get">
+    <form action="${pageContext.request.contextPath}/heroList" method="get">
         <!-- Include userId in the URL -->
         <input type="hidden" name="userId" value="${param.userId}">
         <input type="submit" value="Return Home">
@@ -28,7 +28,7 @@
 <c:if test="${!success}">
     <h1>Delete Failed</h1>
     <p>Failed to delete item. Please try again.</p>
-    <form action="heroList" method="get">
+    <form action="${pageContext.request.contextPath}/heroList" method="get">
         <!-- Include userId in the URL -->
         <input type="hidden" name="userId" value="${param.userId}">
         <input type="submit" value="Return Home">
