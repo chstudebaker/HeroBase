@@ -1,5 +1,6 @@
-/*package com.chstudebaker.herobase.persistance;
+package com.chstudebaker.herobase.persistance;
 
+import com.chstudebaker.herobase.entity.Hero;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -9,21 +10,20 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 public class HBAPIDao {
-    Planet getPlanet() {
+    Hero getHero() {
         Client client = ClientBuilder.newClient();
         WebTarget target =
-                client.target("https://swapi.dev/api/planets/1");
+                client.target("http://localhost:8080/api/herobase/1");
         String response = target.request(MediaType.APPLICATION_JSON).get(String.class);
         ObjectMapper mapper = new ObjectMapper();
-        Planet planet = null;
+        Hero hero = null;
         try {
-            planet = mapper.readValue(response, Planet.class);
+            hero = mapper.readValue(response, Hero.class);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+
         }
 
-        return planet;
+        return hero;
     }
 
 }
-*/

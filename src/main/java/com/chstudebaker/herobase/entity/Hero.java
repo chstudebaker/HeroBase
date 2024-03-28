@@ -7,9 +7,11 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import com.fasterxml.jackson.annotation.*;
 
 @Entity
 @Table(name = "Hero")
+@JsonInclude(JsonInclude.Include.NON_NULL) // Include only non-null fields in JSON serialization
 public class Hero {
 
     // Unique identifier for the hero
@@ -60,12 +62,13 @@ public class Hero {
 
     // Powers associated with the hero
     @OneToMany(mappedBy = "hero", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("hero") // Ignore this property during JSON serialization to avoid circular dependencies
     private List<Powers> powers;
 
     // Equipment associated with the hero
     @OneToMany(mappedBy = "hero", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("hero") // Ignore this property during JSON serialization to avoid circular dependencies
     private List<Equipment> equipment;
-
     // Default constructor
     public Hero() {
         this.powers = new ArrayList<>();
@@ -262,20 +265,6 @@ public class Hero {
      */
     public void setEmblem(String emblem) {
         this.emblem = emblem;
-    }
-
-    /**
-     * Retrieves the powers associated with the hero as a concatenated string.
-     * @return A string containing the descriptions of the powers.
-     */
-    public String getPowersAsString() {
-        if (powers != null && !powers.isEmpty()) {
-            return powers.stream()
-                    .map(Powers::getDescription)
-                    .collect(Collectors.joining(", "));
-        } else {
-            return "No powers available.";
-        }
     }
 
     /**

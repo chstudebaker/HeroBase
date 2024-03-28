@@ -1,5 +1,8 @@
 package com.chstudebaker.herobase.persistance;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,6 +20,8 @@ import java.util.Properties;
  */
 
 public class Database {
+
+    private static final Logger logger = LogManager.getLogger(BlogDaoTest.class);
 
     // create an object of the class Database
     private static Database instance = new Database();
@@ -39,9 +44,9 @@ public class Database {
         try {
             properties.load (this.getClass().getResourceAsStream("/database.properties"));
         } catch (IOException ioe) {
-            ioe.printStackTrace();
+            logger.info(ioe);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.info(e);
         }
 
     }
@@ -83,6 +88,7 @@ public class Database {
             try {
                 connection.close();
             } catch (SQLException e) {
+                logger.info(e);
             }
         }
 
