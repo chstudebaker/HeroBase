@@ -10,7 +10,7 @@
 <c:import url="${pageContext.request.contextPath}/header.jsp" />
 <c:import url="${pageContext.request.contextPath}/nav.jsp" />
 <h2>Add Equipment</h2>
-<form action="${pageContext.request.contextPath}/AddEntity?type=equipment" method="post" enctype="multipart/form-data">
+<form action="${pageContext.request.contextPath}/AddEquipment?type=equipment" method="post" enctype="multipart/form-data">
     <input type="hidden" name="userId" value="${param.userId}">
     <label for="heroID">Hero ID:</label>
     <input type="text" id="heroID" name="heroID" value="${param.heroId}" required>

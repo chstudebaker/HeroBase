@@ -13,7 +13,7 @@
 <h1>Equipment Added Successfully</h1>
 <p>The equipment was successfully added.</p>
 
-<form action="${pageContext.request.contextPath}/AddEntity"?type=equipment" method="get">
+<form action="${pageContext.request.contextPath}/AddEquipment?type=equipment" method="get">
     <input type="hidden" name="userId" value="${param.userId}">
     <button type="submit">Add Equipment</button>
 </form>

@@ -10,7 +10,7 @@
 
 <h2>Edit Hero</h2>
 
-<form action="${pageContext.request.contextPath}/EditEntity?type=hero&userId=${param.userId}" method="post" enctype="multipart/form-data">
+<form action="${pageContext.request.contextPath}/EditHero?type=hero&userId=${param.userId}" method="post" enctype="multipart/form-data">
     <!-- Hidden input field for heroID -->
     <input type="hidden" id="heroId" name="heroId" value="${hero.heroId}">
 

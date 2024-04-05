@@ -71,7 +71,7 @@
 <nav class="<c:if test='${not empty param.userId}'>logged-in</c:if>">
     <a href="${pageContext.request.contextPath}/heroList?&userId=${param.userId}">Home</a>
     <a href="${pageContext.request.contextPath}/results.jsp?&userId=${param.userId}">Search</a>
-    <a href="${pageContext.request.contextPath}/AddEntity?type=hero&userId=${param.userId}">Add Hero</a>
+    <a href="${pageContext.request.contextPath}/AddHero?type=hero&userId=${param.userId}">Add Hero</a>
     <c:choose>
         <c:when test="${empty param.userId}">
             <a href="${pageContext.request.contextPath}/logIn">Log In</a>

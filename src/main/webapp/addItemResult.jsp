@@ -19,21 +19,21 @@
         <input type="hidden" name="userId" value="${param.userId}">
         <input type="submit" value="Return to Wiki">
     </form>
-    <form action="${pageContext.request.contextPath}/AddEntity"" method="get">
+    <form action="${pageContext.request.contextPath}/AddHero" method="get">
         <!-- Include userId in the URL -->
         <input type="hidden" name="type" value="hero">
         <input type="hidden" name="heroId" value="${heroId}">
         <input type="hidden" name="userId" value="${param.userId}">
         <input type="submit" value="Add a new Hero">
     </form>
-    <form action="${pageContext.request.contextPath}/AddEntity"" method="get">
+    <form action="${pageContext.request.contextPath}/AddPower" method="get">
         <!-- Include userId in the URL -->
         <input type="hidden" name="type" value="power">
         <input type="hidden" name="heroId" value="${heroId}">
         <input type="hidden" name="userId" value="${param.userId}">
         <input type="submit" value="Add a new Power">
     </form>
-    <form action="${pageContext.request.contextPath}/AddEntity"" method="get">
+    <form action="${pageContext.request.contextPath}/AddEquipment" method="get">
         <!-- Include userId in the URL -->
         <input type="hidden" name="type" value="equipment">
         <input type="hidden" name="heroId" value="${heroId}">
@@ -49,21 +49,21 @@
 <c:if test="${!success}">
     <h1>Addition Failed</h1>
     <p>Failed to add item. Please try again.</p>
-    <form action="${pageContext.request.contextPath}/AddEntity"" method="get">
+    <form action="${pageContext.request.contextPath}/AddHero" method="get">
         <!-- Include userId in the URL -->
         <input type="hidden" name="type" value="hero">
         <input type="hidden" name="heroId" value="${heroId}">
         <input type="hidden" name="userId" value="${param.userId}">
         <button type="submit">Add A Hero</button>
     </form>
-    <form action="${pageContext.request.contextPath}/AddEntity"" method="get">
+    <form action="${pageContext.request.contextPath}/AddPower" method="get">
         <!-- Include userId in the URL -->
         <input type="hidden" name="type" value="power">
         <input type="hidden" name="heroId" value="${heroId}">
         <input type="hidden" name="userId" value="${param.userId}">
         <button type="submit">Try Again</button>
     </form>
-    <form action="${pageContext.request.contextPath}/AddEntity"" method="get">
+    <form action="${pageContext.request.contextPath}/AddEquipment" method="get">
         <!-- Include userId in the URL -->
         <input type="hidden" name="type" value="equipment">
         <input type="hidden" name="heroId" value="${heroId}">

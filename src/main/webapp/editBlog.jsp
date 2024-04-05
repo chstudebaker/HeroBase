@@ -10,7 +10,7 @@
 
 <h2>Edit Blog</h2>
 
-<form action="${pageContext.request.contextPath}/EditEntity?type=blog&userId=${param.userId}" method="post">
+<form action="${pageContext.request.contextPath}/EditBlog?type=blog&userId=${param.userId}" method="post">
     <!-- Hidden input field for Blog ID -->
     <input type="hidden" id="blogId" name="blogId" value="${blog.blogId}">
 

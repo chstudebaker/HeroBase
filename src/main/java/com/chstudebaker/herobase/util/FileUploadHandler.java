@@ -8,8 +8,22 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Properties;
 
 public class FileUploadHandler {
+
+    private String fileSaveUrl; // Property to store the absolute path URL
+
+    public FileUploadHandler() {
+        // Load the file save URL from the properties file
+        Properties properties = new Properties();
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("general.properties")) {
+            properties.load(inputStream);
+            fileSaveUrl = properties.getProperty("fileSaveUrl");
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle or log the exception as needed
+        }
+    }
 
     /**
      * Handles the file upload process.
@@ -30,7 +44,7 @@ public class FileUploadHandler {
         }
 
         String relativePath = "images/" + fileName; // Relative path within the application
-        String uploadDirectory = "C:/Users/cstudebaker/IdeaProjects/untitled/src/main/webapp/images"; // Absolute path to the images directory
+        String uploadDirectory = fileSaveUrl;
 
         File uploadDir = new File(uploadDirectory);
 

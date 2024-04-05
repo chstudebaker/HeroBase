@@ -11,7 +11,7 @@
 <c:import url="${pageContext.request.contextPath}/header.jsp" />
 <c:import url="${pageContext.request.contextPath}/nav.jsp" />
 <h1>Edit Equipment</h1>
-<form action="${pageContext.request.contextPath}/EditEntity?type=equipment&userId=${param.userId}" method="post" enctype="multipart/form-data">
+<form action="${pageContext.request.contextPath}/EditEquipment?type=equipment&userId=${param.userId}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="equipmentId" value="${param.equipmentId}">
     <label for="name">Name:</label><br>
     <input type="text" id="name" name="name" value="${equipment.name}" required><br>
