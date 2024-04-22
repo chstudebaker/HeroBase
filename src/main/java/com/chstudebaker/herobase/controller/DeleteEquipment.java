@@ -20,7 +20,7 @@ public class DeleteEquipment extends HttpServlet {
 
     public static final String EQUIPMENT = "equipment";
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String entityType = request.getParameter("type");
         String userID = request.getParameter("userId");
 

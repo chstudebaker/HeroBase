@@ -4,6 +4,8 @@
 package com.chstudebaker.herobase.controller;
 
 import com.chstudebaker.herobase.entity.Equipment;
+import com.chstudebaker.herobase.entity.Hero;
+import com.chstudebaker.herobase.persistance.HeroDao;
 import com.chstudebaker.herobase.util.FileUploadHandler;
 import com.chstudebaker.herobase.persistance.EquipmentDao;
 
@@ -110,30 +112,27 @@ public class EditEquipment extends HttpServlet {
         int equipmentID = Integer.parseInt(equipmentIDParam);
 
         // Handle file upload and get the relative path
-        FileUploadHandler fileUploadHandler = new FileUploadHandler();
-        String images = fileUploadHandler.handleFileUpload(filePart);
-
-        // Retrieve the existing equipment from the database
-        EquipmentDao equipmentDao = new EquipmentDao();
-        Equipment existingEquipment = equipmentDao.getById(equipmentID);
-
-        if (existingEquipment == null) {
-            // Handle the case where the equipment doesn't exist
-            response.sendRedirect("error.jsp");
-            return;
+        String images = null;
+        if (filePart.getSize() > 0) {
+            FileUploadHandler fileUploadHandler = new FileUploadHandler();
+            images = fileUploadHandler.handleFileUpload(filePart);
+        } else {
+            EquipmentDao equipmentDao = new EquipmentDao();
+            Equipment exisitingEquipment = equipmentDao.getById(equipmentID);
+            images = exisitingEquipment.getImages();
         }
 
-
-
         // Update the name, description, and images of the existing equipment
-        existingEquipment.setName(name);
-        existingEquipment.setDescription(description);
-        existingEquipment.setImages(images); // Set the relative path
+        Equipment updatedEquipment = new Equipment();
+        updatedEquipment.setName(name);
+        updatedEquipment.setDescription(description);
+        updatedEquipment.setImages(images); // Set the relative path
 
         // Update the equipment in the database
-        boolean success = equipmentDao.update(existingEquipment);
+        EquipmentDao equipmentDao = new EquipmentDao();
+        boolean success = equipmentDao.update(updatedEquipment);
 
-        request.setAttribute("editedItemId", existingEquipment.getHeroID());
+        request.setAttribute("editedItemId", updatedEquipment.getHeroID());
 
         // Set the success attribute in the request
         request.setAttribute("success", success);

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @MultipartConfig
-@WebServlet("/Edit")
+@WebServlet("/EditPower")
 public class EditPower extends HttpServlet {
 
     public static final String POWER = "power";
