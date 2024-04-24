@@ -3,14 +3,11 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <!-- <property name="connection.url">jdbc:mysql://awseb-e-x2zvedvafr-stack-awsebrdsdatabase-p8epctsirjdq.cjqk8umwej9o.us-east-1.rds.amazonaws.com:3306/hero</property> -->
-        <property name="connection.url">jdbc:mysql://localhost:3306/hero</property>
+        <property name="connection.url">jdbc:mysql://awseb-e-myyhmf9pki-stack-awsebrdsdatabase-ftt0w3kirchy.cjqk8umwej9o.us-east-1.rds.amazonaws.com:3306/herobase</property>
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
 
-        <!--<property name="connection.username">student</property>
-        <property name="connection.password">password</property>-->
-        <property name="connection.username">root</property>
-        <property name="connection.password">student</property>
+        <property name="connection.username">student</property>
+        <property name="connection.password">password</property>
 
         <property name="hibernate.c3p0.min_size">5</property>
         <property name="hibernate.c3p0.max_size">20</property>

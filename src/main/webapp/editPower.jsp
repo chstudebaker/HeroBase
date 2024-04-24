@@ -11,7 +11,7 @@
 <c:import url="${pageContext.request.contextPath}/header.jsp" />
 <c:import url="${pageContext.request.contextPath}/nav.jsp" />
 <h1>Edit Power</h1>
-<form action="${pageContext.request.contextPath}/EditPower?type=power" method="POST">
+<form action="${pageContext.request.contextPath}/EditPower" method="POST">
   <input type="hidden" name="powerID" value="${param.powerID}">
   <input type="hidden" name="userId" value="${param.userId}">
   <label for="description">Description:</label><br>

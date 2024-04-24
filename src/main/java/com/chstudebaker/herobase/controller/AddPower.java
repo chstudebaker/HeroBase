@@ -18,26 +18,28 @@ import java.util.logging.Logger;
 public class AddPower extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(AddPower.class.getName());
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userID = request.getParameter("userId");
 
-        // Check if userID is null or empty
-        if (userID == null || userID.isEmpty()) {
-            // Handle null or empty userID
-            logger.log(Level.WARNING, "User ID is null or empty.");
-            response.sendRedirect("error.jsp");
-            return;
+        if (userID != null && !userID.isEmpty()) {
+            logger.log(Level.INFO, "Forwarding to addPower.jsp");
+            request.getRequestDispatcher("addPower.jsp").forward(request, response);
+        } else {
+            // Redirect to an error page or display a message indicating lack of permissions
+            response.sendRedirect("only_users.jsp");
         }
-
-        // Redirect to addHero.jsp if userID is not null
-        response.sendRedirect("addPower.jsp");
-        response.sendRedirect("addPower.jsp");
+    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Handle addition of a power
+        logger.log(Level.INFO, "Adding equipment");
+        addPower(request, response);
     }
 
 
-    private void addPower(HttpServletRequest request, HttpServletResponse response, String userID) throws ServletException, IOException {
+    private void addPower(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve request parameters
+        String userID = request.getParameter("userId");
         String heroID = request.getParameter("heroID");
         String selectedPower = request.getParameter("selectedPower");
         String customPower = request.getParameter("customPower");

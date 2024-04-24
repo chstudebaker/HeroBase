@@ -10,7 +10,7 @@
 
 <h2>Add New Hero</h2>
 
-<form action="${pageContext.request.contextPath}/AddHero?type=hero" method="post" enctype="multipart/form-data">
+<form action="${pageContext.request.contextPath}/AddHero" method="post" enctype="multipart/form-data">
     <input type="hidden" name="userId" value="${param.userId}">
     <!-- Hero Name -->
     <label for="codeName">Code Name:</label>

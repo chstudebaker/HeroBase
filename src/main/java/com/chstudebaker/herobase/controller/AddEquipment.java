@@ -21,8 +21,6 @@ public class AddEquipment extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(AddEquipment.class.getName());
 
-    public static final String EQUIPMENT = "equipment";
-
     /**
      * Handles HTTP GET requests.
      * Retrieves the entity type from the request and forwards the request to the corresponding JSP page for adding entities.
@@ -33,18 +31,11 @@ public class AddEquipment extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String entityType = request.getParameter("type");
         String userID = request.getParameter("userId");
 
         if (userID != null && !userID.isEmpty()) {
-            if (EQUIPMENT.equals(entityType)) {
-                logger.log(Level.INFO, "Forwarding to addEquipment.jsp");
-                request.getRequestDispatcher("addEquipment.jsp").forward(request, response);
-            } else {
-                // Handle invalid or missing entity type
-                logger.log(Level.WARNING, "Invalid entity type: " + entityType);
-                response.sendRedirect("error.jsp");
-            }
+            logger.log(Level.INFO, "Forwarding to addEquipment.jsp");
+            request.getRequestDispatcher("addEquipment.jsp").forward(request, response);
         } else {
             // Redirect to an error page or display a message indicating lack of permissions
             response.sendRedirect("only_users.jsp");
@@ -60,17 +51,9 @@ public class AddEquipment extends HttpServlet {
      * @throws IOException If an I/O error occurs.
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String entityType = request.getParameter("type");
-
-        if (EQUIPMENT.equals(entityType)) {
-            // Handle addition of equipment
-            logger.log(Level.INFO, "Adding equipment");
-            addEquipment(request, response);
-        } else {
-            // Handle invalid or missing entity type
-            logger.log(Level.WARNING, "Invalid entity type: " + entityType);
-            response.sendRedirect("error.jsp");
-        }
+        // Handle addition of equipment
+        logger.log(Level.INFO, "Adding equipment");
+        addEquipment(request, response);
     }
 
 

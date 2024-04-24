@@ -5,6 +5,8 @@ package com.chstudebaker.herobase.controller;
 
 import com.chstudebaker.herobase.entity.Blog;
 import com.chstudebaker.herobase.persistance.BlogDao;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -18,7 +20,6 @@ import java.io.IOException;
 @WebServlet("/EditBlog")
 public class EditBlog extends HttpServlet {
 
-    public static final String BLOG = "blog";
 
     /**
      * Handles HTTP GET requests.
@@ -29,11 +30,9 @@ public class EditBlog extends HttpServlet {
      * @throws IOException If an I/O error occurs.
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String entityType = request.getParameter("type");
         String userID = request.getParameter("userId");
 
         if (userID != null && !userID.isEmpty()) {
-            if ("blog".equals(entityType)) {
                 String blogIDParam = request.getParameter("blogId");
                 if (blogIDParam == null || blogIDParam.isEmpty()) {
                     response.sendRedirect("error.jsp");
@@ -48,9 +47,6 @@ public class EditBlog extends HttpServlet {
                 }
                 request.setAttribute("blog", blog);
                 request.getRequestDispatcher("editBlog.jsp").forward(request, response);
-            } else {
-                response.sendRedirect("error.jsp");
-            }
         } else {
             // Redirect to an error page or display a message indicating lack of permissions
             response.sendRedirect("only_users.jsp");
@@ -69,17 +65,8 @@ public class EditBlog extends HttpServlet {
      * @throws IOException If an I/O error occurs.
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Retrieve entity type from request
-        String entityType = request.getParameter("type");
-
-        // Handle entity editing based on type
-        if (BLOG.equals(entityType)) {
-            // Handle POST request to edit a blog
-            editBlog(request, response);
-        } else {
-            // Invalid or missing entity type
-            response.sendRedirect("doPostError.jsp");
-        }
+        // Handle POST request to edit a blog
+        editBlog(request, response);
     }
 
     /**

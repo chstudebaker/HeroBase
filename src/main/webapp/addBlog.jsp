@@ -10,7 +10,7 @@
 
 <h2>Add Blog</h2>
 
-<form action="${pageContext.request.contextPath}/AddBlog?type=blog" method="post">
+<form action="${pageContext.request.contextPath}/AddBlog" method="post">
     <input type="hidden" name="userId" value="${param.userId}">
     <label for="heroID">Hero ID:</label>
     <input type="text" id="heroID" name="heroID" value="${param.heroId}" required>

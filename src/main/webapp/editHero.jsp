@@ -10,11 +10,10 @@
 
 <h2>Edit Hero</h2>
 
-<form action="${pageContext.request.contextPath}/EditHero?type=hero&userId=${param.userId}" method="post" enctype="multipart/form-data">
-    <!-- Hidden input field for heroID -->
+<form action="${pageContext.request.contextPath}/EditHero?heroId=${param.heroId}&userId=${param.userId}" method="post" enctype="multipart/form-data">
     <input type="hidden" id="heroId" name="heroId" value="${hero.heroId}">
 
-    <!-- Hero Name -->
+     <!-- Hero Name -->
     <label for="codeName">Hero Name:</label>
     <input type="text" id="codeName" name="codeName" value="${hero.codeName}" required><br>
 

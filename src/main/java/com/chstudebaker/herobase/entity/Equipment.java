@@ -12,15 +12,15 @@ public class Equipment {
     // Unique identifier for the equipment
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "equipmentId")
+    @Column(name = "EquipmentId")
     private int equipmentId;
 
     // Name of the equipment
-    @Column(name = "name")
+    @Column(name = "Name")
     private String name;
 
     // Description of the equipment
-    @Column(name = "description")
+    @Column(name = "Description")
     private String description;
 
     // Image path of the equipment
@@ -29,7 +29,7 @@ public class Equipment {
 
     // Hero associated with the equipment
     @ManyToOne
-    @JoinColumn(name = "heroId")
+    @JoinColumn(name = "HeroID")
     private Hero hero;
 
     // Default constructor

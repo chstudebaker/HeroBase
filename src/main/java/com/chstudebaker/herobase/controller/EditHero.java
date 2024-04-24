@@ -3,6 +3,9 @@ package com.chstudebaker.herobase.controller;
 import com.chstudebaker.herobase.entity.Hero;
 import com.chstudebaker.herobase.persistance.HeroDao;
 import com.chstudebaker.herobase.util.FileUploadHandler;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,33 +18,28 @@ import java.io.IOException;
 @WebServlet("/EditHero")
 public class EditHero extends HttpServlet {
 
+    private static final Logger logger = LogManager.getLogger(DeleteHero.class);
 
-    // Constants for entity types
-    public static final String HERO = "hero";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String entityType = request.getParameter("type");
         String userID = request.getParameter("userId");
 
         if (userID != null && !userID.isEmpty()) {
-            if ("hero".equals(entityType)) {
-                String heroIDParam = request.getParameter("heroId");
-                if (heroIDParam == null || heroIDParam.isEmpty()) {
-                    response.sendRedirect("error.jsp");
-                    return;
-                }
-                int heroID = Integer.parseInt(heroIDParam);
-                HeroDao heroDao = new HeroDao();
-                Hero hero = heroDao.getById(heroID);
-                if (hero == null) {
-                    response.sendRedirect("error.jsp");
-                    return;
-                }
-                request.setAttribute("hero", hero);
-                request.getRequestDispatcher("editHero.jsp").forward(request, response);
-            } else {
-                response.sendRedirect("error.jsp");
+            String heroIDParam = request.getParameter("heroId");
+            if (heroIDParam == null || heroIDParam.isEmpty()) {
+                logger.log(Level.INFO, "the heroId is: " + heroIDParam);
+                response.sendRedirect("error400.jsp");
+                return;
             }
+            int heroID = Integer.parseInt(heroIDParam);
+            HeroDao heroDao = new HeroDao();
+            Hero hero = heroDao.getById(heroID);
+            if (hero == null) {
+                response.sendRedirect("error500.jsp");
+                return;
+            }
+            request.setAttribute("hero", hero);
+            request.getRequestDispatcher("editHero.jsp").forward(request, response);
         } else {
             // Redirect to an error page or display a message indicating lack of permissions
             response.sendRedirect("only_users.jsp");
@@ -49,21 +47,23 @@ public class EditHero extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Retrieve entity type from request
-        String entityType = request.getParameter("type");
-
-        // Handle entity editing based on type
-        if (HERO.equals(entityType)) {
-            // Handle POST request to edit a hero
-            editHero(request, response);
-        } else {
-            // Invalid or missing entity type
-            response.sendRedirect("doPostError.jsp");
-        }
+        // Handle POST request to edit a hero
+        editHero(request, response);
     }
     protected void editHero(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userID = request.getParameter("userId");
         String heroIDParam = request.getParameter("heroId");
+        logger.info("UserID: " + userID);
+        logger.info("HeroIDParam: " + heroIDParam);
+
+        if (heroIDParam == null || heroIDParam.isEmpty()) {
+            logger.error("HeroID is null or empty");
+            response.sendRedirect("error400.jsp");
+            return;
+        }
+
+        int heroId = Integer.parseInt(heroIDParam);
+
         String codeName = request.getParameter("codeName");
         String realName = request.getParameter("realName");
         String bio = request.getParameter("bio");
@@ -75,13 +75,16 @@ public class EditHero extends HttpServlet {
         Part filePart = request.getPart("images");
         Part emblemPart = request.getPart("emblem");
 
-        if (heroIDParam == null || heroIDParam.isEmpty()) {
-            response.sendRedirect("error.jsp");
-            return;
-        }
+        logger.info("Code Name: " + codeName);
+        logger.info("Real Name: " + realName);
+        logger.info("Bio: " + bio);
+        logger.info("Alignment: " + alignment);
+        logger.info("Descriptions: " + descriptions);
+        logger.info("Personality: " + personality);
+        logger.info("Height: " + height);
+        logger.info("Weight: " + weight);
 
-        int heroId = Integer.parseInt(heroIDParam);
-
+        // File upload handling logic
         String images = null;
         if (filePart.getSize() > 0) {
             FileUploadHandler fileUploadHandler = new FileUploadHandler();
@@ -102,6 +105,7 @@ public class EditHero extends HttpServlet {
             emblem = existingHero.getEmblem();
         }
 
+        // Create updatedHero object and set values
         Hero updatedHero = new Hero();
         updatedHero.setHeroId(heroId);
         updatedHero.setCodeName(codeName);
@@ -115,11 +119,17 @@ public class EditHero extends HttpServlet {
         updatedHero.setImages(images);
         updatedHero.setEmblem(emblem);
 
+        // Log updated hero information
+        logger.info("Updated Hero: " + updatedHero);
+
+        // Update hero in the database
         HeroDao heroDao = new HeroDao();
         boolean success = heroDao.update(updatedHero);
 
+        // Set attributes for request dispatcher
         request.setAttribute("success", success);
         request.setAttribute("editedItemId", heroId);
         request.getRequestDispatcher("editItemResult.jsp?userId=" + userID).forward(request, response);
     }
+
 }

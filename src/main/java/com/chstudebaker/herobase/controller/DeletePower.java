@@ -18,23 +18,13 @@ public class DeletePower extends HttpServlet {
 
     private static final Logger logger = LogManager.getLogger(DeletePower.class);
 
-    public static final String POWER = "power";
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String entityType = request.getParameter("type");
         String userID = request.getParameter("userId");
 
-        logger.log(Level.INFO, "Received POST request for entity type: " + entityType);
         if (userID != null && !userID.isEmpty()) {
-            if (POWER.equals(entityType)) {
-                // Handle deletion of a power
-                logger.log(Level.INFO, "Deleting a power");
-                deletePower(request, response);
-            } else {
-                // Handle invalid or missing entity type
-                logger.log(Level.WARN, "Invalid entity type: " + entityType);
-                response.sendRedirect("error.jsp");
-            }
+            // Handle deletion of a power
+            logger.log(Level.INFO, "Deleting a power");
+            deletePower(request, response);
         } else {
             response.sendRedirect("only_users.jsp");
         }

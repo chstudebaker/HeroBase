@@ -17,7 +17,6 @@ public class AddBlog extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(AddBlog.class.getName());
 
-    public static final String BLOG = "blog";
 
     /**
      * Handles HTTP GET requests.
@@ -29,18 +28,11 @@ public class AddBlog extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String entityType = request.getParameter("type");
         String userID = request.getParameter("userId");
 
         if (userID != null && !userID.isEmpty()) {
-            if (BLOG.equals(entityType)) {
-                logger.log(Level.INFO, "Forwarding to addHero.jsp");
-                request.getRequestDispatcher("addHero.jsp").forward(request, response);
-            } else {
-                // Handle invalid or missing entity type
-                logger.log(Level.WARNING, "Invalid entity type: " + entityType);
-                response.sendRedirect("error.jsp");
-            }
+            logger.log(Level.INFO, "Forwarding to addBlog.jsp");
+            request.getRequestDispatcher("addBlog.jsp").forward(request, response);
         } else {
             // Redirect to an error page or display a message indicating lack of permissions
             response.sendRedirect("only_users.jsp");
@@ -56,17 +48,9 @@ public class AddBlog extends HttpServlet {
      * @throws IOException If an I/O error occurs.
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String entityType = request.getParameter("type");
-
-        if (BLOG.equals(entityType)) {
-            // Handle addition of a hero
-            logger.log(Level.INFO, "Adding a blog");
-            addBlog(request, response);
-        } else {
-            // Handle invalid or missing entity type
-            logger.log(Level.WARNING, "Invalid entity type: " + entityType);
-            response.sendRedirect("error.jsp");
-        }
+        // Handle addition of a hero
+        logger.log(Level.INFO, "Adding a blog");
+        addBlog(request, response);
     }
 
 

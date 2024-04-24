@@ -11,8 +11,6 @@
 <c:import url="${pageContext.request.contextPath}/header.jsp" />
 <c:import url="${pageContext.request.contextPath}/nav.jsp" />
 
-<h1>Welcome to HeroBase</h1>
-
 <div class="container">
     <h2>List of Heroes</h2>
 

@@ -18,8 +18,6 @@ import java.io.IOException;
 @WebServlet("/EditPower")
 public class EditPower extends HttpServlet {
 
-    public static final String POWER = "power";
-
     /**
      * Handles HTTP GET requests.
      * Retrieves entity information based on the provided type and forwards the request to the appropriate JSP page for editing.
@@ -29,28 +27,23 @@ public class EditPower extends HttpServlet {
      * @throws IOException If an I/O error occurs.
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String entityType = request.getParameter("type");
         String userID = request.getParameter("userId");
 
         if (userID != null && !userID.isEmpty()) {
-            if ("power".equals(entityType)) {
-                String powerIDParam = request.getParameter("powerID");
-                if (powerIDParam == null || powerIDParam.isEmpty()) {
-                    response.sendRedirect("error.jsp");
-                    return;
-                }
-                int powerID = Integer.parseInt(powerIDParam);
-                PowersDao powersDao = new PowersDao();
-                Powers power = powersDao.getById(powerID);
-                if (power == null) {
-                    response.sendRedirect("error.jsp");
-                    return;
-                }
-                request.setAttribute("power", power);
-                request.getRequestDispatcher("editPower.jsp").forward(request, response);
-            } else {
+            String powerIDParam = request.getParameter("powerID");
+            if (powerIDParam == null || powerIDParam.isEmpty()) {
                 response.sendRedirect("error.jsp");
+                return;
             }
+            int powerID = Integer.parseInt(powerIDParam);
+            PowersDao powersDao = new PowersDao();
+            Powers power = powersDao.getById(powerID);
+            if (power == null) {
+                response.sendRedirect("error.jsp");
+                return;
+            }
+            request.setAttribute("power", power);
+            request.getRequestDispatcher("editPower.jsp").forward(request, response);
         } else {
             // Redirect to an error page or display a message indicating lack of permissions
             response.sendRedirect("only_users.jsp");
@@ -66,17 +59,8 @@ public class EditPower extends HttpServlet {
      * @throws IOException If an I/O error occurs.
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Retrieve entity type from request
-        String entityType = request.getParameter("type");
-
-        // Handle entity editing based on type
-        if (POWER.equals(entityType)) {
-            // Handle POST request to edit a power
-            editPower(request, response);
-        } else {
-            // Invalid or missing entity type
-            response.sendRedirect("doPostError.jsp");
-        }
+        // Handle POST request to edit a power
+        editPower(request, response);
     }
 
     /**

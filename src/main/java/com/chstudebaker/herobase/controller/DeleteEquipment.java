@@ -18,23 +18,13 @@ public class DeleteEquipment extends HttpServlet {
 
     private static final Logger logger = LogManager.getLogger(DeleteEquipment.class);
 
-    public static final String EQUIPMENT = "equipment";
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String entityType = request.getParameter("type");
         String userID = request.getParameter("userId");
 
-        logger.log(Level.INFO, "Received POST request for entity type: " + entityType);
         if (userID != null && !userID.isEmpty()) {
-            if (EQUIPMENT.equals(entityType)) {
-                // Handle deletion of a hero
-                logger.log(Level.INFO, "Deleting a hero");
-                deleteEquipment(request, response);
-            } else {
-                // Handle invalid or missing entity type
-                logger.log(Level.WARN, "Invalid entity type: " + entityType);
-                response.sendRedirect("error.jsp");
-            }
+            // Handle deletion of a hero
+            logger.log(Level.INFO, "Deleting a hero");
+            deleteEquipment(request, response);
         } else {
             response.sendRedirect("only_users.jsp");
         }

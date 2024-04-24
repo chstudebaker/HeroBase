@@ -17,15 +17,15 @@ public class Hero {
     // Unique identifier for the hero
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "heroId")
+    @Column(name = "HeroID")
     private int heroId;
 
     // Code name of the hero
-    @Column(name = "codeName", nullable = false)
+    @Column(name = "CodeName", nullable = false)
     private String codeName;
 
     // Real name of the hero
-    @Column(name = "realName", nullable = false)
+    @Column(name = "RealName", nullable = false)
     private String realName;
 
     // Biography of the hero

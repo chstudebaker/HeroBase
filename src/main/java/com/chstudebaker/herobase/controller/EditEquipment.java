@@ -22,8 +22,6 @@ import java.io.IOException;
 @WebServlet("/EditEquipment")
 public class EditEquipment extends HttpServlet {
 
-    public static final String EQUIPMENT = "equipment";
-
     /**
      * Handles HTTP GET requests.
      * Retrieves entity information based on the provided type and forwards the request to the appropriate JSP page for editing.
@@ -37,24 +35,20 @@ public class EditEquipment extends HttpServlet {
         String userID = request.getParameter("userId");
 
         if (userID != null && !userID.isEmpty()) {
-             if ("equipment".equals(entityType)) {
-                String equipmentIDParam = request.getParameter("equipmentId");
-                if (equipmentIDParam == null || equipmentIDParam.isEmpty()) {
-                    response.sendRedirect("error.jsp");
-                    return;
-                }
-                int equipmentID = Integer.parseInt(equipmentIDParam);
-                EquipmentDao equipmentDao = new EquipmentDao();
-                Equipment equipment = equipmentDao.getById(equipmentID);
-                if (equipment == null) {
-                    response.sendRedirect("error.jsp");
-                    return;
-                }
-                request.setAttribute("equipment", equipment);
-                request.getRequestDispatcher("editEquipment.jsp").forward(request, response);
-            } else {
+            String equipmentIDParam = request.getParameter("equipmentId");
+            if (equipmentIDParam == null || equipmentIDParam.isEmpty()) {
                 response.sendRedirect("error.jsp");
+                return;
             }
+            int equipmentID = Integer.parseInt(equipmentIDParam);
+            EquipmentDao equipmentDao = new EquipmentDao();
+            Equipment equipment = equipmentDao.getById(equipmentID);
+            if (equipment == null) {
+                response.sendRedirect("error.jsp");
+                return;
+            }
+            request.setAttribute("equipment", equipment);
+            request.getRequestDispatcher("editEquipment.jsp").forward(request, response);
         } else {
             // Redirect to an error page or display a message indicating lack of permissions
             response.sendRedirect("only_users.jsp");
@@ -73,17 +67,8 @@ public class EditEquipment extends HttpServlet {
      * @throws IOException If an I/O error occurs.
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Retrieve entity type from request
-        String entityType = request.getParameter("type");
-
-        // Handle entity editing based on type
-        if (EQUIPMENT.equals(entityType)) {
-            // Handle POST request to edit equipment
-            editEquipment(request, response);
-        } else {
-            // Invalid or missing entity type
-            response.sendRedirect("doPostError.jsp");
-        }
+        // Handle POST request to edit equipment
+        editEquipment(request, response);
     }
 
     /**

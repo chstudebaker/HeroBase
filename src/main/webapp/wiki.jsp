@@ -53,7 +53,7 @@
 <body>
 <c:import url="${pageContext.request.contextPath}/header.jsp" />
 <c:import url="${pageContext.request.contextPath}/nav.jsp" />
-<a href="${pageContext.request.contextPath}/EditHero?type=hero&heroId=${hero.heroId}&userId=${param.userId}" class="btn btn-primary edit-button-hero">Edit</a>
+<a href="${pageContext.request.contextPath}/EditHero?heroId=${hero.heroId}&userId=${param.userId}" class="btn btn-primary edit-button-hero">Edit</a>
 <div class="container">
     <div class="hero-info">
         <div class="hero-bio">
@@ -75,12 +75,12 @@
                         <li>${power.explanation}</li>
                     </ul>
                     <div class="edit-delete-buttons">
-                        <a href="${pageContext.request.contextPath}/EditPower?type=power&powerID=${power.powerID}&userId=${param.userId}" class="edit-button">Edit</a>
-                        <a href="${pageContext.request.contextPath}/DeletePower?type=power&powerID=${power.powerID}&userId=${param.userId}" class="delete-button">Delete</a>
+                        <a href="${pageContext.request.contextPath}/EditPower?powerID=${power.powerID}&userId=${param.userId}" class="edit-button">Edit</a>
+                        <a href="${pageContext.request.contextPath}/DeletePower?powerID=${power.powerID}&userId=${param.userId}" class="delete-button">Delete</a>
                     </div>
                 </div>
             </c:forEach>
-            <a href="${pageContext.request.contextPath}/AddPower?type=power&heroId=${hero.heroId}&userId=${param.userId}" class="edit-button">Add</a>
+            <a href="${pageContext.request.contextPath}/AddPower?heroId=${hero.heroId}&userId=${param.userId}" class="edit-button">Add</a>
             <hr>
             <hr>
             <h2>Equipment:</h2>
@@ -91,14 +91,14 @@
                         <li>${equipment.description}</li>
                     </ul>
                     <div class="edit-delete-buttons">
-                        <a href="${pageContext.request.contextPath}/EditEquipment?type=equipment&equipmentId=${equipment.equipmentId}&userId=${param.userId}" class="edit-button">Edit</a>
-                        <a href="${pageContext.request.contextPath}/DeleteEquipment?type=equipment&equipmentId=${equipment.equipmentId}&userId=${param.userId}" class="delete-button">Delete</a>
+                        <a href="${pageContext.request.contextPath}/EditEquipment?equipmentId=${equipment.equipmentId}&userId=${param.userId}" class="edit-button">Edit</a>
+                        <a href="${pageContext.request.contextPath}/DeleteEquipment?equipmentId=${equipment.equipmentId}&userId=${param.userId}" class="delete-button">Delete</a>
                     </div>
                 </div>
             </c:forEach>
-            <a href="${pageContext.request.contextPath}/AddEquipment?type=equipment&heroId=${hero.heroId}&userId=${param.userId}" class="edit-button">Add</a>
+            <a href="${pageContext.request.contextPath}/AddEquipment?heroId=${hero.heroId}&userId=${param.userId}" class="edit-button">Add</a>
             <!-- Add Blog Button -->
-            <a href="${pageContext.request.contextPath}/AddBlog?type=blog&heroId=${hero.heroId}&userId=${param.userId}" class="edit-button">Add Blog</a>
+            <a href="${pageContext.request.contextPath}/AddBlog?heroId=${hero.heroId}&userId=${param.userId}" class="edit-button">Add Blog</a>
 
             <c:forEach var="blog" items="${blogs}">
                 <div class="blog-container">
@@ -109,9 +109,9 @@
                     </div>
                     <!-- Trash icon for deleting the blog -->
                     <div class="edit-delete-buttons">
-                        <a href="${pageContext.request.contextPath}/EditBlog?type=blog&blogId=${blog.blogId}&userId=${param.userId}" class="edit-button">Edit</a>
+                        <a href="${pageContext.request.contextPath}/EditBlog?blogId=${blog.blogId}&userId=${param.userId}" class="edit-button">Edit</a>
                         <div class="delete-wrapper">
-                            <a href="${pageContext.request.contextPath}/DeleteBlog?type=blog&blogId=${blog.blogId}&userId=${param.userId}">
+                            <a href="${pageContext.request.contextPath}/DeleteBlog?blogId=${blog.blogId}&userId=${param.userId}">
                                 <img class="trash-icon" src="${pageContext.request.contextPath}/images/trash.png" alt="Trash Can Icon">
                             </a>
                         </div>
