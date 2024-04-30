@@ -10,10 +10,11 @@
 
 <h2>Edit Hero</h2>
 
-<form action="${pageContext.request.contextPath}/EditHero?heroId=${param.heroId}&userId=${param.userId}" method="post" enctype="multipart/form-data">
+<form action="${pageContext.request.contextPath}/EditHero" method="post" enctype="multipart/form-data">
+    <input type="hidden" id="userId" name="userId" value="${param.userId}">
     <input type="hidden" id="heroId" name="heroId" value="${hero.heroId}">
 
-     <!-- Hero Name -->
+    <!-- Hero Name -->
     <label for="codeName">Hero Name:</label>
     <input type="text" id="codeName" name="codeName" value="${hero.codeName}" required><br>
 
@@ -56,7 +57,7 @@
     <input type="text" id="height" name="height" value="${hero.height}" required><br>
 
     <!-- Weight -->
-    <label for="weight">Code Name:</label>
+    <label for="weight">Weight:</label>
     <input type="text" id="weight" name="weight" value="${hero.weight}"><br>
 
     <!-- Emblem -->

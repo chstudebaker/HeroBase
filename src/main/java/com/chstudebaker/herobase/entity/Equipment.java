@@ -6,7 +6,7 @@ package com.chstudebaker.herobase.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "equipment")
+@Table(name = "Equipment")
 public class Equipment {
 
     // Unique identifier for the equipment

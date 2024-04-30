@@ -3,6 +3,10 @@
  */
 package com.chstudebaker.herobase.util;
 
+import com.chstudebaker.herobase.persistance.HeroDao;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,6 +16,7 @@ import java.util.Properties;
 
 public class FileUploadHandler {
 
+    private static final Logger logger = LogManager.getLogger(HeroDao.class);
     private String fileSaveUrl; // Property to store the absolute path URL
 
     public FileUploadHandler() {
@@ -21,8 +26,7 @@ public class FileUploadHandler {
             properties.load(inputStream);
             fileSaveUrl = properties.getProperty("fileSaveUrl");
         } catch (IOException e) {
-            e.printStackTrace(); // Handle or log the exception as needed
-        }
+            logger.error("URL is null or empty");        }
     }
 
     /**

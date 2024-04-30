@@ -98,7 +98,7 @@ INSERT INTO Powers (description, explanation, heroId) VALUES
                                                           ('Healing Factor', 'Cyclonus has a remarkable regenerative ability that allows him to heal from injuries at an accelerated rate.', 20);
 
 
-CREATE TABLE equipment (
+CREATE TABLE Equipment (
                            EquipmentId INT AUTO_INCREMENT PRIMARY KEY,
                            Name VARCHAR(255),
                            Description TEXT,
@@ -107,7 +107,7 @@ CREATE TABLE equipment (
                            FOREIGN KEY (HeroID) REFERENCES Hero(HeroID)
 );
 
-INSERT INTO equipment (Name, Description, Images, HeroID) VALUES
+INSERT INTO Equipment (Name, Description, Images, HeroID) VALUES
                                                               ('Thundercloak', 'Cloak made from the feathers of Zylost herself.', 'images/Thundercloak.jpg', 1),
                                                               ('Flameblade', 'Symbol of Falinar, the Flameblade is a sword made of the purest fire in the cosmos.', 'images/Flameblade.jpg', 2),
                                                               ('Headwind', 'Symbol of Zylost, Headwind is the greatest spear ever crafted.', 'images/Headwind.jpg', 1),

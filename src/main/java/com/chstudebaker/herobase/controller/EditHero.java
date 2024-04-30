@@ -18,43 +18,41 @@ import java.io.IOException;
 @WebServlet("/EditHero")
 public class EditHero extends HttpServlet {
 
-    private static final Logger logger = LogManager.getLogger(DeleteHero.class);
-
+    private static final Logger logger = LogManager.getLogger(EditHero.class);
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userID = request.getParameter("userId");
+        String heroIDParam = request.getParameter("heroId");
+        logger.info("GET Request received. HeroIDParam: " + heroIDParam);
 
-        if (userID != null && !userID.isEmpty()) {
-            String heroIDParam = request.getParameter("heroId");
-            if (heroIDParam == null || heroIDParam.isEmpty()) {
-                logger.log(Level.INFO, "the heroId is: " + heroIDParam);
-                response.sendRedirect("error400.jsp");
-                return;
-            }
-            int heroID = Integer.parseInt(heroIDParam);
-            HeroDao heroDao = new HeroDao();
-            Hero hero = heroDao.getById(heroID);
-            if (hero == null) {
-                response.sendRedirect("error500.jsp");
-                return;
-            }
-            request.setAttribute("hero", hero);
-            request.getRequestDispatcher("editHero.jsp").forward(request, response);
-        } else {
-            // Redirect to an error page or display a message indicating lack of permissions
-            response.sendRedirect("only_users.jsp");
+        if (heroIDParam == null || heroIDParam.isEmpty()) {
+            logger.error("HeroID is null or empty");
+            response.sendRedirect("error400.jsp");
+            return;
         }
+
+        int heroId = Integer.parseInt(heroIDParam);
+        logger.info("HeroID: " + heroId);
+
+        HeroDao heroDao = new HeroDao();
+        Hero hero = heroDao.getById(heroId);
+
+        if (hero == null) {
+            logger.warn("No hero found for the provided ID: " + heroId);
+            response.sendRedirect("error500.jsp");
+            return;
+        }
+
+        request.setAttribute("hero", hero);
+        request.getRequestDispatcher("editHero.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Handle POST request to edit a hero
         editHero(request, response);
     }
+
     protected void editHero(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userID = request.getParameter("userId");
         String heroIDParam = request.getParameter("heroId");
-        logger.info("UserID: " + userID);
-        logger.info("HeroIDParam: " + heroIDParam);
+        logger.info("POST Request received. HeroIDParam: " + heroIDParam);
 
         if (heroIDParam == null || heroIDParam.isEmpty()) {
             logger.error("HeroID is null or empty");
@@ -84,7 +82,6 @@ public class EditHero extends HttpServlet {
         logger.info("Height: " + height);
         logger.info("Weight: " + weight);
 
-        // File upload handling logic
         String images = null;
         if (filePart.getSize() > 0) {
             FileUploadHandler fileUploadHandler = new FileUploadHandler();
@@ -105,7 +102,6 @@ public class EditHero extends HttpServlet {
             emblem = existingHero.getEmblem();
         }
 
-        // Create updatedHero object and set values
         Hero updatedHero = new Hero();
         updatedHero.setHeroId(heroId);
         updatedHero.setCodeName(codeName);
@@ -119,17 +115,15 @@ public class EditHero extends HttpServlet {
         updatedHero.setImages(images);
         updatedHero.setEmblem(emblem);
 
-        // Log updated hero information
         logger.info("Updated Hero: " + updatedHero);
 
-        // Update hero in the database
         HeroDao heroDao = new HeroDao();
         boolean success = heroDao.update(updatedHero);
 
-        // Set attributes for request dispatcher
+        String userID = request.getParameter("userId");
+
         request.setAttribute("success", success);
         request.setAttribute("editedItemId", heroId);
         request.getRequestDispatcher("editItemResult.jsp?userId=" + userID).forward(request, response);
     }
-
 }

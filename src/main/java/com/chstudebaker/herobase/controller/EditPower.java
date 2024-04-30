@@ -107,7 +107,7 @@ public class EditPower extends HttpServlet {
         // Set the success attribute in the request
         request.setAttribute("success", success);
 
-        request.setAttribute("editedItemId", existingPower.getHeroID());
+        request.setAttribute("editedItemId", existingPower.getHero());
 
         // Forward the request to the JSP
         request.getRequestDispatcher("editItemResult.jsp?userId=" + userID).forward(request, response);

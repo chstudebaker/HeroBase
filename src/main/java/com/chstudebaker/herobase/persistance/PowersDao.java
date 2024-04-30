@@ -95,10 +95,8 @@ public class PowersDao {
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<String> criteriaQuery = builder.createQuery(String.class);
             Root<Powers> root = criteriaQuery.from(Powers.class);
-
             // Select only the description column
             criteriaQuery.select(root.get("description"));
-
             return session.createQuery(criteriaQuery).getResultList();
         } catch (Exception e) {
             logger.error("Error retrieving all power descriptions", e);

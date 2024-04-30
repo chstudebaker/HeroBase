@@ -105,24 +105,6 @@ public class Powers {
         this.hero = hero;
     }
 
-    /**
-     * Retrieves the ID of the hero associated with the power.
-     * @return The ID of the hero associated with the power.
-     */
-    public int getHeroID() {
-        return hero != null ? hero.getHeroId() : 0;
-    }
-
-    /**
-     * Sets the ID of the hero associated with the power.
-     * @param heroID The ID of the hero associated with the power to set.
-     */
-    public void setHeroID(int heroID) {
-        if (hero == null) {
-            hero = new Hero();
-        }
-        hero.setHeroId(heroID);
-    }
 
     @Override
     public String toString() {
