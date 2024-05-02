@@ -17,7 +17,7 @@ public class Hero {
     // Unique identifier for the hero
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "HeroID")
+    @Column(name = "HeroId")
     private int heroId;
 
     // Code name of the hero
@@ -60,6 +60,10 @@ public class Hero {
     @Column(name = "Emblem")
     private String emblem;
 
+    // UserId representing the hero
+    @Column(name = "UserId")
+    private String userId;
+
     // Powers associated with the hero
     @OneToMany(mappedBy = "hero", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnoreProperties("hero") // Ignore this property during JSON serialization to avoid circular dependencies
@@ -76,7 +80,8 @@ public class Hero {
     }
 
     // Constructor with all fields
-    public Hero(String codeName, String realName, String bio, String alignment, String images, String descriptions, String personality, String height, String weight, String emblem) {
+    public Hero(String codeName, String realName, String bio, String alignment, String images, String descriptions, String personality,
+                String height, String weight, String emblem, String userId) {
         this.codeName = codeName;
         this.realName = realName;
         this.bio = bio;
@@ -89,6 +94,7 @@ public class Hero {
         this.emblem = emblem;
         this.powers = new ArrayList<>();
         this.equipment = new ArrayList<>();
+        this.userId = userId;
     }
 
     /**
@@ -298,6 +304,22 @@ public class Hero {
         this.powers = powers;
     }
 
+    /**
+     * Retrieves the userId associated with the hero.
+     * @return The userId associated with the hero.
+     */
+    public String getUserId() {
+        return userId;
+    }
+
+    /**
+     * Sets the userId associated with the hero.
+     * @param userId The userId to set.
+     */
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
 
     @Override
     public String toString() {
@@ -315,6 +337,7 @@ public class Hero {
                 ", emblem='" + emblem + '\'' +
                 ", powers=" + powers +
                 ", equipment=" + equipment +
+                ", userId='" + userId + '\'' +
                 '}';
     }
 }
