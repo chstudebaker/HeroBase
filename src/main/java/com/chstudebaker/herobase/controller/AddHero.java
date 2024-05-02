@@ -76,7 +76,7 @@ public class AddHero extends HttpServlet {
         String emblem = fileUploadHandler.handleFileUpload(emblemPart);
 
         // Create a Hero object
-        Hero hero = new Hero(codeName, realName, bio, alignment, images, descriptions, personality, height, weight, emblem);
+        Hero hero = new Hero(codeName, realName, bio, alignment, images, descriptions, personality, height, weight, emblem, userID);
 
         // Insert the hero into the database
         HeroDao heroDao = new HeroDao();

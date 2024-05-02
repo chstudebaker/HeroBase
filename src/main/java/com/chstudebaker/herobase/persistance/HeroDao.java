@@ -90,4 +90,26 @@ public class HeroDao {
     public boolean delete(Hero hero) {
         return genericDao.delete(hero);
     }
+
+    /**
+     * Retrieves heroes by UserId from the hero table.
+     *
+     * @param userId The UserId of the heroes to retrieve.
+     * @return A list of heroes with the specified UserId.
+     */
+    public List<Hero> getHeroesByUserId(String userId) {
+        try (Session session = SessionFactoryProvider.getSessionFactory().openSession()) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Hero> criteriaQuery = builder.createQuery(Hero.class);
+            Root<Hero> root = criteriaQuery.from(Hero.class);
+            Predicate predicate = builder.equal(root.get("userId"), userId);
+            criteriaQuery.where(predicate);
+            TypedQuery<Hero> query = session.createQuery(criteriaQuery);
+            return query.getResultList();
+        } catch (Exception e) {
+            logger.error("Error retrieving heroes by UserId from the database", e);
+            throw e;
+        }
+    }
+
 }

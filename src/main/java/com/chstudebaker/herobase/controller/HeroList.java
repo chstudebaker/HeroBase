@@ -33,15 +33,21 @@ public class HeroList extends HttpServlet {
         // Retrieve userId from the request
         String userId = request.getParameter("userId");
 
-        // Retrieve all heroes from the database
-        List<Hero> allHeroes = heroDao.getAllHeroes();
+        // Check if userId is provided
+        if (userId != null && !userId.isEmpty()) {
+            // Retrieve heroes by userId from the database
+            List<Hero> userHeroes = heroDao.getHeroesByUserId(userId);
 
-        // Set the heroList and userId as attributes in the request
-        request.setAttribute("heroList", allHeroes);
-        request.setAttribute("userId", userId); // Pass userId to the JSP
+            // Set the userHeroes and userId as attributes in the request
+            request.setAttribute("heroList", userHeroes);
+            request.setAttribute("userId", userId); // Pass userId to the JSP
 
-        // Forward to the hero list page (index.jsp)
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-        dispatcher.forward(request, response);
+            // Forward to the hero list page (index.jsp)
+            RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            // If userId is not provided, redirect to an error page or handle accordingly
+            response.sendRedirect("error.jsp");
+        }
     }
 }
