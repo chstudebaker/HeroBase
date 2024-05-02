@@ -31,7 +31,7 @@ public class Blog {
 
     // Hero associated with the blog
     @ManyToOne
-    @JoinColumn(name = "HeroID")
+    @JoinColumn(name = "HeroId")
     private Hero hero;
 
     // Default constructor

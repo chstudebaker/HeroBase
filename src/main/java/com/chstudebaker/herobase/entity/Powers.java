@@ -25,7 +25,7 @@ public class Powers {
 
     // Hero associated with the power
     @ManyToOne
-    @JoinColumn(name = "HeroID")
+    @JoinColumn(name = "HeroId")
     private Hero hero;
 
     // Default constructor

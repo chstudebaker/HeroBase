@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
@@ -11,8 +12,9 @@
 <h2>Edit Hero</h2>
 
 <form action="${pageContext.request.contextPath}/EditHero" method="post" enctype="multipart/form-data">
-    <input type="hidden" id="userId" name="userId" value="${param.userId}">
     <input type="hidden" id="heroId" name="heroId" value="${hero.heroId}">
+    <input type="hidden" id="userId" name="userId" value="${param.userId}">
+
 
     <!-- Hero Name -->
     <label for="codeName">Hero Name:</label>
@@ -70,7 +72,7 @@
     <img src="${pageContext.request.contextPath}/${hero.emblem}" alt="Current Image" class="current-image">
 
     <!-- Submit Button -->
-    <input type="submit" value="Update Hero">
+    <button type="submit">Save Changes</button>
 
 </form>
 

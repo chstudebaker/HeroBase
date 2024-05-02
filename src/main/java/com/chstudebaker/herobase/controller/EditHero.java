@@ -50,18 +50,8 @@ public class EditHero extends HttpServlet {
         editHero(request, response);
     }
 
-    protected void editHero(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void editHero(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String heroIDParam = request.getParameter("heroId");
-        logger.info("POST Request received. HeroIDParam: " + heroIDParam);
-
-        if (heroIDParam == null || heroIDParam.isEmpty()) {
-            logger.error("HeroID is null or empty");
-            response.sendRedirect("error400.jsp");
-            return;
-        }
-
-        int heroId = Integer.parseInt(heroIDParam);
-
         String codeName = request.getParameter("codeName");
         String realName = request.getParameter("realName");
         String bio = request.getParameter("bio");
@@ -72,6 +62,8 @@ public class EditHero extends HttpServlet {
         String weight = request.getParameter("weight");
         Part filePart = request.getPart("images");
         Part emblemPart = request.getPart("emblem");
+        logger.info("POST Request received. HeroIDParam: " + heroIDParam);
+
 
         logger.info("Code Name: " + codeName);
         logger.info("Real Name: " + realName);
@@ -81,6 +73,9 @@ public class EditHero extends HttpServlet {
         logger.info("Personality: " + personality);
         logger.info("Height: " + height);
         logger.info("Weight: " + weight);
+
+        int heroId = Integer.parseInt(heroIDParam);
+
 
         String images = null;
         if (filePart.getSize() > 0) {
@@ -102,8 +97,8 @@ public class EditHero extends HttpServlet {
             emblem = existingHero.getEmblem();
         }
 
-        Hero updatedHero = new Hero();
-        updatedHero.setHeroId(heroId);
+        HeroDao heroDao = new HeroDao();
+        Hero updatedHero = heroDao.getById(heroId);
         updatedHero.setCodeName(codeName);
         updatedHero.setRealName(realName);
         updatedHero.setBio(bio);
@@ -117,7 +112,6 @@ public class EditHero extends HttpServlet {
 
         logger.info("Updated Hero: " + updatedHero);
 
-        HeroDao heroDao = new HeroDao();
         boolean success = heroDao.update(updatedHero);
 
         String userID = request.getParameter("userId");

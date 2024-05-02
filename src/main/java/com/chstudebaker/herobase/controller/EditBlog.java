@@ -89,6 +89,7 @@ public class EditBlog extends HttpServlet {
             return;
         }
 
+
         // Parse blogId to an integer
         int blogId = Integer.parseInt(blogIdParam);
 
@@ -114,6 +115,6 @@ public class EditBlog extends HttpServlet {
         request.setAttribute("success", success);
 
         // Forward the request to the JSP
-        request.setAttribute("editedItemId", existingBlog.getHeroID());
+        request.setAttribute("editedItemId", existingBlog.getHero());
         request.getRequestDispatcher("editItemResult.jsp?userId=" + userID).forward(request, response);    }
 }

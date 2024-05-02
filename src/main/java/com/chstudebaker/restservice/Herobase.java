@@ -3,10 +3,7 @@ package com.chstudebaker.restservice;
 import com.chstudebaker.herobase.persistance.HeroDao;
 import com.chstudebaker.herobase.entity.Hero;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -34,6 +31,7 @@ public class Herobase {
             return Response.ok(entity).build();
         }
     }
+
     @GET
     @Path("/{heroId}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -50,5 +48,40 @@ public class Herobase {
             return Response.ok(hero).build();
         }
     }
-}
 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response insertHero(Hero hero) {
+        // Logic to create a new hero in the database
+        int rowsAffected = heroDao.insert(hero);
+
+        // Check if insertion was successful (assuming rowsAffected > 0 indicates success)
+        if (rowsAffected > 0) {
+            // If insertion successful, return the created hero as JSON
+            return Response.status(Response.Status.CREATED).entity(hero).build();
+        } else {
+            // If insertion failed, return 500 Internal Server Error status
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+
+
+    @DELETE
+    @Path("/{heroId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteHero(@PathParam("heroId") int heroId) {
+        // Logic to delete an existing hero from the database
+        boolean success = heroDao.delete(heroDao.getById(heroId));
+
+        // Check if hero deletion was successful
+        if (success) {
+            // If hero deletion successful, return 204 No Content status
+            return Response.noContent().build();
+        } else {
+            // If hero deletion failed, return 404 Not Found status
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+}

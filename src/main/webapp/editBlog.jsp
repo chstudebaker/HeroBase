@@ -27,7 +27,7 @@
     <input type="datetime-local" id="dateTime" name="dateTime" value="${blog.dateTime}" required><br> -->
 
     <!-- Submit Button -->
-    <input type="submit" value="Update Blog">
+    <button type="submit">Save Changes</button>
 </form>
 
 </body>

@@ -1,6 +1,7 @@
 package com.chstudebaker.herobase.controller;
 
 import com.chstudebaker.herobase.entity.Equipment;
+import com.chstudebaker.herobase.entity.Hero;
 import com.chstudebaker.herobase.persistance.EquipmentDao;
 import com.chstudebaker.herobase.util.FileUploadHandler;
 
@@ -78,9 +79,15 @@ public class AddEquipment extends HttpServlet {
         equipment.setDescription(description);
         equipment.setImages(images);
 
-        // Set the hero ID on the Equipment entity
         if (heroID != null && !heroID.isEmpty()) {
-            equipment.setHeroID(Integer.parseInt(heroID));
+            // Convert the heroID to an integer
+            int heroIdInt = Integer.parseInt(heroID);
+            // Create a new instance of Hero
+            Hero hero = new Hero();
+            // Set the HeroID
+            hero.setHeroId(heroIdInt);
+            // Set the Hero object to the Blog
+            equipment.setHero(hero);
         }
 
         // Save the Equipment entity

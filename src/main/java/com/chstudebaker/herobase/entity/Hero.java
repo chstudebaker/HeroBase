@@ -298,22 +298,6 @@ public class Hero {
         this.powers = powers;
     }
 
-    /**
-     * Retrieves the powers associated with the hero as a comma-separated string.
-     * @return The powers associated with the hero as a string.
-     */
-    public String getPowersAsString() {
-        // Check if powers list is null or empty
-        if (powers == null || powers.isEmpty()) {
-            return "";
-        }
-
-        // Use Java 8 stream API to map powers to their names and join them with a comma
-        return powers.stream()
-                .map(Powers::getDescription)
-                .collect(Collectors.joining(", "));
-    }
-
 
     @Override
     public String toString() {

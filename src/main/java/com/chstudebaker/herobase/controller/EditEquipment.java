@@ -4,8 +4,6 @@
 package com.chstudebaker.herobase.controller;
 
 import com.chstudebaker.herobase.entity.Equipment;
-import com.chstudebaker.herobase.entity.Hero;
-import com.chstudebaker.herobase.persistance.HeroDao;
 import com.chstudebaker.herobase.util.FileUploadHandler;
 import com.chstudebaker.herobase.persistance.EquipmentDao;
 
@@ -31,10 +29,9 @@ public class EditEquipment extends HttpServlet {
      * @throws IOException If an I/O error occurs.
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String entityType = request.getParameter("type");
         String userID = request.getParameter("userId");
 
-        if (userID != null && !userID.isEmpty()) {
+        //if (userID != null && !userID.isEmpty()) {
             String equipmentIDParam = request.getParameter("equipmentId");
             if (equipmentIDParam == null || equipmentIDParam.isEmpty()) {
                 response.sendRedirect("error.jsp");
@@ -49,10 +46,10 @@ public class EditEquipment extends HttpServlet {
             }
             request.setAttribute("equipment", equipment);
             request.getRequestDispatcher("editEquipment.jsp").forward(request, response);
-        } else {
+        //} else {
             // Redirect to an error page or display a message indicating lack of permissions
-            response.sendRedirect("only_users.jsp");
-        }
+            //response.sendRedirect("only_users.jsp");
+        //}
     }
 
 
@@ -108,16 +105,16 @@ public class EditEquipment extends HttpServlet {
         }
 
         // Update the name, description, and images of the existing equipment
-        Equipment updatedEquipment = new Equipment();
+        EquipmentDao equipmentDao = new EquipmentDao();
+        Equipment updatedEquipment = equipmentDao.getById(equipmentID);
         updatedEquipment.setName(name);
         updatedEquipment.setDescription(description);
         updatedEquipment.setImages(images); // Set the relative path
 
         // Update the equipment in the database
-        EquipmentDao equipmentDao = new EquipmentDao();
         boolean success = equipmentDao.update(updatedEquipment);
 
-        request.setAttribute("editedItemId", updatedEquipment.getHeroID());
+        request.setAttribute("editedItemId", updatedEquipment.getHero());
 
         // Set the success attribute in the request
         request.setAttribute("success", success);

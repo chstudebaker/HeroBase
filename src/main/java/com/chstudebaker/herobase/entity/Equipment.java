@@ -29,7 +29,7 @@ public class Equipment {
 
     // Hero associated with the equipment
     @ManyToOne
-    @JoinColumn(name = "HeroID")
+    @JoinColumn(name = "HeroId")
     private Hero hero;
 
     // Default constructor
@@ -45,25 +45,6 @@ public class Equipment {
     }
 
     // Getters and setters
-
-    /**
-     * Retrieves the ID of the associated hero.
-     * @return The hero ID.
-     */
-    public int getHeroID() {
-        return hero != null ? hero.getHeroId() : 0;
-    }
-
-    /**
-     * Sets the ID of the associated hero.
-     * @param heroID The hero ID to set.
-     */
-    public void setHeroID(int heroID) {
-        if (hero == null) {
-            hero = new Hero();
-        }
-        hero.setHeroId(heroID);
-    }
 
     /**
      * Retrieves the equipment ID.

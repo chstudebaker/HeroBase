@@ -1,6 +1,7 @@
 package com.chstudebaker.herobase.controller;
 
 import com.chstudebaker.herobase.entity.Blog;
+import com.chstudebaker.herobase.entity.Hero;
 import com.chstudebaker.herobase.persistance.BlogDao;
 
 import javax.servlet.ServletException;
@@ -68,7 +69,14 @@ public class AddBlog extends HttpServlet {
 
         // Set the hero ID on the Blog entity
         if (heroID != null && !heroID.isEmpty()) {
-            blog.setHeroID(Integer.parseInt(heroID));
+            // Convert the heroID to an integer
+            int heroIdInt = Integer.parseInt(heroID);
+            // Create a new instance of Hero
+            Hero hero = new Hero();
+            // Set the HeroID
+            hero.setHeroId(heroIdInt);
+            // Set the Hero object to the Blog
+            blog.setHero(hero);
         }
 
         // Save the Blog entity

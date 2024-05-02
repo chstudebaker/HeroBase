@@ -1,6 +1,7 @@
 package com.chstudebaker.herobase.controller;
 
 
+import com.chstudebaker.herobase.entity.Hero;
 import com.chstudebaker.herobase.entity.Powers;
 import com.chstudebaker.herobase.persistance.PowersDao;
 
@@ -50,9 +51,15 @@ public class AddPower extends HttpServlet {
         power.setDescription(selectedPower != null && !selectedPower.isEmpty() ? selectedPower : customPower);
         power.setExplanation(explanation);
 
-        // Set the HeroID on the Powers entity
         if (heroID != null && !heroID.isEmpty()) {
-            power.setHeroID(Integer.parseInt(heroID));
+            // Convert the heroID to an integer
+            int heroIdInt = Integer.parseInt(heroID);
+            // Create a new instance of Hero
+            Hero hero = new Hero();
+            // Set the HeroID
+            hero.setHeroId(heroIdInt);
+            // Set the Hero object to the Blog
+            power.setHero(hero);
         }
 
         // Save the Powers entity
