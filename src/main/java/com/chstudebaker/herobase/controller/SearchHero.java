@@ -36,18 +36,16 @@ public class SearchHero extends HttpServlet {
 
         // Perform the hero search based on the selected criteria
         List<Hero> searchResults;
-        if (searchCriteria != null && !searchCriteria.isEmpty() && searchTerm != null && !searchTerm.isEmpty()) {
-
+        if (searchCriteria == null || searchCriteria.isEmpty()) {
+            // If search criteria is blank, retrieve all heroes
+            searchResults = heroDao.getAllHeroes();
+        } else if (searchTerm != null && !searchTerm.isEmpty()) {
             // Search based on the provided criteria
             searchResults = heroDao.searchHeroes(searchCriteria, searchTerm);
         } else {
-            // Retrieve all heroes if no search criteria provided
+            // If search term is blank, retrieve all heroes
             searchResults = heroDao.getAllHeroes();
         }
-
-        // Log the search results
-        LOGGER.log(Level.INFO, "Search results: {0}", searchResults);
-
         // Set the search results as an attribute in the request
         request.setAttribute("heroes", searchResults);
 

@@ -13,7 +13,7 @@
     <!-- Hero Search Form -->
     <form action="${pageContext.request.contextPath}/searchHero" method="post">
         <label for="searchTerm">Search Term:</label>
-        <input type="text" id="searchTerm" name="searchTerm" required>
+        <input type="text" id="searchTerm" name="searchTerm">
 
         <!-- Radio buttons for selecting search criteria -->
         <label><input type="radio" name="searchCriteria" value="codeName" checked> Code Name</label>

@@ -62,14 +62,14 @@
     <label for="weight">Weight:</label>
     <input type="text" id="weight" name="weight" value="${hero.weight}"><br>
 
-    <!-- Emblem -->
-    <label for="emblem">Upload Emblem:</label>
+    <!-- Image -->
+    <label for="emblem">Emblem:</label>
     <input type="file" id="emblem" name="emblem" accept="image/*">
-    <!-- Label for current emblem -->
-    <label id="emblemLabel" class="current-image">${pageContext.request.contextPath}/${hero.emblem ? hero.emblem : 'Current Image'}</label><br>
+    <!-- Label for current image -->
+    <label id="emblemLabel" class="current-image">${pageContext.request.contextPath}/${hero.emblem ? hero.emblem : 'Current Emblem'}</label><br>
 
-    <!-- Current Emblem Image -->
-    <img src="${pageContext.request.contextPath}/${hero.emblem}" alt="Current Image" class="current-image">
+    <!-- Current Hero Image -->
+    <img src="${pageContext.request.contextPath}/${hero.emblem}" alt="Current Emblem" class="current-image">
 
     <!-- Submit Button -->
     <button type="submit">Save Changes</button>
