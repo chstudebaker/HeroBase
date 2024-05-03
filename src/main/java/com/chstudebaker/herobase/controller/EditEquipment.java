@@ -31,7 +31,7 @@ public class EditEquipment extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userID = request.getParameter("userId");
 
-        //if (userID != null && !userID.isEmpty()) {
+        if (userID != null && !userID.isEmpty()) {
             String equipmentIDParam = request.getParameter("equipmentId");
             if (equipmentIDParam == null || equipmentIDParam.isEmpty()) {
                 response.sendRedirect("error.jsp");
@@ -46,10 +46,10 @@ public class EditEquipment extends HttpServlet {
             }
             request.setAttribute("equipment", equipment);
             request.getRequestDispatcher("editEquipment.jsp").forward(request, response);
-        //} else {
+        } else {
             // Redirect to an error page or display a message indicating lack of permissions
-            //response.sendRedirect("only_users.jsp");
-        //}
+            response.sendRedirect("only_users.jsp");
+        }
     }
 
 

@@ -6,6 +6,9 @@
     <meta charset="UTF-8">
     <title>HeroBase</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/heroBase.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/pagination.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="javascript/pagination.js"></script>
 </head>
 <body>
 <c:import url="${pageContext.request.contextPath}/header.jsp" />
@@ -25,7 +28,7 @@
         </thead>
         <tbody>
         <c:forEach var="hero" items="${heroList}">
-            <tr>
+            <tr class="item">
                 <td>
                     <img class="hero-icon" src="${pageContext.request.contextPath}/${hero.images}" alt="Hero Icon">
                     <a href="${pageContext.request.contextPath}/generateWiki?heroId=${hero.heroId}&userId=${param.userId}">${hero.codeName}</a>
@@ -43,7 +46,11 @@
         </c:forEach>
         </tbody>
     </table>
+    <!-- Pagination controls -->
+    <div id="pagination" class="pagination-container"></div>
 </div>
 
 </body>
+
+
 </html>

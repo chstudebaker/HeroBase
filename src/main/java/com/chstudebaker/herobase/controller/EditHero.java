@@ -23,28 +23,33 @@ public class EditHero extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String heroIDParam = request.getParameter("heroId");
-        logger.info("GET Request received. HeroIDParam: " + heroIDParam);
+        String userID = request.getParameter("userId");
 
-        if (heroIDParam == null || heroIDParam.isEmpty()) {
-            logger.error("HeroID is null or empty");
-            response.sendRedirect("error400.jsp");
-            return;
+        if (userID != null && !userID.isEmpty()) {
+            if (heroIDParam == null || heroIDParam.isEmpty()) {
+                logger.error("HeroID is null or empty");
+                response.sendRedirect("error400.jsp");
+                return;
+            }
+
+            int heroId = Integer.parseInt(heroIDParam);
+            logger.info("HeroID: " + heroId);
+
+            HeroDao heroDao = new HeroDao();
+            Hero hero = heroDao.getById(heroId);
+
+            if (hero == null) {
+                logger.warn("No hero found for the provided ID: " + heroId);
+                response.sendRedirect("error500.jsp");
+                return;
+            }
+
+            request.setAttribute("hero", hero);
+            request.getRequestDispatcher("editHero.jsp").forward(request, response);
+        } else {
+            // Redirect to an error page or display a message indicating lack of permissions
+            response.sendRedirect("only_users.jsp");
         }
-
-        int heroId = Integer.parseInt(heroIDParam);
-        logger.info("HeroID: " + heroId);
-
-        HeroDao heroDao = new HeroDao();
-        Hero hero = heroDao.getById(heroId);
-
-        if (hero == null) {
-            logger.warn("No hero found for the provided ID: " + heroId);
-            response.sendRedirect("error500.jsp");
-            return;
-        }
-
-        request.setAttribute("hero", hero);
-        request.getRequestDispatcher("editHero.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
