@@ -71,7 +71,8 @@ class EquipmentDaoTest {
 
         // Create a new Hero instance
         // Create a new Hero instance
-        Hero hero = new Hero("Crushstone", "Brock Pebble", "placeholder bio", "good", "test", "test", "test", "test", "test", "test");
+        Hero hero = new Hero("Crushstone", "Brock Pebble", "placeholder bio", "good", "test", "test", "test", "test",
+                "test", "test", "test");
 
 // Insert the hero
         int insertedHeroId = heroDao.insert(hero);

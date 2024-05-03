@@ -14,7 +14,7 @@
 <c:import url="${pageContext.request.contextPath}/nav.jsp" />
 <h1>Logged Out</h1>
 <h2>You have successfully logged out. See you next time!</h2>
-<form action="${pageContext.request.contextPath}/heroList" method="get">
+<form action="${pageContext.request.contextPath}/index.jsp">
     <input type="submit" value="Return Home">
 </form>
 </body>

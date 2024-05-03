@@ -54,7 +54,7 @@ class HeroDaoTest {
     @Test
     void insertSuccess() {
         // Create an Hero with a Power
-        Hero hero = new Hero("Crushstone", "Brock Pebble", "placeholder bio", "good", "test", "test", "test", "test", "test", "test");
+        Hero hero = new Hero("Crushstone", "Brock Pebble", "placeholder bio", "good", "test", "test", "test", "test", "test", "test", "test");
         Powers power = new Powers("stone skin","test", hero);
 
         // Set Powers to Hero
@@ -108,7 +108,7 @@ class HeroDaoTest {
         List<Hero> heroes = heroDao.getAllHeroes();
         assertNotNull(heroes);
         assertFalse(heroes.isEmpty());
-        assertEquals(19, heroes.size()); // Assuming there are 20 heroes in the test data
+        assertEquals(20, heroes.size()); // Assuming there are 20 heroes in the test data
     }
 
     /**

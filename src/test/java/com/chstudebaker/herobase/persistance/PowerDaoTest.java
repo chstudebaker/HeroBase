@@ -72,7 +72,7 @@ class PowerDaoTest {
     void getByIdSuccess() {
         logger.info("Starting getByIdSuccess test...");
 
-        Hero hero = new Hero("Windchild", "Lance Talon", "bio", "Good", "test", "test", "test", "test", "test", "test");
+        Hero hero = new Hero("Windchild", "Lance Talon", "bio", "Good", "test", "test", "test", "test", "test", "test", "test");
         heroDao.insert(hero);
 
         Powers powers = new Powers("Windchild", "test", hero);
@@ -127,7 +127,7 @@ class PowerDaoTest {
     void deleteSuccess() {
         logger.info("Starting deleteSuccess test...");
 
-        Hero hero = new Hero("TestHero", "TestRealName", "testBio", "testAlignment", "test", "test", "test", "test", "test", "test");
+        Hero hero = new Hero("TestHero", "TestRealName", "testBio", "testAlignment", "test", "test", "test", "test", "test", "test", "test");
         heroDao.insert(hero);
 
         Powers powersToDelete = new Powers("TestDescription", "test", hero);
@@ -172,7 +172,7 @@ class PowerDaoTest {
     @Test
     void deletePowersWithHeroSuccess() {
         // Create a test Hero
-        Hero testHero = new Hero("TestHero", "TestRealName", "testBio", "testAlignment", "test", "test", "test", "test", "test", "test");
+        Hero testHero = new Hero("TestHero", "TestRealName", "testBio", "testAlignment", "test", "test", "test", "test", "test", "test", "test");
         heroDao.insert(testHero);
 
         // Create a test Power associated with the test Hero
@@ -197,7 +197,7 @@ class PowerDaoTest {
         logger.info("Starting getByHeroIdSuccess test...");
 
         // Create a test Hero
-        Hero testHero = new Hero("TestHero", "TestRealName", "testBio", "testAlignment", "test", "test", "test", "test", "test", "test");
+        Hero testHero = new Hero("TestHero", "TestRealName", "testBio", "testAlignment", "test", "test", "test", "test", "test", "test", "test");
         heroDao.insert(testHero);
 
         // Create test Powers associated with the test Hero
