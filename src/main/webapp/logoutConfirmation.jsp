@@ -17,5 +17,8 @@
 <form action="${pageContext.request.contextPath}/index.jsp">
     <input type="submit" value="Return Home">
 </form>
+<form action="${pageContext.request.contextPath}/logIn">
+    <input type="submit" value="Log in as a different user">
+</form>
 </body>
 </html>
