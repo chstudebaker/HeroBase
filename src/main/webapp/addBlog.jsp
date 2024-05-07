@@ -3,6 +3,8 @@
 <head>
     <title>Add Blog</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/heroBase.css">
+    <script src="javascript/dateTime.js"></script>
+
 </head>
 <body>
 <c:import url="${pageContext.request.contextPath}/header.jsp" />

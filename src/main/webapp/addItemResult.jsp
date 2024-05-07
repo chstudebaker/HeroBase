@@ -9,7 +9,7 @@
 </head>
 <body>
 <c:import url="${pageContext.request.contextPath}/header.jsp" />
-<c:import url="${pageContext.request.contextPath}/" />
+<c:import url="${pageContext.request.contextPath}/nav.jsp" />
 <c:if test="${success}">
     <h1>Addition Successful</h1>
     <p>The item was successfully added.</p>

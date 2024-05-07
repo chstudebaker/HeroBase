@@ -25,10 +25,6 @@
     <label for="blogContent">Blog Content:</label>
     <textarea id="blogContent" name="blogContent" rows="8" cols="50" required>${blog.blogContent}</textarea><br>
 
-    <!-- Date & Time (if not auto-generated) -->
-    <!-- <label for="dateTime">Date & Time:</label>
-    <input type="datetime-local" id="dateTime" name="dateTime" value="${blog.dateTime}" required><br> -->
-
     <!-- Submit Button -->
     <button type="submit">Save Changes</button>
 </form>

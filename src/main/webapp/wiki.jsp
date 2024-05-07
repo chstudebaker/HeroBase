@@ -7,6 +7,7 @@
     <title>Hero Wiki</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/heroBase.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/infobox.css">
+    <script src="javascript/hideEmblem.js"></script>
     <style>
         .edit-delete-buttons {
             display: flex;
@@ -144,9 +145,9 @@
                     <td>${hero.weight}</td>
                 </tr>
             </table>
-            <div class="emblem-container">
+            <div class="emblem-container" id="emblemContainer">
                 <p><strong>Emblem</strong></p>
-                <img src="${hero.emblem}" alt="Hero Emblem">
+                <img src="${hero.emblem}" alt="Hero Emblem" id="heroEmblem">
             </div>
         </div>
 
