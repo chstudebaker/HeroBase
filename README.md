@@ -49,3 +49,10 @@ Contributions to Herobase are welcome! If you have ideas for improvements or new
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+## Demonstration video:
+
+https://madisoncollege365-my.sharepoint.com/:v:/g/personal/cstudebaker_madisoncollege_edu/EUWzLo8G5U9ArkR_-5JEYBsBLBKCQh4gW-lRaIfthX2Qbg?e=OEz0NL&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D
+
+Note: I forgot to talk about what I changed since my Peer review. I updated my Jsp's significantly, as well as removing some unnecessary code to reduce the load on my servlets. Thank you Jimmy for pointing this out.
+
