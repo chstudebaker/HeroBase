@@ -77,6 +77,7 @@ public class EditEquipment extends HttpServlet {
      */
     private void editEquipment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve form data
+        String heroID = request.getParameter("heroID");
         String userID = request.getParameter("userId");
         String equipmentIDParam = request.getParameter("equipmentId");
         String name = request.getParameter("name");
@@ -114,7 +115,7 @@ public class EditEquipment extends HttpServlet {
         // Update the equipment in the database
         boolean success = equipmentDao.update(updatedEquipment);
 
-        request.setAttribute("editedItemId", updatedEquipment.getHero());
+        request.setAttribute("editedItemId", heroID);
 
         // Set the success attribute in the request
         request.setAttribute("success", success);

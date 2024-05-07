@@ -72,6 +72,7 @@ public class EditPower extends HttpServlet {
      */
     private void editPower(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve form data
+        String heroID = request.getParameter("heroID");
         String userID = request.getParameter("userId");
         String powerIDParam = request.getParameter("powerID");
         String description = request.getParameter("description");
@@ -107,7 +108,7 @@ public class EditPower extends HttpServlet {
         // Set the success attribute in the request
         request.setAttribute("success", success);
 
-        request.setAttribute("editedItemId", existingPower.getHero());
+        request.setAttribute("editedItemId", heroID);
 
         // Forward the request to the JSP
         request.getRequestDispatcher("editItemResult.jsp?userId=" + userID).forward(request, response);

@@ -49,7 +49,7 @@
     <label for="images">Image:</label>
     <input type="file" id="images" name="images" accept="image/*">
     <!-- Label for current image -->
-    <label id="imageLabel" class="current-image">${pageContext.request.contextPath}/${hero.images ? hero.images : 'Current Image'}</label><br>
+    <label id="imageLabel" class="current-image">${pageContext.request.contextPath}+${hero.images ? hero.images : 'Current Image'}</label><br>
 
     <!-- Current Hero Image -->
     <img src="${pageContext.request.contextPath}/${hero.images}" alt="Current Image" class="current-image">

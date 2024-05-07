@@ -78,6 +78,7 @@ public class EditBlog extends HttpServlet {
      */
     private void editBlog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve form data
+        String heroID = request.getParameter("heroID");
         String userID = request.getParameter("userId");
         String blogIdParam = request.getParameter("blogId");
         String blogTitle = request.getParameter("blogTitle");
@@ -115,6 +116,6 @@ public class EditBlog extends HttpServlet {
         request.setAttribute("success", success);
 
         // Forward the request to the JSP
-        request.setAttribute("editedItemId", existingBlog.getHero());
+        request.setAttribute("editedItemId", heroID);
         request.getRequestDispatcher("editItemResult.jsp?userId=" + userID).forward(request, response);    }
 }

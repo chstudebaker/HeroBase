@@ -76,7 +76,7 @@
                         <li>${power.explanation}</li>
                     </ul>
                     <div class="edit-delete-buttons">
-                        <a href="${pageContext.request.contextPath}/EditPower?powerID=${power.powerID}&userId=${param.userId}" class="edit-button">Edit</a>
+                        <a href="${pageContext.request.contextPath}/EditPower?powerID=${power.powerID}&heroId=${hero.heroId}&userId=${param.userId}" class="edit-button">Edit</a>
                         <a href="${pageContext.request.contextPath}/DeletePower?powerID=${power.powerID}&userId=${param.userId}" class="delete-button">Delete</a>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
                         <li>${equipment.description}</li>
                     </ul>
                     <div class="edit-delete-buttons">
-                        <a href="${pageContext.request.contextPath}/EditEquipment?equipmentId=${equipment.equipmentId}&userId=${param.userId}" class="edit-button">Edit</a>
+                        <a href="${pageContext.request.contextPath}/EditEquipment?equipmentId=${equipment.equipmentId}&heroId=${hero.heroId}&userId=${param.userId}" class="edit-button">Edit</a>
                         <a href="${pageContext.request.contextPath}/DeleteEquipment?equipmentId=${equipment.equipmentId}&userId=${param.userId}" class="delete-button">Delete</a>
                     </div>
                 </div>
@@ -110,7 +110,7 @@
                     </div>
                     <!-- Trash icon for deleting the blog -->
                     <div class="edit-delete-buttons">
-                        <a href="${pageContext.request.contextPath}/EditBlog?blogId=${blog.blogId}&userId=${param.userId}" class="edit-button">Edit</a>
+                        <a href="${pageContext.request.contextPath}/EditBlog?blogId=${blog.blogId}&heroId=${hero.heroId}&userId=${param.userId}" class="edit-button">Edit</a>
                         <div class="delete-wrapper">
                             <a href="${pageContext.request.contextPath}/DeleteBlog?blogId=${blog.blogId}&userId=${param.userId}">
                                 <img class="trash-icon" src="${pageContext.request.contextPath}/images/trash.png" alt="Trash Can Icon">
