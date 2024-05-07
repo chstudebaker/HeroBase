@@ -12,9 +12,11 @@
 <c:import url="${pageContext.request.contextPath}/nav.jsp" />
 <h1>Edit Power</h1>
 <form action="${pageContext.request.contextPath}/EditPower" method="POST">
-  <input type="hidden" id="heroId" name="heroId" value="${param.heroId}">
+  <input type="hidden" name="heroId" value="${power.hero.heroId}">
   <input type="hidden" name="powerID" value="${param.powerID}">
   <input type="hidden" name="userId" value="${param.userId}">
+  <label for="heroID">Hero ID:</label>
+  <input type="text" id="heroID" name="heroID" value="${param.heroId}" required>
   <label for="description">Description:</label><br>
   <input type="text" id="description" name="description" value="${power.description}" required><br>
   <label for="explanation">Explanation:</label><br>

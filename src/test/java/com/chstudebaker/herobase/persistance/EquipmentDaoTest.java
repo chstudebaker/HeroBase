@@ -43,7 +43,7 @@ class EquipmentDaoTest {
         logger.info("Starting getByIdSuccess test...");
 
         // Retrieve equipment by ID
-        Equipment equipment = dao.getById(1);
+        Equipment equipment = dao.getById(2);
 
         // Perform assertions
         assertNotNull(equipment);
@@ -101,7 +101,7 @@ class EquipmentDaoTest {
         logger.info("Starting updateSuccess test...");
 
         // Retrieve an existing Equipment
-        Equipment equipmentToUpdate = dao.getById(1);
+        Equipment equipmentToUpdate = dao.getById(2);
 
         // Update the equipment's properties
         equipmentToUpdate.setDescription("An updated description");

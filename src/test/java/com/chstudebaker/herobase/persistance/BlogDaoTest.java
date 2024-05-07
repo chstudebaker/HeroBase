@@ -33,7 +33,7 @@ class BlogDaoTest {
 
         // Perform assertions
         assertNotNull(blogs);
-        assertEquals(0, blogs.size());
+        assertEquals(8, blogs.size());
     }
 
     @Test

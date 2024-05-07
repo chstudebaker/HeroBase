@@ -12,6 +12,7 @@
 
 <form action="${pageContext.request.contextPath}/AddBlog" method="post">
     <input type="hidden" name="userId" value="${param.userId}">
+    <input type="hidden" name="heroId" value="${blog.hero.heroId}">
     <label for="heroID">Hero ID:</label>
     <input type="text" id="heroID" name="heroID" value="${param.heroId}" required>
     <!-- Blog Title -->

@@ -12,8 +12,10 @@
 
 <form action="${pageContext.request.contextPath}/EditBlog?userId=${param.userId}" method="post">
     <!-- Hidden input field for Blog ID -->
-    <input type="hidden" id="heroId" name="heroId" value="${param.heroId}">
     <input type="hidden" id="blogId" name="blogId" value="${blog.blogId}">
+
+    <label for="heroID">Hero ID:</label>
+    <input type="text" id="heroID" name="heroID" value="${param.heroId}" required>
 
     <!-- Blog Title -->
     <label for="blogTitle">Blog Title:</label>

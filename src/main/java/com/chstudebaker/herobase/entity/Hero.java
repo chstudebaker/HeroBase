@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.*;
 @Entity
 @Table(name = "Hero")
 @JsonInclude(JsonInclude.Include.NON_NULL) // Include only non-null fields in JSON serialization
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Hero {
 
     // Unique identifier for the hero
@@ -324,6 +325,7 @@ public class Hero {
      * Retrieves the powers associated with the hero as a comma-separated string.
      * @return The powers associated with the hero as a string.
      */
+    @SuppressWarnings("unused")
     public String getPowersAsString() {
         // Check if powers list is null or empty
         if (powers == null || powers.isEmpty()) {
@@ -335,6 +337,7 @@ public class Hero {
                 .map(Powers::getDescription)
                 .collect(Collectors.joining(", "));
     }
+
 
     @Override
     public String toString() {

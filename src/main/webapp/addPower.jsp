@@ -12,6 +12,7 @@
 
 <form action="${pageContext.request.contextPath}/AddPower" method="post">
     <input type="hidden" name="userId" value="${param.userId}">
+
     <label for="heroID">Hero ID:</label>
     <input type="text" id="heroID" name="heroID" value="${param.heroId}" required>
     <br>

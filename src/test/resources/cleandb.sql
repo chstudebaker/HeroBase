@@ -1,12 +1,12 @@
 -- Drop tables if they exist
 DROP TABLE IF EXISTS Powers;
-DROP TABLE IF EXISTS equipment;
+DROP TABLE IF EXISTS Equipment;
 DROP TABLE IF EXISTS Blog;
 DROP TABLE IF EXISTS Hero;
 
 -- Create Hero Table
 CREATE TABLE Hero (
-                      HeroID INT AUTO_INCREMENT PRIMARY KEY,
+                      HeroId INT AUTO_INCREMENT PRIMARY KEY,
                       CodeName VARCHAR(255),
                       RealName VARCHAR(255),
                       Bio TEXT,
@@ -44,16 +44,19 @@ INSERT INTO Hero (CodeName, RealName, Bio, Alignment, Images, Descriptions, Pers
                                                                                                                      ('Cyclonus', 'Tal-on(Thomas Talon)', 'bio', 'Good', 'images/Cyclonus.jpg', NULL, NULL, '180 cm', '75 kg', NULL);
 
 
+
+
+
 -- Create Powers Table
 CREATE TABLE Powers (
                         PowerID INT AUTO_INCREMENT PRIMARY KEY,
                         Description VARCHAR(255),
                         Explanation TEXT,
-                        HeroID INT, -- New foreign key for the Hero table
-                        FOREIGN KEY (HeroID) REFERENCES Hero(HeroID)
+                        HeroId INT, -- New foreign key for the Hero table
+                        FOREIGN KEY (HeroId) REFERENCES Hero(HeroId)
 );
 
-INSERT INTO Powers (description, explanation, heroId) VALUES
+INSERT INTO Powers (description, explanation, HeroId) VALUES
                                                           ('Windchild', 'As a member of a rare type of Veltonian known as a WindChild, Lance can control and manipulate the air and wind currents around him with precision, allowing him to create powerful gusts of wind, generate tornadoes, and even fly.', 1),
                                                           ('Plasma Manipulation', 'Paul has the ability to generate and manipulate plasma, the fourth state of matter, which he can use to create intense heat, bright light, and powerful energy blasts.', 2),
                                                           ('Rage Transformation (Armadillo)', 'When angered or threatened, Dillon has the ability to transform into a powerful armadillo-like creature with enhanced strength, durability, and armored skin.', 3),
@@ -103,11 +106,11 @@ CREATE TABLE Equipment (
                            Name VARCHAR(255),
                            Description TEXT,
                            Images VARCHAR(255),
-                           HeroID INT, -- New foreign key for the Hero table
-                           FOREIGN KEY (HeroID) REFERENCES Hero(HeroID)
+                           HeroId INT, -- New foreign key for the Hero table
+                           FOREIGN KEY (HeroId) REFERENCES Hero(HeroId)
 );
 
-INSERT INTO Equipment (Name, Description, Images, HeroID) VALUES
+INSERT INTO Equipment (Name, Description, Images, HeroId) VALUES
                                                               ('Thundercloak', 'Cloak made from the feathers of Zylost herself.', 'images/Thundercloak.jpg', 1),
                                                               ('Flameblade', 'Symbol of Falinar, the Flameblade is a sword made of the purest fire in the cosmos.', 'images/Flameblade.jpg', 2),
                                                               ('Headwind', 'Symbol of Zylost, Headwind is the greatest spear ever crafted.', 'images/Headwind.jpg', 1),
@@ -146,7 +149,30 @@ CREATE TABLE Blog (
                       BlogTitle VARCHAR(255),
                       BlogContent TEXT,
                       DateTime TIMESTAMP,
-                      HeroID INT,
-                      FOREIGN KEY (HeroID) REFERENCES Hero(HeroId)
+                      HeroId INT,
+                      FOREIGN KEY (HeroId) REFERENCES Hero(HeroId)
 );
+
+
+UPDATE Hero SET Emblem = 'images/openart-image_zQZl1fox_1710770536113_raw.png' WHERE HeroId = 1;
+UPDATE Hero SET Emblem = 'images/_4bdaeb48-aa24-4d69-b725-75f8c4b2cd9f.jpg' WHERE HeroId = 2;
+UPDATE Hero SET Emblem = 'images/_5fc43f07-70cb-45f5-a380-f047e43e759b.jpg' WHERE HeroId = 3;
+UPDATE Hero SET Emblem = 'images/openart-image_JdCl_R9__1710770401088_raw.png' WHERE HeroId = 4;
+UPDATE Hero SET Emblem = 'images/openart-image_aW-Jc88x_1710769534134_raw.png' WHERE HeroId = 5;
+UPDATE Hero SET Emblem = 'images/_f09c2907-631a-4209-940c-3cd646aca28e.jpg' WHERE HeroId = 6;
+UPDATE Hero SET Emblem = NULL WHERE HeroId = 7;
+UPDATE Hero SET Emblem = 'images/_f399d715-118e-4283-8e44-a814317ef3c3.jpg' WHERE HeroId = 8;
+UPDATE Hero SET Emblem = 'images/_c405917c-c823-4d8a-ac0a-1f3a856bbaeb.jpg' WHERE HeroId = 9;
+UPDATE Hero SET Emblem = NULL WHERE HeroId = 10;
+UPDATE Hero SET Emblem = 'images/openart-image_kJjs_nHB_1710722605273_raw.png' WHERE HeroId = 11;
+UPDATE Hero SET Emblem = NULL WHERE HeroId = 12;
+UPDATE Hero SET Emblem = NULL WHERE HeroId = 13;
+UPDATE Hero SET Emblem = 'images/_34c88561-2f39-4657-a2c9-d2e4168bea69.jpg' WHERE HeroId = 14;
+UPDATE Hero SET Emblem = NULL WHERE HeroId = 15;
+UPDATE Hero SET Emblem = NULL WHERE HeroId = 16;
+UPDATE Hero SET Emblem = 'images/Design.png' WHERE HeroId = 17;
+UPDATE Hero SET Emblem = 'images/_48d5773b-6b61-468e-bf78-805f80bca6aa.jpg' WHERE HeroId = 18;
+UPDATE Hero SET Emblem = 'images/openart-image_jIV8-1cs_1710794292800_raw.png' WHERE HeroId = 19;
+UPDATE Hero SET Emblem = NULL WHERE HeroId = 20;
+
 
