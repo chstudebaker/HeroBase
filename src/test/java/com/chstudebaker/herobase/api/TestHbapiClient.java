@@ -13,7 +13,7 @@ public class TestHbapiClient {
     public void testHbapiJSON() throws Exception {
         Client client = ClientBuilder.newClient();
         WebTarget target =
-                client.target("https://herobase101-env.eba-mwb3wpct.us-east-1.elasticbeanstalk.com/api/heroes/1"); // Adjust the URL to match your API endpoint
+                client.target("http://localhost:8080/api/heroes/1"); // Adjust the URL to match your API endpoint
         String response = target.request(MediaType.APPLICATION_JSON).get(String.class);
         ObjectMapper mapper = new ObjectMapper();
         Hero hero = null;
